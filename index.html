@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-PINK – Měsíční report, březen 2026</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+    background: #f0e8f0;
+    color: #1a1a1a;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 780px;
+    margin: 2rem auto;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #dcc8dc;
+    box-shadow: 0 4px 24px rgba(83,0,72,0.12);
+  }
+
+  /* ── Header ── */
+  .hdr {
+    background: #fff;
+    padding: 1.4rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 3px solid #922790;
+  }
+  .hdr-right { text-align: right; }
+  .hdr-report { font-size: 11px; color: #530048; text-transform: uppercase; letter-spacing: 0.09em; font-weight: 700; }
+  .hdr-date { font-size: 22px; font-weight: 800; color: #1a1a1a; margin-top: 2px; letter-spacing: -0.3px; }
+  .hdr-sub { font-size: 11px; color: #999; margin-top: 2px; }
+
+  /* ── Body ── */
+  .body { padding: 1.5rem 2rem 2rem; }
+
+  /* ── Section label ── */
+  .sec-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #530048;
+    margin: 1.6rem 0 0.7rem;
+    padding-bottom: 5px;
+    border-bottom: 1.5px solid #e0c8dc;
+  }
+  .sec-label:first-child { margin-top: 0; }
+
+  /* ── KPI grid ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .kpi {
+    background: #f8eef8;
+    border-radius: 9px;
+    padding: 12px 14px;
+    border: 1px solid #e0c0dc;
+  }
+  .kpi-val { font-size: 20px; font-weight: 800; color: #530048; line-height: 1.1; }
+  .kpi-lbl { font-size: 11px; font-weight: 600; color: #4a1a44; margin-top: 4px; line-height: 1.3; }
+
+  /* ── Two-column layout ── */
+  .two { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 10px; }
+
+  /* ── Card ── */
+  .card {
+    background: #fff;
+    border: 1px solid #e0c8dc;
+    border-radius: 9px;
+    padding: 13px 15px;
+  }
+  .card-title {
+    font-size: 11px; font-weight: 700; color: #530048;
+    margin-bottom: 9px; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  /* ── Row ── */
+  .row {
+    display: flex; justify-content: space-between;
+    align-items: baseline; gap: 8px;
+    padding: 5px 0; border-bottom: 1px solid #f4eaf4;
+  }
+  .row:last-child { border-bottom: none; }
+  .rl { font-size: 12px; color: #555; flex: 1; min-width: 0; }
+  .rv { font-size: 12px; font-weight: 700; color: #1a1a1a; white-space: nowrap; }
+  .rv.g { color: #1a7a4a; }
+  .rv.a { color: #a0610a; }
+
+  /* ── Pill ── */
+  .pill {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 99px;
+  }
+  .p-green { background: #e2f5ec; color: #0f6e3a; }
+  .p-amber { background: #fdf0dc; color: #8a5200; }
+  .p-gray  { background: #f0e4f0; color: #530048; }
+
+  /* ── Program rows ── */
+  .prog-row {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    border: 1px solid #e0c8dc;
+    border-radius: 9px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .prog-row:last-child { margin-bottom: 0; }
+
+  .prog-head {
+    background: linear-gradient(160deg, #530048 0%, #922790 100%);
+    padding: 14px 16px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .prog-head-title { font-size: 15px; font-weight: 800; }
+  .prog-head-tag { font-size: 10.5px; opacity: 0.82; margin-top: 4px; line-height: 1.4; }
+
+  .prog-body {
+    padding: 12px 16px;
+    background: #fdf8fd;
+  }
+  .prog-desc {
+    font-size: 11.5px; color: #555; line-height: 1.55;
+    margin-bottom: 10px; padding-bottom: 10px;
+    border-bottom: 1px solid #e8d4e8;
+  }
+  .prog-stats-grid {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    gap: 0 16px;
+  }
+  .prog-stat {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 4px 0; border-bottom: 1px solid #f4eaf4;
+    gap: 6px;
+  }
+  .prog-stat:last-child { border-bottom: none; }
+  .prog-sl { font-size: 11px; color: #666; }
+  .prog-sv { font-size: 11px; font-weight: 700; color: #530048; white-space: nowrap; }
+
+  /* ── Pipeline ── */
+  .pipeline-wrap {
+    border: 1px solid #e0c8dc;
+    border-radius: 9px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+  .pipeline-header {
+    background: linear-gradient(160deg, #530048 0%, #922790 100%);
+    padding: 10px 16px;
+    color: #fff;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .pipeline-header-title { font-size: 12px; font-weight: 800; }
+  .pipeline-header-total { font-size: 11px; opacity: 0.82; }
+  .pipeline-body {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    background: #fdf8fd;
+  }
+  .pipe-col {
+    padding: 10px 12px;
+    border-right: 1px solid #e8d4e8;
+  }
+  .pipe-col:last-child { border-right: none; }
+  .pipe-col-title {
+    font-size: 10px; font-weight: 700; color: #530048;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-bottom: 6px; padding-bottom: 5px;
+    border-bottom: 1px solid #e0c8dc;
+  }
+  .pipe-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 4px 0; border-bottom: 1px solid #f4eaf4;
+    gap: 6px;
+  }
+  .pipe-item:last-child { border-bottom: none; margin-bottom: 0; }
+  .pipe-stage { font-size: 11px; color: #555; }
+  .pipe-vals { text-align: right; flex-shrink: 0; }
+  .pipe-count { font-size: 11px; font-weight: 700; color: #530048; }
+  .pipe-amount { font-size: 10px; color: #922790; }
+  .pipe-col-total {
+    margin-top: 7px; padding-top: 6px;
+    border-top: 1.5px solid #e0c8dc;
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 6px;
+  }
+  .pipe-col-total-label { font-size: 10px; font-weight: 700; color: #530048; text-transform: uppercase; }
+  .pipe-col-total-val { font-size: 11px; font-weight: 800; color: #530048; }
+
+  /* ── Events ── */
+  .events-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; }
+  .event-card { border: 1px solid #e0c8dc; border-radius: 9px; overflow: hidden; }
+  .event-head {
+    background: linear-gradient(135deg, #530048 0%, #922790 100%);
+    padding: 12px 14px; color: #fff;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .event-date-box {
+    background: rgba(255,255,255,0.20); border-radius: 7px;
+    padding: 5px 10px; text-align: center; flex-shrink: 0;
+  }
+  .event-day { font-size: 22px; font-weight: 900; line-height: 1; }
+  .event-mon { font-size: 9px; letter-spacing: 0.06em; opacity: 0.90; margin-top: 1px; }
+  .event-title-wrap { min-width: 0; }
+  .event-title { font-size: 13px; font-weight: 800; line-height: 1.25; }
+  .event-sub { font-size: 10.5px; opacity: 0.82; margin-top: 3px; }
+  .event-body { padding: 11px 14px; background: #fdf8fd; }
+  .event-row { display: flex; gap: 7px; padding: 4px 0; align-items: flex-start; }
+  .event-dot { width: 5px; height: 5px; border-radius: 50%; background: #922790; margin-top: 5px; flex-shrink: 0; }
+  .event-text { font-size: 11.5px; color: #444; line-height: 1.45; }
+
+  /* ── Risk table ── */
+  .risk-hdr {
+    display: grid; grid-template-columns: minmax(0,2fr) 80px minmax(0,3fr);
+    gap: 8px; padding-bottom: 6px;
+    font-size: 10px; font-weight: 700; color: #530048;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    border-bottom: 1px solid #e0c8dc;
+  }
+  .risk-row {
+    display: grid; grid-template-columns: minmax(0,2fr) 80px minmax(0,3fr);
+    gap: 8px; padding: 6px 0;
+    border-bottom: 1px solid #f4eaf4;
+    align-items: start;
+  }
+  .risk-row:last-child { border-bottom: none; }
+  .risk-lbl { font-size: 12px; color: #1a1a1a; }
+  .risk-mit { font-size: 11px; color: #666; }
+
+  /* ── Outlook ── */
+  .outlook-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 10px; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center; font-size: 11px; color: #a080a0;
+    padding: 1rem 2rem 1.5rem;
+    border-top: 1.5px solid #e8d4e8; background: #fdf8fd;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .page { margin: 0; border-radius: 0; border: none; }
+    .hdr, .body { padding: 1rem; }
+    .hdr { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .hdr-right { text-align: left; }
+    .kpi-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .two,
+    .events-grid,
+    .outlook-grid { grid-template-columns: minmax(0,1fr); }
+    .prog-row { grid-template-columns: minmax(0,1fr); }
+    .prog-stats-grid { grid-template-columns: minmax(0,1fr); }
+    .pipeline-body { grid-template-columns: minmax(0,1fr); }
+    .pipe-col { border-right: none; border-bottom: 1px solid #e8d4e8; }
+    .pipe-col:last-child { border-bottom: none; }
+    .risk-hdr { display: none; }
+    .risk-row { grid-template-columns: minmax(0,1fr); gap: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div><svg height="48" style="display:block;" id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125.0247 24.6618"><g id="Components"><g id="_10c95709-22a1-409d-a0de-91c9ab924617_1"><path d="M22.0416,11.9435c-.2722,1.4438-1.9634,2.7638-3.6422,2.7815-4.8509.0503-9.7018-.0023-14.5535-.0023h-.6503v-7.7662c.8916-.0147.7199-.0031,1.7361,0,5.0195.0155,7.2837.0394,12.8004,0,1.9317-.0131,3.4265.5591,4.3382,2.5364.2413.7671.1299,1.6108-.0286,2.4506M25.2832,10.035c-.1392-1.4468-.5568-2.7119-1.6154-3.7675-1.4631-1.46-3.2857-2.0206-5.2468-2.0407-5.0697-.0526-12.8259-.0294-18.4146-.0201C-.0121,9.9345.0165,18.788.0064,24.4601h3.1442v-6.9411h1.9905c3.8642,0,7.7283.0371,11.5917-.0209,1.2721-.0185,2.5704-.1639,3.8008-.4748.8707-.2196,1.7175-.7176,2.4506-1.2597,1.917-1.4175,2.5233-3.4018,2.299-5.7286" style="fill:#92278f; stroke-width:0px;"/><path d="M51.5284,11.9435c-.2722,1.4438-1.9634,2.7638-3.6422,2.7815-4.8509.0503-9.7018-.0023-14.5535-.0023h-.6503v-7.7662c.8916-.0147.7199-.0031,1.7361,0,5.0195.0155,7.2837.0394,12.8004,0,1.9317-.0131,3.4265.5591,4.3382,2.5364.2413.7671.1299,1.6108-.0286,2.4506M54.7701,10.035c-.1392-1.4468-.5568-2.7119-1.6154-3.7675-1.4631-1.46-3.2857-2.0206-5.2468-2.0407-5.0705-.0526-12.8259-.0294-18.4146-.0201-.0186,5.7278.0101,14.5813,0,20.2535h3.1442v-6.9411h1.9905c3.8642,0,7.7283.0371,11.5917-.0209,1.2721-.0185,2.5704-.1639,3.8008-.4748.8707-.2196,1.7175-.7176,2.4506-1.2597,1.917-1.4175,2.5233-3.4018,2.299-5.7286" style="fill:#ec008c; stroke-width:0px;"/><rect x="25.7719" y="14.7277" width="2.1065" height="2.6733" style="fill:#ec008c; stroke-width:0px;"/><path d="M100.4625,24.46h3.1597v-9.0228h7.1901c2.3369.0062,3.998,1.1453,5.5198,2.8813,1.8258,2.0833,3.2107,4.1472,4.7589,6.1415h3.9338c-.372-.5467-.6047-.9403-.887-1.2945-.9086-1.1398-1.7848-2.3122-2.7661-3.3871-1.8335-2.0098-3.2216-4.5052-6.2165-5.5531,4.1673-2.4923,6.2598-6.6063,9.5665-9.9431h-4.1874c-1.3177,1.7631-2.6362,3.5386-3.967,5.3048-1.6827,2.234-3.8085,3.5626-6.7277,3.4118h-6.2831v-4.8849l-3.094,2.0755v14.2704Z" style="fill:#ec008c; stroke-width:0px;"/><polygon points="91.8756 0 92.6249 4.2299 111.6156 .6132 91.8756 0" style="fill:#ec008c; stroke-width:0px;"/><polygon points="85.1134 5.6605 94.0682 12.382 92.6245 4.2299 85.1134 5.6605" style="fill:#5d005a; stroke-width:0px;"/><polygon points="92.6248 4.2299 94.0685 12.3821 111.6162 .6132 92.6248 4.2299" style="fill:#92278f; stroke-width:0px;"/><path d="M58.9739,24.46h3.1442V4.1934h-3.1427c.0008,7.2071.0015,14.3022-.0015,20.2666" style="fill:#ec008c; stroke-width:0px;"/><path d="M70.9139,7.5034c1.2025-.3859,2.7669.191,3.6098.938.9334.8282.8174.737,1.7647,2.0353,2.5093,3.4381,5.1772,6.7586,7.808,10.1047,2.4521,3.1195,5.5964,4.7016,9.9709,3.8533v-9.9199l-2.7274-2.0578v9.2022c-1.3432.0325-2.3036-.2869-3.08-1.0176-.723-.6813-1.4662-1.3641-2.067-2.1482-2.6949-3.5185-5.2731-7.129-8.0268-10.5996-2.5643-3.2316-5.8562-4.5594-10.4318-3.3221v19.8885h3.1798V7.5034Z" style="fill:#ec008c; stroke-width:0px;"/></g></g></svg></div>
+    <div class="hdr-right">
+      <div class="hdr-report">Měsíční report</div>
+      <div class="hdr-date">Březen 2026</div>
+      <div class="hdr-sub">Interní materiál pro správní radu</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- KPI -->
+    <div class="sec-label">KPI dashboard</div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-val">63</div><div class="kpi-lbl">Odkonzultovaných hodin</div></div>
+      <div class="kpi"><div class="kpi-val">22</div><div class="kpi-lbl">Konzultované firmy</div></div>
+      <div class="kpi"><div class="kpi-val">16</div><div class="kpi-lbl">Nové kontrakty</div></div>
+      <div class="kpi"><div class="kpi-val">246 998 Kč</div><div class="kpi-lbl">Tržby z kontraktů</div></div>
+      <div class="kpi"><div class="kpi-val">0</div><div class="kpi-lbl">Inkubované firmy</div></div>
+      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Akcelerované startupy</div></div>
+      <div class="kpi"><div class="kpi-val">111</div><div class="kpi-lbl">Přihlášení PINKaka</div></div>
+      <div class="kpi"><div class="kpi-val">70</div><div class="kpi-lbl">Účastníci PINKaka (1. setkání)</div></div>
+      <div class="kpi"><div class="kpi-val">4</div><div class="kpi-lbl">Souhlasy virtuální sídlo</div></div>
+      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Zájemci o coworking</div></div>
+      <div class="kpi"><div class="kpi-val">10</div><div class="kpi-lbl">Startupů na Investor Day</div></div>
+      <div class="kpi"><div class="kpi-val">87</div><div class="kpi-lbl">Diváků Investor Day</div></div>
+    </div>
+
+    <!-- FINANCE -->
+    <div class="sec-label">Finance</div>
+    <div class="two">
+      <div class="card">
+        <div class="card-title">Příjmy – březen</div>
+        <div class="row"><span class="rl">Kontrakty – počet</span><span class="rv">16 smluv</span></div>
+        <div class="row"><span class="rl">Kontrakty – získáno</span><span class="rv">246 998 Kč</span></div>
+        <div class="row"><span class="rl">Dotace – Pardubický kraj</span><span class="rv g">8 500 000 Kč</span></div>
+        <div class="row"><span class="rl">Náklady (doplnit)</span><span class="rv a">—</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Přehled dotací</div>
+        <div class="row"><span class="rl">Pardubický kraj</span><span class="rv g">přijato</span></div>
+        <div class="row"><span class="rl">Statutární město Pardubice</span><span class="rv a">čeká na radu města</span></div>
+        <div class="row" style="padding-top:8px;">
+          <span class="rl" style="font-size:10.5px;color:#aaa;font-style:italic;">Předběžná výr. zpráva odeslána městu – cíl: dotace před zářím 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROGRAMY -->
+    <div class="sec-label">Konzultace, inkubace a akcelerace</div>
+
+    <div class="prog-row">
+      <div class="prog-head">
+        <div class="prog-head-title">Konzultace</div>
+        <div class="prog-head-tag">Firmy a podnikatelé s konkrétním problémem</div>
+      </div>
+      <div class="prog-body">
+        <p class="prog-desc">Flexibilní individuální podpora zaměřená na marketing, prodej, digitalizaci nebo firemní strategii. Jednorázové nebo balíčkové služby přizpůsobené potřebám klienta.</p>
+        <div class="prog-stats-grid">
+          <div class="prog-stat"><span class="prog-sl">Aktivní klienti</span><span class="prog-sv">22 firem</span></div>
+          <div class="prog-stat"><span class="prog-sl">Hodin celkem</span><span class="prog-sv">63 hod</span></div>
+          <div class="prog-stat"><span class="prog-sl">Nové kontrakty</span><span class="prog-sv">16 smluv</span></div>
+          <div class="prog-stat"><span class="prog-sl">Získáno</span><span class="prog-sv">246 998 Kč</span></div>
+          <div class="prog-stat" style="grid-column:1/-1;">
+            <span class="prog-sl">Nové smlouvy</span>
+            <span class="prog-sv" style="font-size:10px;">Medfima, Investory, Glitr, F. Stretz</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prog-row">
+      <div class="prog-head">
+        <div class="prog-head-title">Inkubace</div>
+        <div class="prog-head-tag">Nápad → MVP → první zákazníci</div>
+      </div>
+      <div class="prog-body">
+        <p class="prog-desc">Strukturovaný 12týdenní program (6 bloků) pro jednotlivce s nápadem nebo začínající startupy: validace nápadu, tým, MVP, go-to-market, prodej a základy fundraisingu.</p>
+        <div class="prog-stats-grid">
+          <div class="prog-stat"><span class="prog-sl">Aktivní firmy</span><span class="prog-sv">0</span></div>
+          <div class="prog-stat"><span class="prog-sl">Délka programu</span><span class="prog-sv">12 týdnů</span></div>
+          <div class="prog-stat"><span class="prog-sl">Počet bloků</span><span class="prog-sv">6</span></div>
+          <div class="prog-stat"><span class="prog-sl">Cílová skupina</span><span class="prog-sv" style="font-size:10px;">Jednotlivci s nápadem, early-stage</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prog-row">
+      <div class="prog-head">
+        <div class="prog-head-title">Akcelerace</div>
+        <div class="prog-head-tag">MVP → trh → škálování → investice</div>
+      </div>
+      <div class="prog-body">
+        <p class="prog-desc">Dlouhodobá individuální spolupráce (až 2 roky) pro startupy s MVP a první tržní validací: vstup na trh, škálování prodeje a příprava na investici ve dvou fázích.</p>
+        <div class="prog-stats-grid">
+          <div class="prog-stat"><span class="prog-sl">Aktivní startupy</span><span class="prog-sv">2</span></div>
+          <div class="prog-stat"><span class="prog-sl">Financování</span><span class="prog-sv" style="font-size:10px;">P-PINK + Platinn</span></div>
+          <div class="prog-stat"><span class="prog-sl">Aktuální fáze</span><span class="prog-sv" style="font-size:10px;">Fáze 1 – vstup na trh</span></div>
+          <div class="prog-stat"><span class="prog-sl">Max. délka</span><span class="prog-sv">až 2 roky</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIPELINE -->
+    <div class="pipeline-wrap">
+      <div class="pipeline-header">
+        <span class="pipeline-header-title">Pipeline konzultačních projektů</span>
+        <span class="pipeline-header-total">celkem 24 projektů</span>
+      </div>
+      <div class="pipeline-body">
+        <div class="pipe-col">
+          <div class="pipe-col-title">Rozvoj leadu</div>
+          <div class="pipe-item">
+            <span class="pipe-stage">Lead</span>
+            <div class="pipe-vals"><div class="pipe-count">7</div><div class="pipe-amount">18 250 Kč</div></div>
+          </div>
+          <div class="pipe-item">
+            <span class="pipe-stage">Úvodní schůzka</span>
+            <div class="pipe-vals"><div class="pipe-count">3</div><div class="pipe-amount">9 000 Kč</div></div>
+          </div>
+          <div class="pipe-item">
+            <span class="pipe-stage">Nacenění</span>
+            <div class="pipe-vals"><div class="pipe-count">3</div><div class="pipe-amount">17 100 Kč</div></div>
+          </div>
+          <div class="pipe-col-total">
+            <span class="pipe-col-total-label">Mezisoučet</span>
+            <span class="pipe-col-total-val">13 / 44 350 Kč</span>
+          </div>
+        </div>
+        <div class="pipe-col">
+          <div class="pipe-col-title">Uzavírání</div>
+          <div class="pipe-item">
+            <span class="pipe-stage">Nabídka odeslána</span>
+            <div class="pipe-vals"><div class="pipe-count">9</div><div class="pipe-amount">180 900 Kč</div></div>
+          </div>
+          <div class="pipe-item">
+            <span class="pipe-stage">Nabídka přijata</span>
+            <div class="pipe-vals"><div class="pipe-count">3</div><div class="pipe-amount">51 750 Kč</div></div>
+          </div>
+          <div class="pipe-item">
+            <span class="pipe-stage">Fakturace</span>
+            <div class="pipe-vals"><div class="pipe-count">1</div><div class="pipe-amount">90 000 Kč</div></div>
+          </div>
+          <div class="pipe-col-total">
+            <span class="pipe-col-total-label">Mezisoučet</span>
+            <span class="pipe-col-total-val">13 / 322 650 Kč</span>
+          </div>
+        </div>
+        <div class="pipe-col">
+          <div class="pipe-col-title">Realizace — 22 klientů</div>
+          <div class="pipe-item">
+            <span class="pipe-stage">Nová konzultace</span>
+            <div class="pipe-vals"><div class="pipe-count">4</div><div class="pipe-amount">129 950 Kč</div></div>
+          </div>
+          <div class="pipe-item">
+            <span class="pipe-stage">Konzultace v řešení</span>
+            <div class="pipe-vals"><div class="pipe-count">18</div><div class="pipe-amount">242 150 Kč</div></div>
+          </div>
+          <div class="pipe-col-total">
+            <span class="pipe-col-total-label">Mezisoučet</span>
+            <span class="pipe-col-total-val">22 / 372 100 Kč</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PINKAKA -->
+    <div class="sec-label">PINKaka</div>
+    <div class="card">
+      <div class="row"><span class="rl">Jarní běh zahájen</span><span class="rv">6 měst Pardubického kraje</span></div>
+      <div class="row"><span class="rl">Města</span><span class="rv" style="font-size:11px;">Pardubice, Mor. Třebová, Hlinsko, Lanškroun, Žamberk, Letohrad</span></div>
+      <div class="row"><span class="rl">Celkem přihlášeni</span><span class="rv">111 účastníků</span></div>
+      <div class="row"><span class="rl">Přítomni na 1. setkání</span><span class="rv">70 účastníků (63 %)</span></div>
+    </div>
+
+    <!-- BUDOVA -->
+    <div class="sec-label">Budova</div>
+    <div class="card">
+      <div class="row"><span class="rl">Souhlasy pro virtuální sídlo</span><span class="rv">4 (z toho 1 zapsána v OR)</span></div>
+      <div class="row"><span class="rl">Zájemci o coworking</span><span class="rv">3</span></div>
+      <div class="row"><span class="rl">Nový vstup coworking</span><span class="rv">1× 10denní zakoupen</span></div>
+    </div>
+
+    <!-- AKCE -->
+    <div class="sec-label">Hlavní akce v březnu</div>
+    <div class="events-grid">
+      <div class="event-card">
+        <div class="event-head">
+          <div class="event-date-box">
+            <div class="event-day">26</div>
+            <div class="event-mon">BŘEZNA</div>
+          </div>
+          <div class="event-title-wrap">
+            <div class="event-title">Investorský den</div>
+            <div class="event-sub">P-PINK × CIRI, 2. ročník</div>
+          </div>
+        </div>
+        <div class="event-body">
+          <div class="event-row"><div class="event-dot"></div><div class="event-text">10 startupů, 87 diváků</div></div>
+          <div class="event-row"><div class="event-dot"></div><div class="event-text">Pheme AI + Rekiddo → nominace na Česko-slovenské finále Ynovate Fest</div></div>
+          <div class="event-row"><div class="event-dot"></div><div class="event-text">Hlavní partner: ERA a.s.</div></div>
+          <div class="event-row"><div class="event-dot"></div><div class="event-text">Sponzoři: CzechInvest, Nextap Solutions</div></div>
+          <div class="event-row"><div class="event-dot"></div><div class="event-text">Speakeři: E. Kuttichová, R. Plško, J. Balada</div></div>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-head">
+          <div class="event-date-box">
+            <div class="event-day">12</div>
+            <div class="event-mon">BŘEZNA</div>
+          </div>
+          <div class="event-title-wrap">
+            <div class="event-title">Festival vědy a techniky</div>
+            <div class="event-sub">18. ročník krajského kola, UPCE</div>
+          </div>
+        </div>
+        <div class="event-body">
+          <div class="event-row"><div class="event-dot"></div><div class="event-text">Rekordních 95 projektů, 120 studentů z 28 škol</div></div>
+          <div class="event-row"><div class="event-dot"></div><div class="event-text">Vítězi: DELTA Pardubice a Gymnázium Lanškroun</div></div>
+          <div class="event-row"><div class="event-dot"></div><div class="event-text">Projekty: bioakustická platforma, hyaluronan, robotické rameno</div></div>
+          <div class="event-row"><div class="event-dot"></div><div class="event-text">Spec. ceny: hra ze Skutče, Jelen.mtb</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIZIKA -->
+    <div class="sec-label">Rizika a mitigace</div>
+    <div class="card">
+      <div class="risk-hdr"><span>Riziko</span><span>Závažnost</span><span>Mitigace</span></div>
+      <div class="risk-row">
+        <span class="risk-lbl">Cashflow před dotací od města Pardubice</span>
+        <span><span class="pill p-amber">střední</span></span>
+        <span class="risk-mit">Žádost v radě města – sledovat termín schválení</span>
+      </div>
+      <div class="risk-row">
+        <span class="risk-lbl">Kapacitní tlak (PINKaka + akcelerace)</span>
+        <span><span class="pill p-amber">střední</span></span>
+        <span class="risk-mit">Vyhodnotit v dubnu, případně posílit DPP</span>
+      </div>
+      <div class="risk-row">
+        <span class="risk-lbl">Nulová naplněnost inkubace</span>
+        <span><span class="pill p-gray">nízká</span></span>
+        <span class="risk-mit">Aktivní akvizice přes PINKaka a síť</span>
+      </div>
+      <div class="risk-row">
+        <span class="risk-lbl">Výpovědi nájemníků v TO-PINK</span>
+        <span><span class="pill p-amber">střední</span></span>
+        <span class="risk-mit">Sledovat situaci, aktivní obsazení prostor</span>
+      </div>
+    </div>
+
+    <!-- VÝHLED -->
+    <div class="sec-label">Výhled – duben 2026</div>
+    <div class="outlook-grid">
+      <div class="card">
+        <div class="card-title">Plánované aktivity</div>
+        <div class="row"><span class="rl">Business v tandemu</span><span class="rv">20. 4.</span></div>
+        <div class="row"><span class="rl">PINKaka – průběžná setkání (6 měst)</span></div>
+        <div class="row"><span class="rl">Pokračování akcelerace Sinucraft</span></div>
+        <div class="row"><span class="rl">Řešení výpovědí nájemníků TO-PINK</span></div>
+        <div class="row"><span class="rl">Příprava projektu SMART akcelerátor+</span></div>
+        <div class="row"><span class="rl">Příprava pilotního ověření inovačního centra</span></div>
+        <div class="row"><span class="rl">Akvizice do inkubačního programu</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Body pro správní radu</div>
+        <div class="row"><span class="rl">Schválení auditované rozvahy, účetní závěrky a výroční zprávy</span></div>
+        <div class="row"><span class="rl">Návrh rozpočtu 2027</span></div>
+        <div class="row"><span class="rl">Schválení ročních KPI cílů</span></div>
+        <div class="row"><span class="rl">Strategie naplnění inkubace</span></div>
+        <div class="row"><span class="rl">Kapacitní posílení týmu</span></div>
+        <div class="row"><span class="rl">Navazující kroky k dotaci od města</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">Report zpracoval tým P-PINK &bull; Duben 2026 &bull; Interní materiál pro správní radu</div>
+
+</div>
+</body>
+</html>
