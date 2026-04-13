@@ -120,7 +120,7 @@
   .pipeline-header-title { font-size: 12px; font-weight: 800; }
   .pipeline-header-total { font-size: 11px; opacity: 0.82; }
   .pipeline-body { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); background: #fdf8fd; }
-  .pipe-col { padding: 10px 12px; border-right: 1px solid #e8d4e8; }
+  .pipe-col { padding: 10px 12px; border-right: 1px solid #e8d4e8; display: flex; flex-direction: column; }
   .pipe-col:last-child { border-right: none; }
   .pipe-col-title { font-size: 10px; font-weight: 700; color: #530048; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; padding-bottom: 5px; border-bottom: 1px solid #e0c8dc; }
   .pipe-item { display: flex; justify-content: space-between; align-items: baseline; padding: 4px 0; border-bottom: 1px solid #f4eaf4; gap: 6px; }
@@ -129,13 +129,13 @@
   .pipe-vals { text-align: right; flex-shrink: 0; }
   .pipe-count { font-size: 11px; font-weight: 700; color: #530048; }
   .pipe-amount { font-size: 10px; color: #922790; }
-  .pipe-col-total { margin-top: 7px; padding-top: 6px; border-top: 1.5px solid #e0c8dc; display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+  .pipe-col-total { margin-top: auto; padding-top: 6px; border-top: 1.5px solid #e0c8dc; display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
   .pipe-col-total-label { font-size: 10px; font-weight: 700; color: #530048; text-transform: uppercase; }
   .pipe-col-total-val { font-size: 11px; font-weight: 800; color: #530048; }
 
   /* Events */
   .events-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; }
-  .event-card { border: 1px solid #e0c8dc; border-radius: 9px; overflow: hidden; }
+  .event-card { border: 1px solid #e0c8dc; border-radius: 9px; overflow: hidden; display: flex; flex-direction: column; background: #fdf8fd; }
   .event-head {
     background: linear-gradient(135deg, #530048 0%, #922790 100%);
     padding: 12px 14px; color: #fff; display: flex; align-items: center; gap: 12px;
@@ -146,7 +146,7 @@
   .event-title-wrap { min-width: 0; }
   .event-title { font-size: 13px; font-weight: 800; line-height: 1.25; }
   .event-sub { font-size: 10.5px; opacity: 0.82; margin-top: 3px; }
-  .event-body { padding: 11px 14px; background: #fdf8fd; }
+  .event-body { padding: 11px 14px; background: #fdf8fd; flex: 1; }
   .event-row { display: flex; gap: 7px; padding: 4px 0; align-items: flex-start; }
   .event-dot { width: 5px; height: 5px; border-radius: 50%; background: #922790; margin-top: 5px; flex-shrink: 0; }
   .event-text { font-size: 11.5px; color: #444; line-height: 1.45; }
