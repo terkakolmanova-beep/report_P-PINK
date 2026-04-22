@@ -24,6 +24,14 @@
   .hdr-report { font-size: 11px; color: #530048; text-transform: uppercase; letter-spacing: 0.09em; font-weight: 700; }
   .hdr-date { font-size: 22px; font-weight: 800; color: #1a1a1a; margin-top: 2px; }
   .hdr-sub { font-size: 11px; color: #999; margin-top: 2px; }
+  .pdf-btn {
+    display: inline-block; margin-top: 8px; padding: 6px 16px;
+    background: linear-gradient(135deg, #530048 0%, #922790 100%);
+    color: #fff; font-size: 11px; font-weight: 700; text-decoration: none;
+    border-radius: 6px; letter-spacing: 0.03em;
+    transition: opacity 0.2s;
+  }
+  .pdf-btn:hover { opacity: 0.85; }
   .body { padding: 1.5rem 2rem 2rem; }
   .sec-label {
     font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
@@ -162,6 +170,26 @@
 
   .footer { text-align: center; font-size: 11px; color: #a080a0; padding: 1rem 2rem 1.5rem; border-top: 1.5px solid #e8d4e8; background: #fdf8fd; }
 
+  @media print {
+    body { background: #fff; }
+    .pdf-btn { display: none; }
+    .page { margin: 0; border: none; border-radius: 0; box-shadow: none; }
+    .footer { background: #fff; }
+    .sec-label { page-break-after: avoid; break-after: avoid; }
+    .card, .prog-row, .pipeline-wrap, .cf-card, .events-grid, .event-card,
+    .two, .three, .kpi-grid, .fte-grid, .outlook-grid { page-break-inside: avoid; break-inside: avoid; }
+    .sec-label + p { page-break-before: avoid; break-before: avoid; }
+    .sec-label + p + .card { page-break-before: avoid; break-before: avoid; }
+    @page {
+      @bottom-center {
+        content: counter(page) " / " counter(pages);
+        font-size: 9px;
+        color: #a080a0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      }
+    }
+  }
+
   @media (max-width: 600px) {
     .page { margin: 0; border-radius: 0; border: none; }
     .hdr, .body { padding: 1rem; }
@@ -188,6 +216,7 @@
       <div class="hdr-report">Měsíční report</div>
       <div class="hdr-date">Březen 2026</div>
       <div class="hdr-sub">Interní materiál pro správní radu</div>
+      <a href="report-brezen-2026.pdf" download class="pdf-btn">Stáhnout PDF</a>
     </div>
   </div>
 
