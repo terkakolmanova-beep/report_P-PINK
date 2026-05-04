@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>P-PINK – Měsíční report, březen 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -170,8 +171,59 @@
 
   .footer { text-align: center; font-size: 11px; color: #a080a0; padding: 1rem 2rem 1.5rem; border-top: 1.5px solid #e8d4e8; background: #fdf8fd; }
 
+  /* Month tabs */
+  .month-tabs {
+    display: flex;
+    background: #fff;
+    padding: 0 2rem;
+    border-bottom: 2px solid #e0c8dc;
+  }
+  .month-tab {
+    padding: 10px 22px;
+    font-size: 11px; font-weight: 700;
+    color: #bbb; cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: color 0.15s;
+    user-select: none;
+  }
+  .month-tab:hover { color: #530048; }
+  .month-tab.active { color: #530048; border-bottom-color: #922790; }
+
+  /* Trend table */
+  .trend-section { margin-bottom: 10px; }
+  .trend-table { width: 100%; border-collapse: collapse; }
+  .trend-table th {
+    font-size: 10px; font-weight: 700; color: #530048;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 8px 12px; border-bottom: 1.5px solid #e0c8dc;
+    text-align: right; white-space: nowrap; background: #fdf8fd;
+  }
+  .trend-table th:first-child { text-align: left; }
+  .trend-table td { padding: 6px 12px; border-bottom: 1px solid #f4eaf4; vertical-align: middle; text-align: right; }
+  .trend-table td:first-child { text-align: left; }
+  .trend-table tr:last-child td { border-bottom: none; }
+  .trend-lbl { font-size: 12px; color: #555; }
+  .trend-cat { font-size: 10px; font-weight: 700; color: #922790; text-transform: uppercase; letter-spacing: 0.05em; background: #fdf8fd; }
+  .trend-cat td { padding: 6px 12px 3px; border-bottom: none; color: #922790; font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .trend-val { font-size: 12px; font-weight: 700; color: #1a1a1a; }
+  .trend-up   { color: #1a7a4a; font-weight: 700; font-size: 12px; }
+  .trend-down { color: #c0003a; font-weight: 700; font-size: 12px; }
+  .trend-neu  { color: #bbb; font-size: 12px; }
+
+  /* Charts */
+  .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .chart-card { background: #fff; border: 1px solid #e0c8dc; border-radius: 9px; padding: 14px 16px; }
+  .chart-title { font-size: 11px; font-weight: 700; color: #530048; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+
+  @media (max-width: 600px) {
+    .charts-grid { grid-template-columns: 1fr; }
+  }
+
   @media print {
     body { background: #fff; }
+    .month-tabs { display: none; }
     .pdf-btn { display: none; }
     .page { margin: 0; border: none; border-radius: 0; box-shadow: none; }
     .footer { background: #fff; }
@@ -288,6 +340,205 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') checkPassword();
   });
+
+  var TAB_LABELS = { brezen: 'Březen 2026', duben: 'Duben 2026', trendy: 'Trendy' };
+
+  function switchTab(month) {
+    ['brezen','duben','trendy'].forEach(function(m) {
+      document.getElementById('tab-' + m).style.display = m === month ? '' : 'none';
+      document.getElementById('tab-btn-' + m).classList.toggle('active', m === month);
+    });
+    var label = TAB_LABELS[month] || '';
+    document.getElementById('hdr-date').textContent = label;
+    var footer = document.getElementById('report-footer');
+    if (footer) footer.innerHTML = 'Report zpracoval t&yacute;m P-PINK &bull; ' + label;
+    if (month === 'trendy') { buildTrendTable(); buildCharts(); }
+  }
+
+  /* ===================== TRENDY DATA ===================== */
+  var MDATA = {
+    months: ['Březen', 'Duben'],
+    hodin:              [63,           114.7],
+    subjekty:           [22,           23],
+    faktury_pocet:      [16,           null],
+    faktury_hodnota:    [246998,       8850],
+    inkubace:           [1,            2],
+    akcelerace:         [2,            2],
+    pipeline:           [24,           null],
+    prijmy:             [11673718.79,  null],
+    naklady:            [5002872.40,   null],
+    stav_uctu:          [8097532.98,   null],
+    pinkaka_absolventi: [null,         21],
+    idz_akce:           [32,           35],
+    idz_studenti:       [567,          450],
+    idz_skoly:          [12,           10],
+    idz_pedagogove:     [null,         20],
+    virtualni_sidlo:    [4,            null],
+    coworking_osoby:    [null,         22]
+  };
+
+  var TREND_ROWS = [
+    { cat: 'Konzultace, inkubace, akcelerace' },
+    { label: 'Hodin konzultací celkem',    key: 'hodin',             fmt: function(v){ return v; } },
+    { label: 'Konzultované subjekty',      key: 'subjekty',          fmt: function(v){ return v; } },
+    { label: 'Vystavené faktury (počet)',  key: 'faktury_pocet',     fmt: function(v){ return v; } },
+    { label: 'Tržby z konzultací',         key: 'faktury_hodnota',   fmt: fmtKc },
+    { label: 'Inkubované subjekty',        key: 'inkubace',          fmt: function(v){ return v; } },
+    { label: 'Akcelerované subjekty',      key: 'akcelerace',        fmt: function(v){ return v; } },
+    { label: 'Pipeline – celkem projektů', key: 'pipeline',          fmt: function(v){ return v; } },
+    { cat: 'Finance' },
+    { label: 'Příjmy',                     key: 'prijmy',            fmt: fmtKc },
+    { label: 'Náklady',                    key: 'naklady',           fmt: fmtKc },
+    { label: 'Stav bankovních účtů',       key: 'stav_uctu',         fmt: fmtKc },
+    { cat: 'PINKaka' },
+    { label: 'Absolventi programu',        key: 'pinkaka_absolventi',fmt: function(v){ return v; } },
+    { cat: 'IDZ' },
+    { label: 'Počet akcí',                 key: 'idz_akce',          fmt: function(v){ return v; } },
+    { label: 'Zapojení studenti a žáci',   key: 'idz_studenti',      fmt: function(v){ return v; } },
+    { label: 'Zapojené školy',             key: 'idz_skoly',         fmt: function(v){ return v; } },
+    { label: 'Zapojení pedagogové',        key: 'idz_pedagogove',    fmt: function(v){ return v; } },
+    { cat: 'Budova' },
+    { label: 'Souhlasy virtuální sídlo',   key: 'virtualni_sidlo',   fmt: function(v){ return v; } },
+    { label: 'Obsazení coworkingu (osob)', key: 'coworking_osoby',   fmt: function(v){ return v; } }
+  ];
+
+  function fmtKc(v) {
+    if (v === null || v === undefined) return '—';
+    return v.toLocaleString('cs-CZ', { maximumFractionDigits: 0 }) + ' Kč';
+  }
+
+  function changeBadge(a, b) {
+    if (a === null || b === null) return '<span class="trend-neu">—</span>';
+    if (a === 0) return '<span class="trend-neu">—</span>';
+    var pct = ((b - a) / Math.abs(a)) * 100;
+    var sign = pct > 0 ? '+' : '';
+    var cls  = pct > 0 ? 'trend-up' : (pct < 0 ? 'trend-down' : 'trend-neu');
+    var arr  = pct > 0 ? '↑ ' : (pct < 0 ? '↓ ' : '→ ');
+    return '<span class="' + cls + '">' + arr + sign + pct.toFixed(1) + ' %</span>';
+  }
+
+  function buildTrendTable() {
+    var tbody = document.getElementById('trend-tbody');
+    if (!tbody) return;
+    var n = MDATA.months.length;
+    var html = '';
+    TREND_ROWS.forEach(function(row) {
+      if (row.cat) {
+        html += '<tr class="trend-cat"><td colspan="' + (n + 2) + '">' + row.cat + '</td></tr>';
+        return;
+      }
+      var vals = MDATA[row.key];
+      html += '<tr><td class="trend-lbl">' + row.label + '</td>';
+      for (var i = 0; i < n; i++) {
+        var v = vals[i];
+        html += '<td class="trend-val">' + (v === null ? '<span class="trend-neu">—</span>' : row.fmt(v)) + '</td>';
+      }
+      html += '<td>' + changeBadge(vals[n - 2], vals[n - 1]) + '</td></tr>';
+    });
+    tbody.innerHTML = html;
+  }
+
+  var chartsBuilt = false;
+  function buildCharts() {
+    if (chartsBuilt || typeof Chart === 'undefined') return;
+    chartsBuilt = true;
+
+    var M  = MDATA.months;
+    var C1 = '#530048', C2 = '#922790', C3 = '#ec008c', C4 = '#c46db0', C5 = '#7a1a70';
+
+    function baseOpts(extra) {
+      var o = {
+        responsive: true,
+        animation: { duration: 500 },
+        plugins: {
+          legend: { labels: { font: { size: 10, family: 'inherit' }, color: '#555', boxWidth: 10, padding: 8 } },
+          tooltip: { titleFont: { size: 10 }, bodyFont: { size: 10 } }
+        },
+        scales: {
+          x: { ticks: { font: { size: 10 }, color: '#666' }, grid: { color: '#f5eef5' } },
+          y: { beginAtZero: true, ticks: { font: { size: 10 }, color: '#666' }, grid: { color: '#f5eef5' } }
+        }
+      };
+      if (extra) Object.assign(o.scales, extra);
+      return o;
+    }
+
+    /* 1 – Konzultace + Inkubace + Akcelerace */
+    new Chart(document.getElementById('chart-konzultace'), {
+      type: 'bar',
+      data: {
+        labels: M,
+        datasets: [
+          { label: 'Hodin konzultací', data: MDATA.hodin,      backgroundColor: C1 + 'cc', borderRadius: 4, yAxisID: 'y' },
+          { label: 'Subjekty',         data: MDATA.subjekty,   backgroundColor: C2 + 'cc', borderRadius: 4, yAxisID: 'y1' },
+          { label: 'Inkubace',         data: MDATA.inkubace,   backgroundColor: C3 + 'cc', borderRadius: 4, yAxisID: 'y1' },
+          { label: 'Akcelerace',       data: MDATA.akcelerace, backgroundColor: C4 + 'cc', borderRadius: 4, yAxisID: 'y1' }
+        ]
+      },
+      options: baseOpts({
+        y:  { beginAtZero: true, position: 'left',  title: { display: true, text: 'Hodin', font: { size: 9 }, color: '#999' }, ticks: { font: { size: 10 }, color: '#666' }, grid: { color: '#f5eef5' } },
+        y1: { beginAtZero: true, position: 'right', title: { display: true, text: 'Počet subjektů', font: { size: 9 }, color: '#999' }, ticks: { font: { size: 10 }, color: '#999' }, grid: { drawOnChartArea: false } }
+      })
+    });
+
+    /* 2 – Finance */
+    var finOpts = baseOpts();
+    finOpts.scales.y.ticks.callback = function(v) { return (v / 1e6).toFixed(1) + ' M'; };
+    new Chart(document.getElementById('chart-finance'), {
+      type: 'bar',
+      data: {
+        labels: M,
+        datasets: [
+          { label: 'Příjmy', data: MDATA.prijmy, backgroundColor: C1 + 'cc', borderRadius: 4 },
+          { label: 'Náklady', data: MDATA.naklady, backgroundColor: C3 + 'cc', borderRadius: 4 }
+        ]
+      },
+      options: finOpts
+    });
+
+    /* 3 – PINKaka */
+    new Chart(document.getElementById('chart-pinkaka'), {
+      type: 'bar',
+      data: {
+        labels: M,
+        datasets: [
+          { label: 'Absolventi programu', data: MDATA.pinkaka_absolventi, backgroundColor: C2 + 'cc', borderRadius: 4 }
+        ]
+      },
+      options: baseOpts()
+    });
+
+    /* 4 – IDZ */
+    new Chart(document.getElementById('chart-idz'), {
+      type: 'bar',
+      data: {
+        labels: M,
+        datasets: [
+          { label: 'Akce',       data: MDATA.idz_akce,       backgroundColor: C1 + 'cc', borderRadius: 4, yAxisID: 'y' },
+          { label: 'Školy',      data: MDATA.idz_skoly,      backgroundColor: C3 + 'cc', borderRadius: 4, yAxisID: 'y' },
+          { label: 'Pedagogové', data: MDATA.idz_pedagogove, backgroundColor: C4 + 'cc', borderRadius: 4, yAxisID: 'y' },
+          { label: 'Studenti',   data: MDATA.idz_studenti,   backgroundColor: C2 + 'cc', borderRadius: 4, yAxisID: 'y1' }
+        ]
+      },
+      options: baseOpts({
+        y:  { beginAtZero: true, position: 'left',  title: { display: true, text: 'Akce / Školy / Ped.', font: { size: 9 }, color: '#999' }, ticks: { font: { size: 10 }, color: '#666' }, grid: { color: '#f5eef5' } },
+        y1: { beginAtZero: true, position: 'right', title: { display: true, text: 'Studenti', font: { size: 9 }, color: '#999' }, ticks: { font: { size: 10 }, color: '#999' }, grid: { drawOnChartArea: false } }
+      })
+    });
+
+    /* 5 – Budova */
+    new Chart(document.getElementById('chart-budova'), {
+      type: 'bar',
+      data: {
+        labels: M,
+        datasets: [
+          { label: 'Virtuální sídlo (souhlasy)', data: MDATA.virtualni_sidlo, backgroundColor: C1 + 'cc', borderRadius: 4 },
+          { label: 'Coworking (osoby)',          data: MDATA.coworking_osoby, backgroundColor: C2 + 'cc', borderRadius: 4 }
+        ]
+      },
+      options: baseOpts()
+    });
+  }
 </script>
 
 <div class="page">
@@ -296,13 +547,20 @@
     <div><svg height="48" style="display:block;" id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125.0247 24.6618"><g id="Components"><g id="_10c95709-22a1-409d-a0de-91c9ab924617_1"><path d="M22.0416,11.9435c-.2722,1.4438-1.9634,2.7638-3.6422,2.7815-4.8509.0503-9.7018-.0023-14.5535-.0023h-.6503v-7.7662c.8916-.0147.7199-.0031,1.7361,0,5.0195.0155,7.2837.0394,12.8004,0,1.9317-.0131,3.4265.5591,4.3382,2.5364.2413.7671.1299,1.6108-.0286,2.4506M25.2832,10.035c-.1392-1.4468-.5568-2.7119-1.6154-3.7675-1.4631-1.46-3.2857-2.0206-5.2468-2.0407-5.0697-.0526-12.8259-.0294-18.4146-.0201C-.0121,9.9345.0165,18.788.0064,24.4601h3.1442v-6.9411h1.9905c3.8642,0,7.7283.0371,11.5917-.0209,1.2721-.0185,2.5704-.1639,3.8008-.4748.8707-.2196,1.7175-.7176,2.4506-1.2597,1.917-1.4175,2.5233-3.4018,2.299-5.7286" style="fill:#92278f; stroke-width:0px;"/><path d="M51.5284,11.9435c-.2722,1.4438-1.9634,2.7638-3.6422,2.7815-4.8509.0503-9.7018-.0023-14.5535-.0023h-.6503v-7.7662c.8916-.0147.7199-.0031,1.7361,0,5.0195.0155,7.2837.0394,12.8004,0,1.9317-.0131,3.4265.5591,4.3382,2.5364.2413.7671.1299,1.6108-.0286,2.4506M54.7701,10.035c-.1392-1.4468-.5568-2.7119-1.6154-3.7675-1.4631-1.46-3.2857-2.0206-5.2468-2.0407-5.0705-.0526-12.8259-.0294-18.4146-.0201-.0186,5.7278.0101,14.5813,0,20.2535h3.1442v-6.9411h1.9905c3.8642,0,7.7283.0371,11.5917-.0209,1.2721-.0185,2.5704-.1639,3.8008-.4748.8707-.2196,1.7175-.7176,2.4506-1.2597,1.917-1.4175,2.5233-3.4018,2.299-5.7286" style="fill:#ec008c; stroke-width:0px;"/><rect x="25.7719" y="14.7277" width="2.1065" height="2.6733" style="fill:#ec008c; stroke-width:0px;"/><path d="M100.4625,24.46h3.1597v-9.0228h7.1901c2.3369.0062,3.998,1.1453,5.5198,2.8813,1.8258,2.0833,3.2107,4.1472,4.7589,6.1415h3.9338c-.372-.5467-.6047-.9403-.887-1.2945-.9086-1.1398-1.7848-2.3122-2.7661-3.3871-1.8335-2.0098-3.2216-4.5052-6.2165-5.5531,4.1673-2.4923,6.2598-6.6063,9.5665-9.9431h-4.1874c-1.3177,1.7631-2.6362,3.5386-3.967,5.3048-1.6827,2.234-3.8085,3.5626-6.7277,3.4118h-6.2831v-4.8849l-3.094,2.0755v14.2704Z" style="fill:#ec008c; stroke-width:0px;"/><polygon points="91.8756 0 92.6249 4.2299 111.6156 .6132 91.8756 0" style="fill:#ec008c; stroke-width:0px;"/><polygon points="85.1134 5.6605 94.0682 12.382 92.6245 4.2299 85.1134 5.6605" style="fill:#5d005a; stroke-width:0px;"/><polygon points="92.6248 4.2299 94.0685 12.3821 111.6162 .6132 92.6248 4.2299" style="fill:#92278f; stroke-width:0px;"/><path d="M58.9739,24.46h3.1442V4.1934h-3.1427c.0008,7.2071.0015,14.3022-.0015,20.2666" style="fill:#ec008c; stroke-width:0px;"/><path d="M70.9139,7.5034c1.2025-.3859,2.7669.191,3.6098.938.9334.8282.8174.737,1.7647,2.0353,2.5093,3.4381,5.1772,6.7586,7.808,10.1047,2.4521,3.1195,5.5964,4.7016,9.9709,3.8533v-9.9199l-2.7274-2.0578v9.2022c-1.3432.0325-2.3036-.2869-3.08-1.0176-.723-.6813-1.4662-1.3641-2.067-2.1482-2.6949-3.5185-5.2731-7.129-8.0268-10.5996-2.5643-3.2316-5.8562-4.5594-10.4318-3.3221v19.8885h3.1798V7.5034Z" style="fill:#ec008c; stroke-width:0px;"/></g></g></svg></div>
     <div class="hdr-right">
       <div class="hdr-report">Měsíční report</div>
-      <div class="hdr-date">Březen 2026</div>
-      <div class="hdr-sub">Interní materiál pro správní radu</div>
+      <div class="hdr-date" id="hdr-date">Duben 2026</div>
       <a href="report-brezen-2026.pdf" download class="pdf-btn">Stáhnout PDF</a>
     </div>
   </div>
 
+  <div class="month-tabs">
+    <div class="month-tab active" id="tab-btn-brezen" onclick="switchTab('brezen')">Březen 2026</div>
+    <div class="month-tab" id="tab-btn-duben" onclick="switchTab('duben')">Duben 2026</div>
+    <div class="month-tab" id="tab-btn-trendy" onclick="switchTab('trendy')">📈 Trendy</div>
+  </div>
+
   <div class="body">
+
+  <div id="tab-brezen">
 
     <!-- KPI -->
     <div class="sec-label">KPI hlavní činnosti – konzultace, inkubace, akcelerace</div>
@@ -628,9 +886,308 @@
       </div>
     </div>
 
-  </div>
+  </div><!-- /tab-brezen -->
 
-  <div class="footer">Report zpracoval tým P-PINK &bull; Březen 2026 &bull; Interní materiál pro správní radu</div>
+  <div id="tab-duben" style="display:none;">
+
+    <!-- KPI -->
+    <div class="sec-label">KPI hlavní činnosti – konzultace, inkubace, akcelerace</div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-val">114,7</div><div class="kpi-lbl">Odkonzultovaných hodin celkem</div></div>
+      <div class="kpi"><div class="kpi-val">23</div><div class="kpi-lbl">Konzultované subjekty</div></div>
+      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Uzavřených klientů</div></div>
+      <div class="kpi"><div class="kpi-val">8 850 Kč</div><div class="kpi-lbl">Tržby z konzultací</div></div>
+      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Inkubované subjekty</div></div>
+      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
+      <div class="kpi"><div class="kpi-val">—</div><div class="kpi-lbl">Souhlasy virtuální sídlo</div></div>
+      <div class="kpi"><div class="kpi-val">—</div><div class="kpi-lbl">Zájemci o coworking</div></div>
+    </div>
+
+    <!-- PROGRAMY -->
+    <div class="sec-label">Konzultace, inkubace a akcelerace</div>
+
+    <div class="prog-row">
+      <div class="prog-head">
+        <div class="prog-head-title">Konzultace</div>
+        <div class="prog-head-tag">Subjekty s konkrétním problémem</div>
+      </div>
+      <div class="prog-body">
+        <p class="prog-desc">Flexibilní individuální podpora zaměřená na různé oblasti podnikání. Jednorázové nebo balíčkové služby přizpůsobené potřebám subjektu.</p>
+        <div class="prog-stats-grid">
+          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">23</span></div>
+          <div class="prog-stat"><span class="prog-sl">Hodin placených</span><span class="prog-sv">82 hod</span></div>
+          <div class="prog-stat"><span class="prog-sl">Hodin zdarma</span><span class="prog-sv">8,3 hod</span></div>
+          <div class="prog-stat"><span class="prog-sl">Hodin Akademie</span><span class="prog-sv">17,5 hod</span></div>
+          <div class="prog-stat"><span class="prog-sl">Hodin celkem</span><span class="prog-sv">114,7 hod</span></div>
+          <div class="prog-stat"><span class="prog-sl">Tržby z konzultací</span><span class="prog-sv">8 850 Kč</span></div>
+          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">Entry klienti / Uzavřených celkem</span><span class="prog-sv">2 / 3</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prog-row">
+      <div class="prog-head">
+        <div class="prog-head-title">Inkubace</div>
+        <div class="prog-head-tag">Nápad → MVP → první zákazníci</div>
+      </div>
+      <div class="prog-body">
+        <p class="prog-desc">Strukturovaný 12týdenní program (6 bloků) pro jednotlivce s nápadem nebo začínající subjekty: validace nápadu, tým, MVP, go-to-market, prodej a základy fundraisingu.</p>
+        <div class="prog-stats-grid">
+          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">2</span></div>
+          <div class="prog-stat"><span class="prog-sl">Délka programu</span><span class="prog-sv">12 týdnů</span></div>
+          <div class="prog-stat"><span class="prog-sl">Počet bloků</span><span class="prog-sv">6</span></div>
+          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">Cílová skupina</span><span class="prog-sv" style="font-size:10px;">Jednotlivci s nápadem, early-stage</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prog-row">
+      <div class="prog-head">
+        <div class="prog-head-title">Akcelerace</div>
+        <div class="prog-head-tag">MVP → trh → škálování → investice</div>
+      </div>
+      <div class="prog-body">
+        <p class="prog-desc">Dlouhodobá individuální spolupráce (až 2 roky) pro subjekty s MVP a první tržní validací: vstup na trh, škálování prodeje a příprava na investici ve dvou fázích.</p>
+        <div class="prog-stats-grid">
+          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">2</span></div>
+          <div class="prog-stat"><span class="prog-sl">Financování</span><span class="prog-sv" style="font-size:10px;">samotní klienti + PLATINN</span></div>
+          <div class="prog-stat"><span class="prog-sl">Max. délka</span><span class="prog-sv">až 2 roky</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIPELINE -->
+    <div class="pipeline-wrap">
+      <div class="pipeline-header">
+        <span class="pipeline-header-title">Pipeline konzultačních projektů</span>
+        <span class="pipeline-header-total">—</span>
+      </div>
+      <div class="pipeline-body">
+        <div class="pipe-col">
+          <div class="pipe-col-title">Rozvoj leadu</div>
+          <div class="pipe-item"><span class="pipe-stage">Lead</span><div class="pipe-vals"><div class="pipe-count">—</div></div></div>
+          <div class="pipe-item"><span class="pipe-stage">Úvodní schůzka</span><div class="pipe-vals"><div class="pipe-count">—</div></div></div>
+          <div class="pipe-item"><span class="pipe-stage">Nacenění</span><div class="pipe-vals"><div class="pipe-count">—</div></div></div>
+          <div class="pipe-col-total"><span class="pipe-col-total-label">Mezisoučet</span><span class="pipe-col-total-val">—</span></div>
+        </div>
+        <div class="pipe-col">
+          <div class="pipe-col-title">Uzavírání</div>
+          <div class="pipe-item"><span class="pipe-stage">Nabídka odeslána</span><div class="pipe-vals"><div class="pipe-count">—</div></div></div>
+          <div class="pipe-item"><span class="pipe-stage">Nabídka přijata</span><div class="pipe-vals"><div class="pipe-count">—</div></div></div>
+          <div class="pipe-item"><span class="pipe-stage">Fakturace</span><div class="pipe-vals"><div class="pipe-count">—</div></div></div>
+          <div class="pipe-col-total"><span class="pipe-col-total-label">Mezisoučet</span><span class="pipe-col-total-val">—</span></div>
+        </div>
+        <div class="pipe-col">
+          <div class="pipe-col-title">Realizace</div>
+          <div class="pipe-item"><span class="pipe-stage">Nová konzultace</span><div class="pipe-vals"><div class="pipe-count">—</div></div></div>
+          <div class="pipe-item"><span class="pipe-stage">Konzultace v řešení</span><div class="pipe-vals"><div class="pipe-count">—</div></div></div>
+          <div class="pipe-col-total"><span class="pipe-col-total-label">Mezisoučet</span><span class="pipe-col-total-val">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PINKAKA -->
+    <div class="sec-label">PINKaka</div>
+    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Akademie podnikání PINKaka je bezplatný vzdělávací program pro začínající podnikatele v Pardubickém kraji. Účastníci projdou sérii praktických setkání zaměřených na byznys plán, marketing, finance a prodej. <a href="https://www.p-pink.cz/pinkaka/" target="_blank" style="color:#922790;font-weight:600;">Více na p-pink.cz →</a></p>
+    <div class="card">
+      <div class="row"><span class="rl">Jarní běh – stav</span><span class="rv"><span class="pill p-amber">v průběhu</span></span></div>
+      <div class="row"><span class="rl">Města</span><span class="rv" style="font-size:11px;">Pardubice, Mor. Třebová, Hlinsko, Lanškroun, Žamberk, Letohrad</span></div>
+      <div class="row"><span class="rl">Předpokládané ukončení</span><span class="rv">květen / červen 2026</span></div>
+      <div class="row"><span class="rl">Absolventi (Základy podnikání UPCE)</span><span class="rv">21</span></div>
+    </div>
+
+    <!-- IDZ -->
+    <div class="sec-label">IDZ – Podnikavost pro středoškoláky</div>
+    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Projekt zaměřený na rozvoj podnikavého myšlení středoškoláků prostřednictvím workshopů, exkurzí a setkání s podnikateli. <a href="https://p-pink.cz/podnikavost-pro-stredoskolaky-idz/" target="_blank" style="color:#922790;font-weight:600;">Více na p-pink.cz →</a></p>
+    <div class="card">
+      <div class="row"><span class="rl">Počet akcí</span><span class="rv">35</span></div>
+      <div class="row"><span class="rl">Zapojených žáků a studentů</span><span class="rv">450</span></div>
+      <div class="row"><span class="rl">Zapojených škol</span><span class="rv">10</span></div>
+      <div class="row"><span class="rl">Zapojených pedagogů</span><span class="rv">20</span></div>
+      <div class="row"><span class="rl">Predikce škol na celý rok 2026</span><span class="rv">25</span></div>
+    </div>
+
+    <!-- BUDOVA -->
+    <div class="sec-label">Budova</div>
+    <div class="card">
+      <div class="row"><span class="rl">Coworking (10 dní) – obsazenost</span><span class="rv">10 osob</span></div>
+      <div class="row"><span class="rl">Coworking (flexi) – obsazenost</span><span class="rv">6 osob</span></div>
+      <div class="row"><span class="rl">Coworking (fix) – obsazenost</span><span class="rv">6 osob</span></div>
+      <div class="row"><span class="rl">Konferenční místnost – obsazenost</span><span class="rv">31 dní</span></div>
+      <div class="row"><span class="rl">Jednací místnost – obsazenost</span><span class="rv">31 dní</span></div>
+    </div>
+
+    <!-- PINKBLOCKS -->
+    <div class="sec-label">PINKblocks</div>
+    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Vzdělávací program pro podnikatele nabízející přístupné přednášky od odborníků z klíčových oblastí podnikání. <a href="https://p-pink.cz/pinkblocks/" target="_blank" style="color:#922790;font-weight:600;">Více na p-pink.cz →</a></p>
+    <div class="card">
+      <div class="row"><span class="rl">Duben 2026</span><span class="rv">nebyl</span></div>
+    </div>
+
+    <!-- CHEERS4EU -->
+    <div class="sec-label">CHEERS4EU + Cirkulární hub</div>
+    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Pilotní projekt zaměřený na rozvoj cirkulární ekonomiky ve městech Pardubického kraje, podporující inovace směřující k udržitelnější budoucnosti. <a href="https://cirkularni-hub.cz" target="_blank" style="color:#922790;font-weight:600;">Více na cirkularni-hub.cz →</a></p>
+    <div class="card">
+      <div class="row"><span class="rl">CE sken Letohrad</span><span class="rv">—</span></div>
+      <div class="row"><span class="rl">Další aktivity</span><span class="rv">—</span></div>
+    </div>
+
+    <!-- AI TALENTOVÝ PROGRAM -->
+    <div class="sec-label">AI Talentový program</div>
+    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Program pro studenty, kteří získávají finanční podporu, odborné stáže a možnost pracovat na reálných AI projektech v rámci pardubického AI hubu. <a href="https://pardubice.ai/talentovy-program-ai/" target="_blank" style="color:#922790;font-weight:600;">Více na pardubice.ai →</a></p>
+    <div class="card">
+      <div class="row"><span class="rl">Zapojení talenti</span><span class="rv">—</span></div>
+      <div class="row"><span class="rl">Aktuální stáže a projekty</span><span class="rv">—</span></div>
+    </div>
+
+    <!-- AKCE -->
+    <div class="sec-label">Hlavní akce v dubnu</div>
+    <div class="events-grid">
+      <div class="event-card">
+        <div class="event-head">
+          <div class="event-date-box"><div class="event-day">20</div><div class="event-mon">DUBNA</div></div>
+          <div class="event-title-wrap">
+            <div class="event-title">Business v tandemu</div>
+            <div class="event-sub">Jak (ne)podnikat ve dvou</div>
+          </div>
+        </div>
+        <div class="event-body">
+          <div class="event-row"><div class="event-dot"></div><div class="event-text">Hosté: MUDr. Markéta Fikarová, Jan Fikar – MEDFIMA, Martin Marík, Roman Ondrčka, Radim Zavoral</div></div>
+          <div class="event-row"><div class="event-dot"></div><div class="event-text">Partner akce: ERA, a.s.</div></div>
+          <div class="event-row"><div class="event-dot"></div><div class="event-text">Počet účastníků: <strong>18</strong></div></div>
+          <div class="event-row"><div class="event-dot"></div><div class="event-text">Průměrné hodnocení: ★★★★★ (5/5)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FINANCE -->
+    <div class="sec-label">Finance</div>
+
+    <div class="cf-card" style="margin-bottom:10px;">
+      <div class="cf-label">Stav na bankovních účtech k 30. 4. 2026 (3 účty)</div>
+      <div class="cf-val">—</div>
+      <div class="cf-sub">Cashflow / délka runway</div>
+    </div>
+
+    <div class="card" style="margin-bottom:10px;">
+      <div class="card-title">Příjmy a náklady – duben</div>
+      <div class="row"><span class="rl">Příjmy</span><span class="rv">—</span></div>
+      <div class="row"><span class="rl">Náklady</span><span class="rv">—</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Přehled dotací</div>
+      <div class="row"><span class="rl">MPCE – Statutární město Pardubice</span><span class="rv a">—</span></div>
+      <div class="row"><span class="rl">IDZ – zálohové platby</span><span class="rv a">—</span></div>
+    </div>
+
+    <!-- LIDSKÉ ZDROJE -->
+    <div class="sec-label">Lidské zdroje a kapacity</div>
+
+    <div class="fte-grid">
+      <div class="fte-card"><div class="fte-val">—</div><div class="fte-type">HPP</div><div class="fte-note">Hlavní pracovní poměr</div></div>
+      <div class="fte-card"><div class="fte-val">—</div><div class="fte-type">DPČ</div><div class="fte-note">Dohoda o pracovní činnosti</div></div>
+      <div class="fte-card"><div class="fte-val">—</div><div class="fte-type">DPP</div><div class="fte-note">Dohoda o provedení práce</div></div>
+      <div class="fte-card"><div class="fte-val">—</div><div class="fte-type">Externisté</div><div class="fte-note">Smlouva o spolupráci</div></div>
+    </div>
+
+    <div class="two">
+      <div class="card">
+        <div class="card-title">FTE a vytížení</div>
+        <div class="row"><span class="rl">Průměrné FTE (jen zaměstnanci)</span><span class="rv">—</span></div>
+        <div class="row"><span class="rl">Vytížení týmu</span><span class="rv">—</span></div>
+        <div class="row"><span class="rl">Odchozí zaměstnanci</span><span class="rv">1</span></div>
+        <div class="row"><span class="rl">Zájemci o spolupráci</span><span class="rv">1</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Hodnocení kapacity</div>
+        <div class="need-list">
+          <div class="need-item"><div class="need-dot"></div><div class="need-text">Asistentka finanční manažerky – reporting</div></div>
+          <div class="need-item"><div class="need-dot"></div><div class="need-text">Senior marketingový specialista</div></div>
+          <div class="need-item"><div class="need-dot"></div><div class="need-text">Key account manažer</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIZIKA -->
+    <div class="sec-label">Rizika a mitigace</div>
+    <div class="card">
+      <div class="risk-hdr"><span>Riziko</span><span>Závažnost</span><span>Mitigace</span></div>
+      <div class="risk-row">
+        <span class="risk-lbl">—</span>
+        <span><span class="pill p-gray">—</span></span>
+        <span class="risk-mit">—</span>
+      </div>
+    </div>
+
+    <!-- VÝHLED -->
+    <div class="sec-label">Výhled – květen 2026</div>
+    <div class="outlook-grid">
+      <div class="card">
+        <div class="card-title">Plánované aktivity</div>
+        <div class="row"><span class="rl">PINKaka – závěrečná setkání</span></div>
+        <div class="row" style="padding-top:8px; border-top: 1px solid #e0c8dc; margin-top:4px;"><span class="rl" style="font-size:11px;"><strong>Business v tandemu (14. 5.):</strong> AI pro firmy – Od experimentů k reálné konkurenční výhodě</span></div>
+        <div class="row"><span class="rl">Přihlášených</span><span class="rv">30 <span class="pill p-green" style="font-size:9px;">plně obsazeno</span></span></div>
+        <div class="row"><span class="rl">Ve frontě</span><span class="rv">6 (připravujeme další workshop)</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Body pro správní radu</div>
+        <div class="row"><span class="rl">—</span></div>
+      </div>
+    </div>
+
+  </div><!-- /tab-duben -->
+
+  <div id="tab-trendy" style="display:none;">
+
+    <!-- Trend tabulka -->
+    <div class="sec-label">Vývoj klíčových ukazatelů (meziměsíční)</div>
+    <div class="card" style="padding: 0; overflow-x: auto;">
+      <table class="trend-table">
+        <thead>
+          <tr>
+            <th style="min-width:200px;">Ukazatel</th>
+            <th>Březen 2026</th>
+            <th>Duben 2026</th>
+            <th>Změna m/m</th>
+          </tr>
+        </thead>
+        <tbody id="trend-tbody">
+          <tr><td colspan="4" style="text-align:center;padding:16px;color:#bbb;font-size:12px;">Načítám data…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Grafy -->
+    <div class="sec-label">Grafy</div>
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title">Konzultace, inkubace a akcelerace</div>
+        <canvas id="chart-konzultace"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Finance – příjmy a náklady</div>
+        <canvas id="chart-finance"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">PINKaka</div>
+        <canvas id="chart-pinkaka"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">IDZ – Podnikavost pro středoškoláky</div>
+        <canvas id="chart-idz"></canvas>
+      </div>
+      <div class="chart-card" style="grid-column:1/-1;">
+        <div class="chart-title">Budova</div>
+        <canvas id="chart-budova" style="max-height:180px;"></canvas>
+      </div>
+    </div>
+
+  </div><!-- /tab-trendy -->
+
+  </div><!-- /body -->
+
+  <div class="footer" id="report-footer">Report zpracoval tým P-PINK &bull; Duben 2026</div>
 
 </div>
 </body>
