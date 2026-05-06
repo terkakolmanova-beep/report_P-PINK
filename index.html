@@ -29,6 +29,7 @@
     background: linear-gradient(135deg, #530048 0%, #922790 100%);
     color: #fff; font-size: 11px; font-weight: 700; text-decoration: none;
     border-radius: 6px; letter-spacing: 0.03em;
+    border: none; cursor: pointer; font-family: inherit;
     transition: opacity 0.2s;
   }
   .pdf-btn:hover { opacity: 0.85; }
@@ -321,6 +322,19 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Enter') checkPassword();
   });
+
+  function downloadPDF() {
+    var hdrDate = document.getElementById('hdr-date');
+    var label = hdrDate ? hdrDate.textContent.trim() : 'Report';
+    var slug = 'P-PINK-Report-' + label.toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w-]/g, '')
+      .replace(/--+/g, '-');
+    var prev = document.title;
+    document.title = slug;
+    window.print();
+    setTimeout(function() { document.title = prev; }, 2000);
+  }
 </script>
 
 <div class="page">
@@ -331,7 +345,7 @@
       <div class="hdr-report">Měsíční report</div>
       <div class="hdr-date">Březen 2026</div>
       <div class="hdr-sub">Interní materiál pro správní radu</div>
-      <a href="report-brezen-2026.pdf" download class="pdf-btn">Stáhnout PDF</a>
+      <button onclick="downloadPDF()" class="pdf-btn">Stáhnout PDF</button>
     </div>
   </div>
 
