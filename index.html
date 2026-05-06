@@ -401,11 +401,13 @@
     prijmy:             [11673718.79,  null],
     naklady:            [5002872.40,   null],
     stav_uctu:          [8097532.98,   null],
+    pinkaka_prihlaseni: [111,          null],
+    pinkaka_pritomni:   [70,           null],
     pinkaka_absolventi: [null,         21],
     idz_akce:           [32,           38],
     idz_studenti:       [567,          665],
     idz_skoly:          [12,           11],
-    idz_pedagogove:     [null,         20],
+    idz_pedagogove:     [null,         null],
     virtualni_sidlo:    [4,            null],
     coworking_osoby:    [null,         22]
   };
@@ -424,12 +426,13 @@
     { label: 'Náklady',                    key: 'naklady',           fmt: fmtKc },
     { label: 'Stav bankovních účtů',       key: 'stav_uctu',         fmt: fmtKc },
     { cat: 'PINKaka' },
+    { label: 'Přihlášení účastníci',       key: 'pinkaka_prihlaseni',fmt: function(v){ return v; } },
+    { label: 'Přítomni na 1. setkání',     key: 'pinkaka_pritomni',  fmt: function(v){ return v; } },
     { label: 'Absolventi programu',        key: 'pinkaka_absolventi',fmt: function(v){ return v; } },
     { cat: 'IDZ' },
     { label: 'Počet akcí',                 key: 'idz_akce',          fmt: function(v){ return v; } },
     { label: 'Zapojení studenti a žáci',   key: 'idz_studenti',      fmt: function(v){ return v; } },
     { label: 'Zapojené školy',             key: 'idz_skoly',         fmt: function(v){ return v; } },
-    { label: 'Zapojení pedagogové',        key: 'idz_pedagogove',    fmt: function(v){ return v; } },
     { cat: 'Budova' },
     { label: 'Souhlasy virtuální sídlo',   key: 'virtualni_sidlo',   fmt: function(v){ return v; } },
     { label: 'Obsazení coworkingu (osob)', key: 'coworking_osoby',   fmt: function(v){ return v; } }
@@ -535,7 +538,9 @@
       data: {
         labels: M,
         datasets: [
-          { label: 'Absolventi programu', data: MDATA.pinkaka_absolventi, backgroundColor: C2 + 'cc', borderRadius: 4 }
+          { label: 'Přihlášení',          data: MDATA.pinkaka_prihlaseni, backgroundColor: C1 + 'cc', borderRadius: 4 },
+          { label: 'Na 1. setkání',        data: MDATA.pinkaka_pritomni,   backgroundColor: C2 + 'cc', borderRadius: 4 },
+          { label: 'Absolventi programu', data: MDATA.pinkaka_absolventi,  backgroundColor: C3 + 'cc', borderRadius: 4 }
         ]
       },
       options: baseOpts()
@@ -547,10 +552,9 @@
       data: {
         labels: M,
         datasets: [
-          { label: 'Akce',       data: MDATA.idz_akce,       backgroundColor: C1 + 'cc', borderRadius: 4, yAxisID: 'y' },
-          { label: 'Školy',      data: MDATA.idz_skoly,      backgroundColor: C3 + 'cc', borderRadius: 4, yAxisID: 'y' },
-          { label: 'Pedagogové', data: MDATA.idz_pedagogove, backgroundColor: C4 + 'cc', borderRadius: 4, yAxisID: 'y' },
-          { label: 'Studenti',   data: MDATA.idz_studenti,   backgroundColor: C2 + 'cc', borderRadius: 4, yAxisID: 'y1' }
+          { label: 'Akce',     data: MDATA.idz_akce,     backgroundColor: C1 + 'cc', borderRadius: 4, yAxisID: 'y' },
+          { label: 'Školy',    data: MDATA.idz_skoly,    backgroundColor: C3 + 'cc', borderRadius: 4, yAxisID: 'y' },
+          { label: 'Studenti', data: MDATA.idz_studenti, backgroundColor: C2 + 'cc', borderRadius: 4, yAxisID: 'y1' }
         ]
       },
       options: baseOpts({
@@ -1036,7 +1040,6 @@
       <div class="row"><span class="rl">Počet akcí</span><span class="rv">38</span></div>
       <div class="row"><span class="rl">Zapojených žáků a studentů</span><span class="rv">665</span></div>
       <div class="row"><span class="rl">Zapojených škol</span><span class="rv">11</span></div>
-      <div class="row"><span class="rl">Zapojených pedagogů</span><span class="rv">20</span></div>
       <div class="row"><span class="rl">Predikce škol na celý rok 2026</span><span class="rv">25</span></div>
     </div>
 
