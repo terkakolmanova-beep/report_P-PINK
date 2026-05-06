@@ -30,6 +30,7 @@
     background: linear-gradient(135deg, #530048 0%, #922790 100%);
     color: #fff; font-size: 11px; font-weight: 700; text-decoration: none;
     border-radius: 6px; letter-spacing: 0.03em;
+    border: none; cursor: pointer; font-family: inherit;
     transition: opacity 0.2s;
   }
   .pdf-btn:hover { opacity: 0.85; }
@@ -375,8 +376,10 @@
   });
 
   var TAB_LABELS = { brezen: 'Březen 2026', duben: 'Duben 2026', trendy: 'Trendy' };
+  var activeMonth = 'brezen';
 
   function switchTab(month) {
+    activeMonth = month;
     ['brezen','duben','trendy'].forEach(function(m) {
       document.getElementById('tab-' + m).style.display = m === month ? '' : 'none';
       document.getElementById('tab-btn-' + m).classList.toggle('active', m === month);
@@ -386,6 +389,18 @@
     var footer = document.getElementById('report-footer');
     if (footer) footer.innerHTML = 'Report zpracoval t&yacute;m P-PINK &bull; ' + label;
     if (month === 'trendy') { buildTrendTable(); buildCharts(); }
+  }
+
+  function downloadPDF() {
+    var label = TAB_LABELS[activeMonth] || 'Report';
+    var slug = label.toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w-]/g, '')
+      .replace(/--+/g, '-');
+    var prev = document.title;
+    document.title = 'P-PINK-Report-' + slug;
+    window.print();
+    setTimeout(function() { document.title = prev; }, 2000);
   }
 
   /* ===================== TRENDY DATA ===================== */
@@ -585,7 +600,7 @@
     <div class="hdr-right">
       <div class="hdr-report">Měsíční report</div>
       <div class="hdr-date" id="hdr-date">Duben 2026</div>
-      <a href="report-brezen-2026.pdf" download class="pdf-btn">Stáhnout PDF</a>
+      <button onclick="downloadPDF()" class="pdf-btn">Stáhnout PDF</button>
     </div>
   </div>
 
