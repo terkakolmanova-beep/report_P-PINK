@@ -191,6 +191,39 @@
   .month-tab:hover { color: #530048; }
   .month-tab.active { color: #530048; border-bottom-color: #922790; }
 
+  /* Info tooltip */
+  .info-tip {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 13px; height: 13px; border-radius: 50%;
+    background: #922790; color: #fff;
+    font-size: 8px; font-weight: 800; font-style: normal;
+    cursor: default; vertical-align: middle; margin-left: 4px;
+    flex-shrink: 0; position: relative;
+  }
+  .info-tip::after {
+    content: attr(data-tip);
+    position: absolute;
+    top: calc(100% + 7px); left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a; color: #fff;
+    font-size: 10.5px; font-weight: 400; line-height: 1.45;
+    padding: 7px 11px; border-radius: 7px;
+    width: 220px; white-space: normal;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.15s; z-index: 200;
+  }
+  .info-tip::before {
+    content: '';
+    position: absolute;
+    top: calc(100% + 3px); left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-bottom-color: #1a1a1a;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.15s; z-index: 200;
+  }
+  .info-tip:hover::after, .info-tip:hover::before { opacity: 1; }
+
   /* Trend table */
   .trend-section { margin-bottom: 10px; }
   .trend-table { width: 100%; border-collapse: collapse; }
@@ -568,7 +601,7 @@
       <div class="kpi"><div class="kpi-val">63</div><div class="kpi-lbl">Odkonzultovaných hodin</div></div>
       <div class="kpi"><div class="kpi-val">22</div><div class="kpi-lbl">Konzultované subjekty</div></div>
       <div class="kpi"><div class="kpi-val">16</div><div class="kpi-lbl">Vystavené faktury z konzultační činnosti</div></div>
-      <div class="kpi"><div class="kpi-val">42 650 Kč</div><div class="kpi-lbl">Hodnota vystavených faktur z konzultační činnosti<span class="note" style="display:block;margin-top:4px;font-style:italic;color:#a0608a;">* původně uvedená hodnota 246 998 Kč byla omylem zaměněna za celkovou hodnotu dealů v pipeline</span></div></div>
+      <div class="kpi"><div class="kpi-val">42 650 Kč</div><div class="kpi-lbl">Hodnota vystavených faktur z konzultační činnosti <span class="info-tip" data-tip="Původně uvedená hodnota 246 998 Kč byla omylem zaměněna za celkovou hodnotu dealů v pipeline.">i</span></div></div>
       <div class="kpi"><div class="kpi-val">1</div><div class="kpi-lbl">Inkubované subjekty</div></div>
       <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
       <div class="kpi"><div class="kpi-val">4</div><div class="kpi-lbl">Souhlasy virtuální sídlo</div></div>
