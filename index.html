@@ -256,17 +256,55 @@
   }
 
   @media print {
+    /* Zachovat všechny barvy a pozadí přesně jako na webu */
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
     body { background: #fff; }
     .month-tabs { display: none; }
     .pdf-btn { display: none; }
-    .page { margin: 0; border: none; border-radius: 0; box-shadow: none; }
-    .footer { background: #fff; }
-    .sec-label { page-break-after: avoid; break-after: avoid; }
-    .card, .prog-row, .pipeline-wrap, .cf-card, .events-grid, .event-card,
-    .two, .three, .kpi-grid, .fte-grid, .outlook-grid { page-break-inside: avoid; break-inside: avoid; }
-    .sec-label + p { page-break-before: avoid; break-before: avoid; }
-    .sec-label + p + .card { page-break-before: avoid; break-before: avoid; }
+    .info-tip { display: none; }
+
+    /* Stránka – odebrat overflow:hidden aby se obsah nelámala/neořezával */
+    .page {
+      margin: 0; border: none; border-radius: 0; box-shadow: none;
+      overflow: visible; max-width: none;
+    }
+    .hdr { border-radius: 0; }
+    .footer { background: #fff; border-radius: 0; }
+
+    /* Nadpis sekce musí zůstat s obsahem – nesmí být sám na konci stránky */
+    .sec-label {
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+    /* První prvek po nadpisu nesmí začínat novou stránkou */
+    .sec-label + *,
+    .sec-label + * + * {
+      break-before: avoid;
+      page-break-before: avoid;
+    }
+
+    /* Jednotlivé bloky se nesmí lámat uvnitř */
+    .kpi, .fte-card,
+    .card, .cf-card,
+    .prog-row, .pipeline-wrap,
+    .event-card, .risk-row,
+    .outlook-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    /* Mřížky drž pohromadě pokud se vejdou */
+    .kpi-grid, .fte-grid,
+    .two, .three,
+    .events-grid, .outlook-grid,
+    .pipeline-body {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
     @page {
+      margin: 14mm 12mm;
       @bottom-center {
         content: counter(page) " / " counter(pages);
         font-size: 9px;
