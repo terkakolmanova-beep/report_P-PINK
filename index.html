@@ -255,6 +255,55 @@
     .charts-grid { grid-template-columns: 1fr; }
   }
 
+  /* PDF Modal */
+  #pdf-modal {
+    position: fixed; inset: 0; z-index: 9998;
+    background: rgba(83,0,72,0.22);
+    display: none; align-items: center; justify-content: center;
+  }
+  #pdf-box {
+    background: #fff; border-radius: 16px;
+    border: 1px solid #dcc8dc;
+    box-shadow: 0 8px 40px rgba(83,0,72,0.22);
+    padding: 2rem 2rem 1.6rem; width: 360px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  }
+  .pdf-modal-title { font-size: 13px; font-weight: 800; color: #530048; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
+  .pdf-modal-sub { font-size: 11px; color: #999; margin-bottom: 1.2rem; }
+  .pdf-opt {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 14px; border-radius: 9px;
+    border: 1.5px solid #e0c8dc; margin-bottom: 8px;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .pdf-opt:hover { border-color: #922790; background: #fdf5fd; }
+  .pdf-opt.selected { border-color: #530048; background: #f8eef8; }
+  .pdf-opt-icon { font-size: 20px; flex-shrink: 0; }
+  .pdf-opt-info { flex: 1; min-width: 0; }
+  .pdf-opt-label { font-size: 13px; font-weight: 700; color: #1a1a1a; }
+  .pdf-opt-sub { font-size: 10.5px; color: #888; margin-top: 2px; }
+  .pdf-opt-check {
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 2px solid #e0c8dc; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; font-size: 10px; color: transparent; font-weight: 800;
+  }
+  .pdf-opt.selected .pdf-opt-check { background: #530048; border-color: #530048; color: #fff; }
+  .pdf-modal-btns { display: flex; gap: 8px; margin-top: 1.2rem; }
+  .pdf-modal-btn-primary {
+    flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer;
+    background: linear-gradient(135deg, #530048 0%, #922790 100%);
+    color: #fff; font-size: 12px; font-weight: 700; font-family: inherit;
+    transition: opacity 0.2s;
+  }
+  .pdf-modal-btn-primary:hover { opacity: 0.85; }
+  .pdf-modal-btn-cancel {
+    padding: 10px 16px; border: 1.5px solid #e0c8dc; border-radius: 8px;
+    cursor: pointer; background: #fff; color: #666;
+    font-size: 12px; font-weight: 600; font-family: inherit; transition: all 0.2s;
+  }
+  .pdf-modal-btn-cancel:hover { border-color: #922790; color: #530048; }
+
   @media print {
     /* Zachovat všechny barvy a pozadí přesně jako na webu */
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -263,6 +312,7 @@
     .month-tabs { display: none; }
     .pdf-btn { display: none; }
     .info-tip { display: none; }
+    #pdf-modal { display: none !important; }
 
     /* Stránka – odebrat overflow:hidden aby se obsah nelámala/neořezával */
     .page {
@@ -299,6 +349,25 @@
     .two, .three,
     .events-grid, .outlook-grid,
     .pipeline-body {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    /* Grafy nesmí být rozděleny přes dvě strany */
+    .chart-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    canvas {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      max-height: 240px !important;
+    }
+    .charts-grid {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .trend-section {
       break-inside: avoid;
       page-break-inside: avoid;
     }
@@ -429,16 +498,40 @@
     if (month === 'trendy') { buildTrendTable(); buildCharts(); }
   }
 
+  var pdfSelectedMonth = 'brezen';
+
   function downloadPDF() {
-    var label = TAB_LABELS[activeMonth] || 'Report';
-    var slug = label.toLowerCase()
+    pdfSelectedMonth = activeMonth;
+    document.querySelectorAll('.pdf-opt').forEach(function(el) {
+      el.classList.toggle('selected', el.dataset.month === pdfSelectedMonth);
+    });
+    document.getElementById('pdf-modal').style.display = 'flex';
+  }
+
+  function selectPdfOpt(el, month) {
+    pdfSelectedMonth = month;
+    document.querySelectorAll('.pdf-opt').forEach(function(o) { o.classList.remove('selected'); });
+    el.classList.add('selected');
+  }
+
+  function closePdfModal() {
+    document.getElementById('pdf-modal').style.display = 'none';
+  }
+
+  function executePrint() {
+    closePdfModal();
+    switchTab(pdfSelectedMonth);
+    var label = TAB_LABELS[pdfSelectedMonth] || 'Report';
+    var slug = 'P-PINK-Report-' + label.toLowerCase()
       .replace(/\s+/g, '-')
       .replace(/[^\w-]/g, '')
       .replace(/--+/g, '-');
     var prev = document.title;
-    document.title = 'P-PINK-Report-' + slug;
-    window.print();
-    setTimeout(function() { document.title = prev; }, 2000);
+    document.title = slug;
+    setTimeout(function() {
+      window.print();
+      setTimeout(function() { document.title = prev; }, 2000);
+    }, 350);
   }
 
   /* ===================== TRENDY DATA ===================== */
@@ -1358,5 +1451,41 @@
   <div class="footer" id="report-footer">Report zpracoval tým P-PINK &bull; Duben 2026</div>
 
 </div>
+<!-- PDF MODAL -->
+<div id="pdf-modal">
+  <div id="pdf-box">
+    <div class="pdf-modal-title">Stáhnout jako PDF</div>
+    <div class="pdf-modal-sub">Vyberte obsah, který chcete exportovat</div>
+    <div class="pdf-opt" data-month="brezen" onclick="selectPdfOpt(this,'brezen')">
+      <div class="pdf-opt-icon">📋</div>
+      <div class="pdf-opt-info">
+        <div class="pdf-opt-label">Březen 2026</div>
+        <div class="pdf-opt-sub">Měsíční report – březen</div>
+      </div>
+      <div class="pdf-opt-check">✓</div>
+    </div>
+    <div class="pdf-opt" data-month="duben" onclick="selectPdfOpt(this,'duben')">
+      <div class="pdf-opt-icon">📋</div>
+      <div class="pdf-opt-info">
+        <div class="pdf-opt-label">Duben 2026</div>
+        <div class="pdf-opt-sub">Měsíční report – duben</div>
+      </div>
+      <div class="pdf-opt-check">✓</div>
+    </div>
+    <div class="pdf-opt" data-month="trendy" onclick="selectPdfOpt(this,'trendy')">
+      <div class="pdf-opt-icon">📈</div>
+      <div class="pdf-opt-info">
+        <div class="pdf-opt-label">Trendy</div>
+        <div class="pdf-opt-sub">Meziměsíční přehled a grafy</div>
+      </div>
+      <div class="pdf-opt-check">✓</div>
+    </div>
+    <div class="pdf-modal-btns">
+      <button class="pdf-modal-btn-cancel" onclick="closePdfModal()">Zrušit</button>
+      <button class="pdf-modal-btn-primary" onclick="executePrint()">Stáhnout PDF</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
