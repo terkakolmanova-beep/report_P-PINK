@@ -446,34 +446,28 @@
     months: ['Březen', 'Duben'],
     hodin:              [63,           126.7],
     subjekty:           [22,           23],
-    faktury_pocet:      [16,           null],
     faktury_hodnota:    [42650,        8850],
     inkubace:           [1,            2],
     akcelerace:         [2,            2],
-    pipeline:           [24,           null],
-    prijmy:             [11673718.79,  null],
-    naklady:            [5002872.40,   null],
-    stav_uctu:          [8097532.98,   null],
+    prijmy:             [8879760,      2019947],
+    naklady:            [1665223,      1718061],
+    stav_uctu:          [8097532.98,   7637114],
     pinkaka_prihlaseni: [111,          null],
     pinkaka_pritomni:   [70,           null],
     pinkaka_absolventi: [null,         21],
     idz_akce:           [32,           38],
     idz_studenti:       [567,          665],
     idz_skoly:          [12,           11],
-    idz_pedagogove:     [null,         null],
-    virtualni_sidlo:    [4,            null],
-    coworking_osoby:    [null,         22]
+    virtualni_sidlo:    [4,            3]
   };
 
   var TREND_ROWS = [
     { cat: 'Konzultace, inkubace, akcelerace' },
     { label: 'Hodin konzultací celkem',    key: 'hodin',             fmt: function(v){ return v; } },
     { label: 'Konzultované subjekty',      key: 'subjekty',          fmt: function(v){ return v; } },
-    { label: 'Vystavené faktury (počet)',  key: 'faktury_pocet',     fmt: function(v){ return v; } },
     { label: 'Tržby z konzultací',         key: 'faktury_hodnota',   fmt: fmtKc },
     { label: 'Inkubované subjekty',        key: 'inkubace',          fmt: function(v){ return v; } },
     { label: 'Akcelerované subjekty',      key: 'akcelerace',        fmt: function(v){ return v; } },
-    { label: 'Pipeline – celkem projektů', key: 'pipeline',          fmt: function(v){ return v; } },
     { cat: 'Finance' },
     { label: 'Příjmy',                     key: 'prijmy',            fmt: fmtKc },
     { label: 'Náklady',                    key: 'naklady',           fmt: fmtKc },
@@ -487,8 +481,7 @@
     { label: 'Zapojení studenti a žáci',   key: 'idz_studenti',      fmt: function(v){ return v; } },
     { label: 'Zapojené školy',             key: 'idz_skoly',         fmt: function(v){ return v; } },
     { cat: 'Budova' },
-    { label: 'Souhlasy virtuální sídlo',   key: 'virtualni_sidlo',   fmt: function(v){ return v; } },
-    { label: 'Obsazení coworkingu (osob)', key: 'coworking_osoby',   fmt: function(v){ return v; } }
+    { label: 'Nová virtuální sídla',       key: 'virtualni_sidlo',   fmt: function(v){ return v; } }
   ];
 
   function fmtKc(v) {
@@ -622,8 +615,7 @@
       data: {
         labels: M,
         datasets: [
-          { label: 'Virtuální sídlo (souhlasy)', data: MDATA.virtualni_sidlo, backgroundColor: C1 + 'cc', borderRadius: 4 },
-          { label: 'Coworking (osoby)',          data: MDATA.coworking_osoby, backgroundColor: C2 + 'cc', borderRadius: 4 }
+          { label: 'Nová virtuální sídla', data: MDATA.virtualni_sidlo, backgroundColor: C1 + 'cc', borderRadius: 4 }
         ]
       },
       options: baseOpts()
