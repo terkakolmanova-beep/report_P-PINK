@@ -313,6 +313,12 @@
     .pdf-btn { display: none; }
     .info-tip { display: none; }
     #pdf-modal { display: none !important; }
+    /* Režim tisk vše – zobrazit všechny záložky za sebou */
+    body.print-all #tab-brezen,
+    body.print-all #tab-duben,
+    body.print-all #tab-trendy { display: block !important; }
+    body.print-all #tab-brezen { page-break-after: always; break-after: page; }
+    body.print-all #tab-duben  { page-break-after: always; break-after: page; }
 
     /* Stránka – odebrat overflow:hidden aby se obsah nelámala/neořezával */
     .page {
@@ -520,18 +526,35 @@
 
   function executePrint() {
     closePdfModal();
-    switchTab(pdfSelectedMonth);
-    var label = TAB_LABELS[pdfSelectedMonth] || 'Report';
-    var slug = 'P-PINK-Report-' + label.toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/[^\w-]/g, '')
-      .replace(/--+/g, '-');
     var prev = document.title;
-    document.title = slug;
-    setTimeout(function() {
-      window.print();
-      setTimeout(function() { document.title = prev; }, 2000);
-    }, 350);
+
+    if (pdfSelectedMonth === 'vse') {
+      // Zajistit že grafy jsou vyrenderované
+      buildTrendTable(); buildCharts();
+      document.body.classList.add('print-all');
+      document.title = 'P-PINK-Report-brezen-duben-trendy';
+      setTimeout(function() {
+        window.print();
+        setTimeout(function() {
+          document.body.classList.remove('print-all');
+          document.title = prev;
+          // Obnovit původní stav záložek
+          switchTab(activeMonth);
+        }, 2000);
+      }, 400);
+    } else {
+      switchTab(pdfSelectedMonth);
+      var label = TAB_LABELS[pdfSelectedMonth] || 'Report';
+      var slug = 'P-PINK-Report-' + label.toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w-]/g, '')
+        .replace(/--+/g, '-');
+      document.title = slug;
+      setTimeout(function() {
+        window.print();
+        setTimeout(function() { document.title = prev; }, 2000);
+      }, 350);
+    }
   }
 
   /* ===================== TRENDY DATA ===================== */
@@ -1477,6 +1500,14 @@
       <div class="pdf-opt-info">
         <div class="pdf-opt-label">Trendy</div>
         <div class="pdf-opt-sub">Meziměsíční přehled a grafy</div>
+      </div>
+      <div class="pdf-opt-check">✓</div>
+    </div>
+    <div class="pdf-opt" data-month="vse" onclick="selectPdfOpt(this,'vse')">
+      <div class="pdf-opt-icon">📦</div>
+      <div class="pdf-opt-info">
+        <div class="pdf-opt-label">Vše naráz</div>
+        <div class="pdf-opt-sub">Březen + Duben + Trendy za sebou</div>
       </div>
       <div class="pdf-opt-check">✓</div>
     </div>
