@@ -457,8 +457,9 @@
     pinkaka_absolventi: [null,         21],
     idz_akce:           [32,           38],
     idz_studenti:       [567,          665],
-    idz_skoly:          [12,           11],
-    virtualni_sidlo:    [4,            3]
+    idz_skoly:          [13,           24],
+    virtualni_sidlo:    [4,            3],
+    poptavky_coworking: [3,            3]
   };
 
   var TREND_ROWS = [
@@ -479,9 +480,10 @@
     { cat: 'IDZ' },
     { label: 'Počet akcí',                 key: 'idz_akce',          fmt: function(v){ return v; } },
     { label: 'Zapojení studenti a žáci',   key: 'idz_studenti',      fmt: function(v){ return v; } },
-    { label: 'Zapojené školy',             key: 'idz_skoly',         fmt: function(v){ return v; } },
+    { label: 'Zapojené školy (kumulativně)',key: 'idz_skoly',         fmt: function(v){ return v; } },
     { cat: 'Budova' },
-    { label: 'Nová virtuální sídla',       key: 'virtualni_sidlo',   fmt: function(v){ return v; } }
+    { label: 'Nová virtuální sídla',       key: 'virtualni_sidlo',   fmt: function(v){ return v; } },
+    { label: 'Poptávky coworking',         key: 'poptavky_coworking',fmt: function(v){ return v; } }
   ];
 
   function fmtKc(v) {
@@ -650,7 +652,7 @@
       <div class="kpi"><div class="kpi-val">63</div><div class="kpi-lbl">Odkonzultovaných hodin</div></div>
       <div class="kpi"><div class="kpi-val">22</div><div class="kpi-lbl">Konzultované subjekty</div></div>
       <div class="kpi"><div class="kpi-val">16</div><div class="kpi-lbl">Vystavené faktury z konzultační činnosti</div></div>
-      <div class="kpi"><div class="kpi-val">42 650 Kč</div><div class="kpi-lbl">Hodnota vystavených faktur z konzultační činnosti</div></div>
+      <div class="kpi"><div class="kpi-val">42 650 Kč</div><div class="kpi-lbl">Tržby z konzultací</div></div>
       <div class="kpi"><div class="kpi-val">1</div><div class="kpi-lbl">Inkubované subjekty</div></div>
       <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
       <div class="kpi"><div class="kpi-val">4</div><div class="kpi-lbl">Souhlasy virtuální sídlo</div></div>
@@ -671,7 +673,7 @@
           <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">22</span></div>
           <div class="prog-stat"><span class="prog-sl">Hodin celkem</span><span class="prog-sv">63 hod</span></div>
           <div class="prog-stat"><span class="prog-sl">Vystavené faktury</span><span class="prog-sv">16</span></div>
-          <div class="prog-stat"><span class="prog-sl">Hodnota faktur</span><span class="prog-sv">42 650 Kč</span></div>
+          <div class="prog-stat"><span class="prog-sl">Tržby z konzultací</span><span class="prog-sv">42 650 Kč</span></div>
           <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">Příklady konzultovaných subjektů</span><span class="prog-sv" style="font-size:10px;">Investory, Glitr, F. Stretz</span></div>
         </div>
       </div>
@@ -754,7 +756,7 @@
     <div class="card">
       <div class="row"><span class="rl">Počet akcí</span><span class="rv">32</span></div>
       <div class="row"><span class="rl">Zapojených studentů</span><span class="rv">567</span></div>
-      <div class="row"><span class="rl">Zapojených škol</span><span class="rv">12</span></div>
+      <div class="row"><span class="rl">Zapojených škol (nových / kumulativně)</span><span class="rv">3 / 13</span></div>
       <div class="row"><span class="rl">Predikce škol na celý rok 2026</span><span class="rv">25</span></div>
     </div>
 
@@ -1084,7 +1086,7 @@
     <div class="card">
       <div class="row"><span class="rl">Počet akcí</span><span class="rv">38</span></div>
       <div class="row"><span class="rl">Zapojených žáků a studentů</span><span class="rv">665</span></div>
-      <div class="row"><span class="rl">Zapojených škol</span><span class="rv">11</span></div>
+      <div class="row"><span class="rl">Zapojených škol (nových / kumulativně)</span><span class="rv">11 / 24</span></div>
       <div class="row"><span class="rl">Zapojených pedagogů na akcích</span><span class="rv">38</span></div>
       <div class="row"><span class="rl">Predikce škol na celý rok 2026</span><span class="rv">25</span></div>
     </div>
@@ -1342,7 +1344,7 @@
         <div class="chart-title">IDZ – Podnikavost pro středoškoláky</div>
         <canvas id="chart-idz"></canvas>
       </div>
-      <div class="chart-card" style="grid-column:1/-1;">
+      <div class="chart-card">
         <div class="chart-title">Budova</div>
         <canvas id="chart-budova" style="max-height:180px;"></canvas>
       </div>
