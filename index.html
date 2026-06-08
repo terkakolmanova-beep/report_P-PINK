@@ -704,19 +704,33 @@
     });
 
     /* 3 – PINKaka */
+    var sumNonNull = function(arr) { return arr.reduce(function(a, v) { return a + (v != null ? v : 0); }, 0); };
     new Chart(document.getElementById('chart-pinkaka'), {
       type: 'bar',
       data: {
-        labels: M,
-        datasets: [
-          { label: 'Přihlášení',          data: MDATA.pinkaka_prihlaseni, backgroundColor: C1 + 'cc', borderRadius: 4, yAxisID: 'y' },
-          { label: 'Na 1. setkání',        data: MDATA.pinkaka_pritomni,   backgroundColor: C2 + 'cc', borderRadius: 4, yAxisID: 'y' },
-          { label: 'Absolventi programu', data: MDATA.pinkaka_absolventi,  backgroundColor: C3 + 'cc', borderRadius: 4, yAxisID: 'y' }
-        ]
+        labels: ['Přihlášení', 'Na 1. setkání', 'Absolventi programu'],
+        datasets: [{
+          data: [
+            sumNonNull(MDATA.pinkaka_prihlaseni),
+            sumNonNull(MDATA.pinkaka_pritomni),
+            sumNonNull(MDATA.pinkaka_absolventi)
+          ],
+          backgroundColor: [C1 + 'cc', C2 + 'cc', C3 + 'cc'],
+          borderRadius: 6
+        }]
       },
-      options: baseOpts({
-        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Počet osob', font: { size: 9 }, color: '#999' }, ticks: { font: { size: 10 }, color: '#666' }, grid: { color: '#f5eef5' } }
-      })
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: function(ctx) { return ctx.parsed.y + ' osob'; } } }
+        },
+        scales: {
+          x: { ticks: { font: { size: 11 }, color: '#555' }, grid: { display: false } },
+          y: { beginAtZero: true, ticks: { font: { size: 10 }, color: '#666' }, grid: { color: '#f5eef5' } }
+        }
+      }
     });
 
     /* 4 – IDZ */
