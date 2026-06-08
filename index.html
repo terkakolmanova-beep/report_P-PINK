@@ -565,7 +565,7 @@
   /* ===================== TRENDY DATA ===================== */
   var MDATA = {
     months: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen'],
-    hodin:              [null,         null,          63,            126.7,         131.4],
+    hodin:              [15.4,         35.7,          63,            126.7,         131.4],
     subjekty:           [12,           21,            22,            23,            25],
     faktury_hodnota:    [2250,         8000,          42650,         8850,          26600],
     inkubace:           [2,            3,             1,             2,             3],
@@ -586,7 +586,7 @@
 
   var TREND_ROWS = [
     { cat: 'Konzultace, inkubace, akcelerace' },
-    { label: 'Hodin konzultací celkem',    key: 'hodin',             fmt: function(v){ return v; } },
+    { label: 'Hodin konzultací celkem',    key: 'hodin',             fmt: function(v){ return v !== null ? (v+'').replace('.',',') + ' hod' : '—'; } },
     { label: 'Konzultované subjekty',      key: 'subjekty',          fmt: function(v){ return v; } },
     { label: 'Tržby z konzultací',         key: 'faktury_hodnota',   fmt: fmtKc },
     { label: 'Inkubované subjekty',        key: 'inkubace',          fmt: function(v){ return v; } },
