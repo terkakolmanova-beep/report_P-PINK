@@ -314,10 +314,14 @@
     .info-tip { display: none; }
     #pdf-modal { display: none !important; }
     /* Režim tisk vše – zobrazit všechny záložky za sebou */
+    body.print-all #tab-leden,
+    body.print-all #tab-unor,
     body.print-all #tab-brezen,
     body.print-all #tab-duben,
     body.print-all #tab-kveten,
     body.print-all #tab-trendy { display: block !important; }
+    body.print-all #tab-leden  { page-break-after: always; break-after: page; }
+    body.print-all #tab-unor   { page-break-after: always; break-after: page; }
     body.print-all #tab-brezen { page-break-after: always; break-after: page; }
     body.print-all #tab-duben  { page-break-after: always; break-after: page; }
     body.print-all #tab-kveten { page-break-after: always; break-after: page; }
@@ -489,12 +493,12 @@
     if (e.key === 'Enter') checkPassword();
   });
 
-  var TAB_LABELS = { brezen: 'Březen 2026', duben: 'Duben 2026', kveten: 'Květen 2026', trendy: 'Trendy' };
-  var activeMonth = 'brezen';
+  var TAB_LABELS = { leden: 'Leden 2026', unor: 'Únor 2026', brezen: 'Březen 2026', duben: 'Duben 2026', kveten: 'Květen 2026', trendy: 'Trendy' };
+  var activeMonth = 'leden';
 
   function switchTab(month) {
     activeMonth = month;
-    ['brezen','duben','kveten','trendy'].forEach(function(m) {
+    ['leden','unor','brezen','duben','kveten','trendy'].forEach(function(m) {
       document.getElementById('tab-' + m).style.display = m === month ? '' : 'none';
       document.getElementById('tab-btn-' + m).classList.toggle('active', m === month);
     });
@@ -505,7 +509,7 @@
     if (month === 'trendy') { buildTrendTable(); buildCharts(); }
   }
 
-  var pdfSelectedMonth = 'brezen';
+  var pdfSelectedMonth = 'leden';
 
   function downloadPDF() {
     pdfSelectedMonth = activeMonth;
@@ -533,7 +537,7 @@
       // Zajistit že grafy jsou vyrenderované
       buildTrendTable(); buildCharts();
       document.body.classList.add('print-all');
-      document.title = 'P-PINK-Report-brezen-duben-kveten-trendy';
+      document.title = 'P-PINK-Report-leden-unor-brezen-duben-kveten-trendy';
       setTimeout(function() {
         window.print();
         setTimeout(function() {
@@ -560,24 +564,24 @@
 
   /* ===================== TRENDY DATA ===================== */
   var MDATA = {
-    months: ['Březen', 'Duben', 'Květen'],
-    hodin:              [63,           126.7,         106.4],
-    subjekty:           [22,           23,            25],
-    faktury_hodnota:    [42650,        8850,          26600],
-    inkubace:           [1,            2,             3],
-    akcelerace:         [2,            2,             3],
-    prijmy:             [8879760,      1257942,       7001839],
-    naklady:            [1665523,      1718361,       5058968],
-    stav_uctu:          [8097532.98,   7637114,       9579984.16],
-    pinkaka_prihlaseni: [111,          null,          null],
-    pinkaka_pritomni:   [70,           null,          null],
-    pinkaka_absolventi: [null,         21,            32],
-    trzby_pinkaka:      [null,         null,          200000],
-    idz_akce:           [32,           38,            null],
-    idz_studenti:       [567,          665,           null],
-    idz_skoly:          [13,           24,            null],
-    virtualni_sidlo:    [4,            3,             2],
-    poptavky_coworking: [3,            3,             7]
+    months: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen'],
+    hodin:              [null,         null,          63,            126.7,         106.4],
+    subjekty:           [12,           21,            22,            23,            25],
+    faktury_hodnota:    [2250,         8000,          42650,         8850,          26600],
+    inkubace:           [null,         null,          1,             2,             3],
+    akcelerace:         [null,         null,          2,             2,             3],
+    prijmy:             [611773,       2182185,       8879760,       1257942,       7001839],
+    naklady:            [574593,       2762756,       1665523,       1718361,       5058968],
+    stav_uctu:          [1463866.40,   883295.80,     8097532.98,    7637114,       9579984.16],
+    pinkaka_prihlaseni: [null,         null,          111,           null,          null],
+    pinkaka_pritomni:   [null,         null,          70,            null,          null],
+    pinkaka_absolventi: [null,         null,          null,          21,            32],
+    trzby_pinkaka:      [null,         null,          null,          null,          200000],
+    idz_akce:           [null,         null,          32,            38,            null],
+    idz_studenti:       [305,          349,           567,           665,           null],
+    idz_skoly:          [3,            10,            13,            24,            null],
+    virtualni_sidlo:    [null,         1,             4,             3,             2],
+    poptavky_coworking: [3,            5,             3,             3,             7]
   };
 
   var TREND_ROWS = [
@@ -761,7 +765,9 @@
   </div>
 
   <div class="month-tabs">
-    <div class="month-tab active" id="tab-btn-brezen" onclick="switchTab('brezen')">Březen 2026</div>
+    <div class="month-tab active" id="tab-btn-leden" onclick="switchTab('leden')">Leden 2026</div>
+    <div class="month-tab" id="tab-btn-unor" onclick="switchTab('unor')">Únor 2026</div>
+    <div class="month-tab" id="tab-btn-brezen" onclick="switchTab('brezen')">Březen 2026</div>
     <div class="month-tab" id="tab-btn-duben" onclick="switchTab('duben')">Duben 2026</div>
     <div class="month-tab" id="tab-btn-kveten" onclick="switchTab('kveten')">Květen 2026</div>
     <div class="month-tab" id="tab-btn-trendy" onclick="switchTab('trendy')">📈 Trendy</div>
@@ -769,7 +775,209 @@
 
   <div class="body">
 
-  <div id="tab-brezen">
+  <div id="tab-leden">
+
+    <div class="sec-label">KPI hlavní činnosti – konzultace</div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-val">7,8</div><div class="kpi-lbl">Hodin úvodních konzultací</div></div>
+      <div class="kpi"><div class="kpi-val">7,6</div><div class="kpi-lbl">Hodin placených konzultací</div></div>
+      <div class="kpi"><div class="kpi-val">12</div><div class="kpi-lbl">Konzultované subjekty</div></div>
+      <div class="kpi"><div class="kpi-val">7</div><div class="kpi-lbl">Poptávka po konzultacích</div></div>
+      <div class="kpi"><div class="kpi-val">2 250 Kč</div><div class="kpi-lbl">Tržby z konzultací</div></div>
+      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Zapojené školy IDZ</div></div>
+      <div class="kpi"><div class="kpi-val">305</div><div class="kpi-lbl">Zapojení žáci IDZ</div></div>
+      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Poptávky coworking</div></div>
+    </div>
+
+    <div class="sec-label">Konzultace</div>
+    <div class="prog-row">
+      <div class="prog-head">
+        <div class="prog-head-title">Konzultace</div>
+        <div class="prog-head-tag">Subjekty s konkrétním problémem</div>
+      </div>
+      <div class="prog-body">
+        <p class="prog-desc">Flexibilní individuální podpora zaměřená na různé oblasti podnikání. Jednorázové nebo balíčkové služby přizpůsobené potřebám subjektu.</p>
+        <div class="prog-stats-grid">
+          <div class="prog-stat"><span class="prog-sl">Poptávka po konzultacích</span><span class="prog-sv">7</span></div>
+          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">12</span></div>
+          <div class="prog-stat"><span class="prog-sl">Hodin úvodních</span><span class="prog-sv">7,8 hod</span></div>
+          <div class="prog-stat"><span class="prog-sl">Hodin placených</span><span class="prog-sv">7,6 hod</span></div>
+          <div class="prog-stat"><span class="prog-sl">Tržby z konzultací</span><span class="prog-sv">2 250 Kč</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label">IDZ – Podnikavost pro středoškoláky</div>
+    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Projekt zaměřený na rozvoj podnikavého myšlení středoškoláků prostřednictvím workshopů, exkurzí a setkání s podnikateli. <a href="https://p-pink.cz/podnikavost-pro-stredoskolaky-idz/" target="_blank" style="color:#922790;font-weight:600;">Více na p-pink.cz →</a></p>
+    <div class="card">
+      <div class="row"><span class="rl">Zapojených škol (nových v lednu)</span><span class="rv">3</span></div>
+      <div class="row"><span class="rl">Zapojených žáků a studentů</span><span class="rv">305</span></div>
+      <div class="row"><span class="rl">Zapojených pedagogů</span><span class="rv">3</span></div>
+    </div>
+
+    <div class="sec-label">Budova</div>
+    <div class="three" style="margin-bottom:10px;">
+      <div class="card">
+        <div class="card-title">Coworking</div>
+        <div class="row"><span class="rl">10denní (obsazenost)</span><span class="rv">9 osob</span></div>
+        <div class="row"><span class="rl">Flexi (obsazenost)</span><span class="rv">5 osob</span></div>
+        <div class="row"><span class="rl">Fix (obsazenost)</span><span class="rv">5 osob</span></div>
+        <div class="row"><span class="rl">Poptávky</span><span class="rv">3</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Zasedací místnosti</div>
+        <div class="row"><span class="rl">Konferenční (obsazenost)</span><span class="rv">18 dní</span></div>
+        <div class="row"><span class="rl">Jednací (obsazenost)</span><span class="rv">21 dní</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Kanceláře &amp; Virtuální sídla</div>
+        <div class="row"><span class="rl">Poptávky kanceláře</span><span class="rv">2</span></div>
+        <div class="row"><span class="rl">Virtuální sídla P-PINK (celkem)</span><span class="rv">71</span></div>
+        <div class="row"><span class="rl">Virtuální sídla TO-PINK (celkem)</span><span class="rv">7</span></div>
+      </div>
+    </div>
+
+    <div class="sec-label">Finance</div>
+    <div class="cf-card" style="margin-bottom:10px;">
+      <div class="cf-label">Stav na bankovních účtech k 31. 1. 2026 (3 účty)</div>
+      <div class="cf-val">1 463 866 Kč</div>
+    </div>
+    <div class="card" style="margin-bottom:10px;">
+      <div class="card-title">Příjmy a náklady – leden</div>
+      <div class="row"><span class="rl">Příjmy</span><span class="rv g">611 773 Kč</span></div>
+      <div class="row"><span class="rl">Náklady</span><span class="rv r">574 593 Kč</span></div>
+    </div>
+    <div class="card" style="margin-bottom:10px;">
+      <div class="card-title">Přehled dotací</div>
+      <div class="row"><span class="rl">Podaný záměr dotace</span><span class="rv"><span class="pill p-amber">1 záměr podán</span></span></div>
+    </div>
+
+    <div class="sec-label">Lidské zdroje a kapacity</div>
+    <div class="fte-grid">
+      <div class="fte-card"><div class="fte-val">7</div><div class="fte-type">HPP</div><div class="fte-note">Hlavní pracovní poměr</div></div>
+      <div class="fte-card"><div class="fte-val">4</div><div class="fte-type">DPČ</div><div class="fte-note">Dohoda o pracovní činnosti</div></div>
+      <div class="fte-card"><div class="fte-val">8</div><div class="fte-type">DPP</div><div class="fte-note">Dohoda o provedení práce</div></div>
+      <div class="fte-card"><div class="fte-val">18</div><div class="fte-type">Externisté</div><div class="fte-note">Smlouva o spolupráci</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">FTE a vytížení</div>
+      <div class="row"><span class="rl">Průměrné FTE (zaměstnanci)</span><span class="rv">7,20</span></div>
+    </div>
+
+  </div><!-- /tab-leden -->
+
+  <div id="tab-unor" style="display:none;">
+
+    <div class="sec-label">KPI hlavní činnosti – konzultace</div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-val">18,6</div><div class="kpi-lbl">Hodin úvodních konzultací</div></div>
+      <div class="kpi"><div class="kpi-val">17,1</div><div class="kpi-lbl">Hodin placených konzultací</div></div>
+      <div class="kpi"><div class="kpi-val">21</div><div class="kpi-lbl">Konzultované subjekty</div></div>
+      <div class="kpi"><div class="kpi-val">11</div><div class="kpi-lbl">Poptávka po konzultacích</div></div>
+      <div class="kpi"><div class="kpi-val">8 000 Kč</div><div class="kpi-lbl">Tržby z konzultací</div></div>
+      <div class="kpi"><div class="kpi-val">7</div><div class="kpi-lbl">Nové školy IDZ</div></div>
+      <div class="kpi"><div class="kpi-val">349</div><div class="kpi-lbl">Zapojení žáci IDZ</div></div>
+      <div class="kpi"><div class="kpi-val">5</div><div class="kpi-lbl">Poptávky coworking</div></div>
+    </div>
+
+    <div class="sec-label">Konzultace</div>
+    <div class="prog-row">
+      <div class="prog-head">
+        <div class="prog-head-title">Konzultace</div>
+        <div class="prog-head-tag">Subjekty s konkrétním problémem</div>
+      </div>
+      <div class="prog-body">
+        <p class="prog-desc">Flexibilní individuální podpora zaměřená na různé oblasti podnikání. Jednorázové nebo balíčkové služby přizpůsobené potřebám subjektu.</p>
+        <div class="prog-stats-grid">
+          <div class="prog-stat"><span class="prog-sl">Poptávka po konzultacích</span><span class="prog-sv">11</span></div>
+          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">21</span></div>
+          <div class="prog-stat"><span class="prog-sl">Hodin úvodních</span><span class="prog-sv">18,6 hod</span></div>
+          <div class="prog-stat"><span class="prog-sl">Hodin placených</span><span class="prog-sv">17,1 hod</span></div>
+          <div class="prog-stat"><span class="prog-sl">Tržby z konzultací</span><span class="prog-sv">8 000 Kč</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label">IDZ – Podnikavost pro středoškoláky</div>
+    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Projekt zaměřený na rozvoj podnikavého myšlení středoškoláků prostřednictvím workshopů, exkurzí a setkání s podnikateli. <a href="https://p-pink.cz/podnikavost-pro-stredoskolaky-idz/" target="_blank" style="color:#922790;font-weight:600;">Více na p-pink.cz →</a></p>
+    <div class="card" style="margin-bottom:10px;">
+      <div class="row"><span class="rl">Zapojených škol (nových v únoru)</span><span class="rv">7</span></div>
+      <div class="row"><span class="rl">Zapojených žáků a studentů</span><span class="rv">349</span></div>
+      <div class="row"><span class="rl">Zapojených pedagogů</span><span class="rv">21</span></div>
+    </div>
+
+    <div class="sec-label">Festival vědy a techniky (FVT)</div>
+    <div class="card" style="margin-bottom:10px;">
+      <div class="row"><span class="rl">Počet projektů</span><span class="rv">91</span></div>
+      <div class="row"><span class="rl">Počet studentů</span><span class="rv">120</span></div>
+      <div class="row"><span class="rl">Počet škol</span><span class="rv">19</span></div>
+    </div>
+
+    <div class="sec-label">CHEERS4EU + Cirkulární hub</div>
+    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Pilotní projekt zaměřený na rozvoj cirkulární ekonomiky ve městech Pardubického kraje. <a href="https://cirkularni-hub.cz" target="_blank" style="color:#922790;font-weight:600;">Více na cirkularni-hub.cz →</a></p>
+    <div class="card" style="margin-bottom:10px;">
+      <div class="row"><span class="rl">Realizovaných CE skenů</span><span class="rv">1</span></div>
+    </div>
+
+    <div class="sec-label">Budova</div>
+    <div class="three" style="margin-bottom:10px;">
+      <div class="card">
+        <div class="card-title">Coworking</div>
+        <div class="row"><span class="rl">10denní (obsazenost)</span><span class="rv">9 osob</span></div>
+        <div class="row"><span class="rl">Flexi (obsazenost)</span><span class="rv">5 osob</span></div>
+        <div class="row"><span class="rl">Fix (obsazenost)</span><span class="rv">5 osob</span></div>
+        <div class="row"><span class="rl">Poptávky</span><span class="rv">5</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Zasedací místnosti</div>
+        <div class="row"><span class="rl">Konferenční (obsazenost)</span><span class="rv">17 dní</span></div>
+        <div class="row"><span class="rl">Jednací (obsazenost)</span><span class="rv">17 dní</span></div>
+        <div class="row"><span class="rl">Multimediální místnost</span><span class="rv">2 hod</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Kanceláře &amp; Virtuální sídla</div>
+        <div class="row"><span class="rl">Poptávky kanceláře</span><span class="rv">1</span></div>
+        <div class="row"><span class="rl">Virtuální sídla P-PINK (celkem)</span><span class="rv">72</span></div>
+        <div class="row"><span class="rl">Virtuální sídla TO-PINK (celkem)</span><span class="rv">7</span></div>
+      </div>
+    </div>
+
+    <div class="sec-label">Finance</div>
+    <div class="cf-card" style="margin-bottom:10px;">
+      <div class="cf-label">Stav na bankovních účtech k 28. 2. 2026 (3 účty)</div>
+      <div class="cf-val">883 296 Kč</div>
+    </div>
+    <div class="card" style="margin-bottom:10px;">
+      <div class="card-title">Příjmy a náklady – únor</div>
+      <div class="row"><span class="rl">Příjmy</span><span class="rv g">2 182 185 Kč</span></div>
+      <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–únor)</span><span class="rv" style="color:#999;">2 793 958 Kč</span></div>
+      <div class="row"><span class="rl">Náklady</span><span class="rv r">2 762 756 Kč</span></div>
+      <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–únor)</span><span class="rv" style="color:#999;">3 337 349 Kč</span></div>
+    </div>
+    <div class="card" style="margin-bottom:10px;">
+      <div class="card-title">Přehled dotací</div>
+      <div class="row">
+        <span class="rl">CHEERS4EU – 2. semestr</span>
+        <span class="rv g">796 450 Kč <span class="pill p-green" style="font-size:9px;">obdržena</span></span>
+      </div>
+      <p class="note">Náklady únoru zahrnují finanční výpomoc 1 000 000 Kč Pardubickému kraji (IDZ).</p>
+    </div>
+
+    <div class="sec-label">Lidské zdroje a kapacity</div>
+    <div class="fte-grid">
+      <div class="fte-card"><div class="fte-val">7</div><div class="fte-type">HPP</div><div class="fte-note">Hlavní pracovní poměr</div></div>
+      <div class="fte-card"><div class="fte-val">5</div><div class="fte-type">DPČ</div><div class="fte-note">Dohoda o pracovní činnosti</div></div>
+      <div class="fte-card"><div class="fte-val">9</div><div class="fte-type">DPP</div><div class="fte-note">Dohoda o provedení práce</div></div>
+      <div class="fte-card"><div class="fte-val">18</div><div class="fte-type">Externisté</div><div class="fte-note">Smlouva o spolupráci</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">FTE a vytížení</div>
+      <div class="row"><span class="rl">Průměrné FTE (zaměstnanci)</span><span class="rv">7,84</span></div>
+    </div>
+
+  </div><!-- /tab-unor -->
+
+  <div id="tab-brezen" style="display:none;">
 
     <!-- KPI -->
     <div class="sec-label">KPI hlavní činnosti – konzultace, inkubace, akcelerace</div>
@@ -1590,6 +1798,7 @@
     <div class="card">
       <div class="row"><span class="rl">Dotace – 3. semestr</span><span class="rv g">762 005 Kč (24 191,17 EUR)</span></div>
       <div class="row"><span class="rl">Počet cirkulárních skenů v květnu</span><span class="rv">1</span></div>
+      <div class="row"><span class="rl">Fakturace CE sken</span><span class="rv g">38 264 Kč</span></div>
       <div class="row"><span class="rl">CE sken Letohrad</span><span class="rv"><span class="pill p-green">odevzdán 29. 5.</span></span></div>
       <div class="row"><span class="rl">CE sken Žďár nad Sázavou</span><span class="rv"><span class="pill p-amber">v průběhu</span></span></div>
     </div>
@@ -1667,6 +1876,8 @@
         <thead>
           <tr>
             <th style="min-width:200px;">Ukazatel</th>
+            <th>Leden 2026</th>
+            <th>Únor 2026</th>
             <th>Březen 2026</th>
             <th>Duben 2026</th>
             <th>Květen 2026</th>
@@ -1674,7 +1885,7 @@
           </tr>
         </thead>
         <tbody id="trend-tbody">
-          <tr><td colspan="5" style="text-align:center;padding:16px;color:#bbb;font-size:12px;">Načítám data…</td></tr>
+          <tr><td colspan="7" style="text-align:center;padding:16px;color:#bbb;font-size:12px;">Načítám data…</td></tr>
         </tbody>
       </table>
     </div>
@@ -1716,6 +1927,22 @@
   <div id="pdf-box">
     <div class="pdf-modal-title">Stáhnout jako PDF</div>
     <div class="pdf-modal-sub">Vyberte obsah, který chcete exportovat</div>
+    <div class="pdf-opt selected" data-month="leden" onclick="selectPdfOpt(this,'leden')">
+      <div class="pdf-opt-icon">📋</div>
+      <div class="pdf-opt-info">
+        <div class="pdf-opt-label">Leden 2026</div>
+        <div class="pdf-opt-sub">Měsíční report – leden</div>
+      </div>
+      <div class="pdf-opt-check">✓</div>
+    </div>
+    <div class="pdf-opt" data-month="unor" onclick="selectPdfOpt(this,'unor')">
+      <div class="pdf-opt-icon">📋</div>
+      <div class="pdf-opt-info">
+        <div class="pdf-opt-label">Únor 2026</div>
+        <div class="pdf-opt-sub">Měsíční report – únor</div>
+      </div>
+      <div class="pdf-opt-check">✓</div>
+    </div>
     <div class="pdf-opt" data-month="brezen" onclick="selectPdfOpt(this,'brezen')">
       <div class="pdf-opt-icon">📋</div>
       <div class="pdf-opt-info">
@@ -1752,7 +1979,7 @@
       <div class="pdf-opt-icon">📦</div>
       <div class="pdf-opt-info">
         <div class="pdf-opt-label">Vše naráz</div>
-        <div class="pdf-opt-sub">Březen + Duben + Květen + Trendy za sebou</div>
+        <div class="pdf-opt-sub">Leden + Únor + Březen + Duben + Květen + Trendy za sebou</div>
       </div>
       <div class="pdf-opt-check">✓</div>
     </div>
