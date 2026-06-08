@@ -576,7 +576,7 @@
     pinkaka_prihlaseni: [null,         null,          111,           null,          null],
     pinkaka_pritomni:   [null,         null,          70,            null,          null],
     pinkaka_absolventi: [null,         null,          null,          21,            32],
-    trzby_pinkaka:      [null,         null,          null,          null,          200000],
+
     idz_akce:           [null,         null,          32,            38,            25],
     idz_studenti:       [305,          349,           567,           665,           493],
     idz_skoly:          [3,            10,            13,            24,            5],
@@ -599,7 +599,7 @@
     { label: 'Přihlášení účastníci',       key: 'pinkaka_prihlaseni',fmt: function(v){ return v; } },
     { label: 'Přítomni na 1. setkání',     key: 'pinkaka_pritomni',  fmt: function(v){ return v; } },
     { label: 'Absolventi programu',        key: 'pinkaka_absolventi',fmt: function(v){ return v; } },
-    { label: 'Tržby z PINKaka',           key: 'trzby_pinkaka',     fmt: fmtKc },
+
     { cat: 'IDZ' },
     { label: 'Počet akcí',                 key: 'idz_akce',          fmt: function(v){ return v; } },
     { label: 'Zapojení studenti a žáci',   key: 'idz_studenti',      fmt: function(v){ return v; } },
@@ -711,13 +711,11 @@
         datasets: [
           { label: 'Přihlášení',          data: MDATA.pinkaka_prihlaseni, backgroundColor: C1 + 'cc', borderRadius: 4, yAxisID: 'y' },
           { label: 'Na 1. setkání',        data: MDATA.pinkaka_pritomni,   backgroundColor: C2 + 'cc', borderRadius: 4, yAxisID: 'y' },
-          { label: 'Absolventi programu', data: MDATA.pinkaka_absolventi,  backgroundColor: C3 + 'cc', borderRadius: 4, yAxisID: 'y' },
-          { label: 'Tržby z PINKaka',     data: MDATA.trzby_pinkaka,       backgroundColor: C4 + 'cc', borderRadius: 4, yAxisID: 'y1', type: 'line', borderColor: C4, pointRadius: 4 }
+          { label: 'Absolventi programu', data: MDATA.pinkaka_absolventi,  backgroundColor: C3 + 'cc', borderRadius: 4, yAxisID: 'y' }
         ]
       },
       options: baseOpts({
-        y:  { beginAtZero: true, position: 'left',  title: { display: true, text: 'Počet osob', font: { size: 9 }, color: '#999' }, ticks: { font: { size: 10 }, color: '#666' }, grid: { color: '#f5eef5' } },
-        y1: { beginAtZero: true, position: 'right', title: { display: true, text: 'Tržby (Kč)', font: { size: 9 }, color: '#999' }, ticks: { font: { size: 10 }, color: '#999', callback: function(v){ return (v/1000).toFixed(0) + ' tis.'; } }, grid: { drawOnChartArea: false } }
+        y: { beginAtZero: true, position: 'left', title: { display: true, text: 'Počet osob', font: { size: 9 }, color: '#999' }, ticks: { font: { size: 10 }, color: '#666' }, grid: { color: '#f5eef5' } }
       })
     });
 
@@ -1761,7 +1759,7 @@
       <div class="row"><span class="rl">Absolventi programu</span><span class="rv">32</span></div>
       <div class="row"><span class="rl">Města</span><span class="rv" style="font-size:11px;">Moravská Třebová, Pardubice, Hlinsko</span></div>
       <div class="row"><span class="rl">Účastníci, kteří začali podnikat</span><span class="rv">1 — Koumio (nyní konzultuje v P-PINK)</span></div>
-      <div class="row"><span class="rl">Tržby z PINKaka</span><span class="rv g">200 000 Kč</span></div>
+
     </div>
 
     <!-- IDZ -->
