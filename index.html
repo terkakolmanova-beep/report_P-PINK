@@ -234,9 +234,9 @@
     padding: 8px 12px; border-bottom: 1.5px solid #e0c8dc;
     text-align: right; white-space: nowrap; background: #fdf8fd;
   }
-  .trend-table th:first-child { text-align: left; }
+  .trend-table th:first-child { text-align: left; position: sticky; left: 0; background: #fdf8fd; z-index: 2; box-shadow: 2px 0 5px rgba(146,39,144,0.07); }
   .trend-table td { padding: 6px 12px; border-bottom: 1px solid #f4eaf4; vertical-align: middle; text-align: right; }
-  .trend-table td:first-child { text-align: left; }
+  .trend-table td:first-child { text-align: left; position: sticky; left: 0; background: #fff; z-index: 1; box-shadow: 2px 0 5px rgba(146,39,144,0.07); }
   .trend-table tr:last-child td { border-bottom: none; }
   .trend-lbl { font-size: 12px; color: #555; }
   .trend-cat { font-size: 10px; font-weight: 700; color: #922790; text-transform: uppercase; letter-spacing: 0.05em; background: #fdf8fd; }
@@ -248,7 +248,7 @@
   .trend-x    { color: #c0003a; font-size: 12px; cursor: help; opacity: 0.5; }
   .trend-table th:last-child,
   .trend-table td:last-child { position: sticky; right: 0; background: #fff; z-index: 1; box-shadow: -2px 0 6px rgba(146,39,144,0.07); }
-  .trend-cat td:last-child   { background: #fdf8fd; }
+  .trend-cat td:last-child, .trend-cat td:first-child { background: #fdf8fd; }
   .trend-cum  { color: #530048; font-weight: 700; font-size: 12px; }
   .trend-mode-dropdown { position: relative; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; white-space: nowrap; }
   .trend-mode-arrow { font-size: 9px; opacity: 0.6; }
