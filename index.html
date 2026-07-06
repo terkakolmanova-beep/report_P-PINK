@@ -400,6 +400,17 @@
       page-break-inside: avoid;
     }
 
+    /* Tisk trendů – landscape, celá tabulka viditelná */
+    body.print-trendy #tab-trendy .card[style*="overflow"] { overflow: visible !important; }
+    body.print-trendy .trend-table { font-size: 10px; width: 100%; }
+    body.print-trendy .trend-table th,
+    body.print-trendy .trend-table td { padding: 4px 7px; white-space: nowrap; }
+    body.print-trendy .trend-table th:first-child,
+    body.print-trendy .trend-table td:first-child,
+    body.print-trendy .trend-table th:last-child,
+    body.print-trendy .trend-table td:last-child { position: static !important; box-shadow: none !important; }
+    body.print-trendy .trend-cat td { position: static !important; }
+
     @page {
       margin: 14mm 12mm;
       @bottom-center {
@@ -545,24 +556,40 @@
     document.getElementById('pdf-modal').style.display = 'none';
   }
 
+  function addTrendyPrintStyle() {
+    if (document.getElementById('trendy-print-landscape')) return;
+    var s = document.createElement('style');
+    s.id = 'trendy-print-landscape';
+    s.textContent = '@page { size: A4 landscape; margin: 10mm; }';
+    document.head.appendChild(s);
+    document.body.classList.add('print-trendy');
+  }
+
+  function removeTrendyPrintStyle() {
+    var s = document.getElementById('trendy-print-landscape');
+    if (s) s.remove();
+    document.body.classList.remove('print-trendy');
+  }
+
   function executePrint() {
     closePdfModal();
     var prev = document.title;
+    var isTrendy = pdfSelectedMonth === 'trendy' || pdfSelectedMonth === 'vse';
+
+    if (isTrendy) addTrendyPrintStyle();
 
     if (pdfSelectedMonth === 'vse') {
-      // Zajistit že grafy jsou vyrenderované
       buildTrendTable(); buildCharts();
       document.body.classList.add('print-all');
       document.title = 'P-PINK-Report-leden-unor-brezen-duben-kveten-cerven-trendy';
-      setTimeout(function() {
-        window.print();
-        setTimeout(function() {
-          document.body.classList.remove('print-all');
-          document.title = prev;
-          // Obnovit původní stav záložek
-          switchTab(activeMonth);
-        }, 2000);
-      }, 400);
+      window.addEventListener('afterprint', function onAP() {
+        window.removeEventListener('afterprint', onAP);
+        document.body.classList.remove('print-all');
+        removeTrendyPrintStyle();
+        document.title = prev;
+        switchTab(activeMonth);
+      });
+      setTimeout(function() { window.print(); }, 400);
     } else {
       switchTab(pdfSelectedMonth);
       var label = TAB_LABELS[pdfSelectedMonth] || 'Report';
@@ -571,10 +598,12 @@
         .replace(/[^\w-]/g, '')
         .replace(/--+/g, '-');
       document.title = slug;
-      setTimeout(function() {
-        window.print();
-        setTimeout(function() { document.title = prev; }, 2000);
-      }, 350);
+      window.addEventListener('afterprint', function onAP() {
+        window.removeEventListener('afterprint', onAP);
+        if (isTrendy) removeTrendyPrintStyle();
+        document.title = prev;
+      });
+      setTimeout(function() { window.print(); }, 350);
     }
   }
 
