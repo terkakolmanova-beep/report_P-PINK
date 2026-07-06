@@ -717,7 +717,7 @@
     var html = '';
     TREND_ROWS.forEach(function(row) {
       if (row.cat) {
-        html += '<tr class="trend-cat"><td colspan="' + (n + 2) + '">' + row.cat + '</td></tr>';
+        html += '<tr class="trend-cat"><td colspan="' + (n + 2) + '" style="position:sticky;left:0;right:auto;box-shadow:none;">' + row.cat + '</td></tr>';
         return;
       }
       var vals = MDATA[row.key];
