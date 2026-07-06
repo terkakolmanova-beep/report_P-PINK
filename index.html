@@ -245,6 +245,19 @@
   .trend-up   { color: #1a7a4a; font-weight: 700; font-size: 12px; }
   .trend-down { color: #c0003a; font-weight: 700; font-size: 12px; }
   .trend-neu  { color: #bbb; font-size: 12px; }
+  .trend-x    { color: #c0003a; font-size: 12px; cursor: help; opacity: 0.5; }
+  .trend-table th:last-child,
+  .trend-table td:last-child { position: sticky; right: 0; background: #fff; z-index: 1; box-shadow: -2px 0 6px rgba(146,39,144,0.07); }
+  .trend-cat td:last-child   { background: #fdf8fd; }
+  .trend-cum  { color: #530048; font-weight: 700; font-size: 12px; }
+  .trend-mode-dropdown { position: relative; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; white-space: nowrap; }
+  .trend-mode-arrow { font-size: 9px; opacity: 0.6; }
+  .trend-mode-menu { display: none; position: fixed; background: #fff; border: 1px solid #e0c8dc; border-radius: 8px; box-shadow: 0 4px 14px rgba(83,0,72,0.12); z-index: 9999; min-width: 170px; padding: 4px 0; }
+  .trend-mode-menu.open { display: block; }
+  .trend-mode-menu-item { padding: 8px 16px; font-size: 11px; font-weight: 600; color: #530048; cursor: pointer; white-space: nowrap; font-family: inherit; }
+  .trend-mode-menu-item:hover { background: #fdf8fd; }
+  .trend-mode-menu-item.active { color: #922790; }
+  .trend-mode-menu-item.active::before { content: '✓ '; }
 
   /* Charts */
   .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -539,7 +552,7 @@
       // Zajistit že grafy jsou vyrenderované
       buildTrendTable(); buildCharts();
       document.body.classList.add('print-all');
-      document.title = 'P-PINK-Report-leden-unor-brezen-duben-kveten-trendy';
+      document.title = 'P-PINK-Report-leden-unor-brezen-duben-kveten-cerven-trendy';
       setTimeout(function() {
         window.print();
         setTimeout(function() {
@@ -572,18 +585,25 @@
     faktury_hodnota:    [2250,         8000,          42650,         8850,          26600,         157200],
     inkubace:           [2,            3,             1,             2,             3,             3],
     akcelerace:         [1,            1,             2,             2,             3,             4],
-    prijmy:             [611773,       2182185,       8879760,       1257942,       7001839,       3300000],
-    naklady:            [574593,       2762756,       1665523,       1718361,       5058968,       807802],
-    stav_uctu:          [1463866.40,   883295.80,     8097532.98,    7637114,       9579984.16,    12072182],
+    prijmy:             [611773,       2182185,       8879760,       1257942,       7001839,       670683],
+    naklady:            [574593,       2762756,       1665523,       1718361,       5058968,       1813075],
+    stav_uctu:          [1463866.40,   883295.80,     8097532.98,    7637114,       9579984.16,    8437442],
     pinkaka_prihlaseni: [null,         null,          111,           null,          null,          null],
     pinkaka_pritomni:   [null,         null,          70,            null,          null,          null],
     pinkaka_absolventi: [null,         null,          null,          21,            32,            20],
 
-    idz_akce:           [null,         null,          32,            38,            25,            22],
+    idz_akce:           [17,           18,            32,            38,            25,            22],
     idz_studenti:       [305,          349,           567,           665,           493,           328],
     idz_skoly:          [3,            10,            13,            24,            5,             9],
     virtualni_sidlo:    [2,            1,             4,             3,             2,             2],
-    poptavky_coworking: [3,            5,             3,             3,             7,             4]
+    poptavky_coworking: [3,            5,             3,             3,             7,             4],
+    hr_hpp:             [7,            7,             7,             7,             7,             8],
+    hr_dpc:             [4,            5,             5,             4,             5,             5],
+    hr_dpp:             [8,            10,            9,             9,             9,             8],
+    hr_ext:             [18,           18,            20,            20,            21,            26],
+    hr_odchozi:         [0,            1,             1,             1,             0,             1],
+    hr_prichozi:        [0,            3,             0,             0,             2,             3],
+    hr_zajemci:         [0,            0,             0,             1,             9,             9]
   };
 
   var TREND_ROWS = [
@@ -597,18 +617,25 @@
     { label: 'Příjmy',                     key: 'prijmy',            fmt: fmtKc },
     { label: 'Náklady',                    key: 'naklady',           fmt: fmtKc },
     { label: 'Stav bankovních účtů',       key: 'stav_uctu',         fmt: fmtKc },
-    { cat: 'PINKaka' },
-    { label: 'Přihlášení účastníci',       key: 'pinkaka_prihlaseni',fmt: function(v){ return v; } },
-    { label: 'Přítomni na 1. setkání',     key: 'pinkaka_pritomni',  fmt: function(v){ return v; } },
-    { label: 'Absolventi programu',        key: 'pinkaka_absolventi',fmt: function(v){ return v; } },
-
-    { cat: 'IDZ' },
+    { cat: 'PINKaka – Akademie podnikání' },
+    { label: 'Přihlášení účastníci',       key: 'pinkaka_prihlaseni',fmt: function(v){ return v; }, nullMark: 'x', changeType: 'skip' },
+    { label: 'Přítomni na 1. setkání',     key: 'pinkaka_pritomni',  fmt: function(v){ return v; }, nullMark: 'x', changeType: 'skip' },
+    { label: 'Absolventi programu',        key: 'pinkaka_absolventi',fmt: function(v){ return v; }, nullMark: 'x', changeType: 'skip' },
+    { cat: 'IDZ – Podnikavost pro střední školy' },
     { label: 'Počet akcí',                 key: 'idz_akce',          fmt: function(v){ return v; } },
     { label: 'Zapojení studenti a žáci',   key: 'idz_studenti',      fmt: function(v){ return v; } },
-    { label: 'Zapojené školy (kumulativně)',key: 'idz_skoly',         fmt: function(v){ return v; } },
+    { label: 'Zapojené školy',             key: 'idz_skoly',         fmt: function(v){ return v; } },
     { cat: 'Budova' },
     { label: 'Nová virtuální sídla',       key: 'virtualni_sidlo',   fmt: function(v){ return v; } },
-    { label: 'Poptávky coworking',         key: 'poptavky_coworking',fmt: function(v){ return v; } }
+    { label: 'Poptávky coworking',         key: 'poptavky_coworking',fmt: function(v){ return v; } },
+    { cat: 'Personalistika' },
+    { label: 'HPP',                        key: 'hr_hpp',            fmt: function(v){ return v; } },
+    { label: 'DPČ',                        key: 'hr_dpc',            fmt: function(v){ return v; } },
+    { label: 'DPP',                        key: 'hr_dpp',            fmt: function(v){ return v; } },
+    { label: 'Externisté',                 key: 'hr_ext',            fmt: function(v){ return v; } },
+    { label: 'Odchozí',                    key: 'hr_odchozi',        fmt: function(v){ return v; }, changeType: 'skip' },
+    { label: 'Nově příchozích',            key: 'hr_prichozi',       fmt: function(v){ return v; }, changeType: 'skip' },
+    { label: 'Zájemci o spolupráci',       key: 'hr_zajemci',        fmt: function(v){ return v; }, changeType: 'skip' }
   ];
 
   function fmtKc(v) {
@@ -626,6 +653,63 @@
     return '<span class="' + cls + '">' + arr + sign + pct.toFixed(1) + ' %</span>';
   }
 
+  var trendMode = 'mom';
+
+  function toggleTrendMenu() {
+    var menu = document.getElementById('trend-mode-menu');
+    if (!menu) return;
+    var isOpen = menu.classList.contains('open');
+    if (isOpen) {
+      menu.classList.remove('open');
+    } else {
+      if (menu.parentElement !== document.body) document.body.appendChild(menu);
+      var trigger = document.querySelector('.trend-mode-dropdown');
+      var rect = trigger.getBoundingClientRect();
+      menu.style.position = 'fixed';
+      menu.style.top = (rect.bottom + 4) + 'px';
+      menu.style.right = (window.innerWidth - rect.right) + 'px';
+      menu.style.left = 'auto';
+      menu.classList.add('open');
+    }
+  }
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.trend-mode-dropdown') && !e.target.closest('#trend-mode-menu')) {
+      var menu = document.getElementById('trend-mode-menu');
+      if (menu) menu.classList.remove('open');
+    }
+  });
+
+  function setTrendMode(mode) {
+    trendMode = mode;
+    var labels = { mom: 'Změna m/m', ytd: 'Od začátku roku', cum: 'Σ kumulativní' };
+    var hdr = document.getElementById('trend-change-hdr');
+    if (hdr) hdr.textContent = labels[mode];
+    document.querySelectorAll('.trend-mode-menu-item').forEach(function(el) {
+      el.classList.toggle('active', el.dataset.mode === mode);
+    });
+    var menu = document.getElementById('trend-mode-menu');
+    if (menu) menu.classList.remove('open');
+    buildTrendTable();
+  }
+
+  function cumBadge(vals) {
+    var total = vals.reduce(function(a, v) { return a + (v != null ? v : 0); }, 0);
+    return '<span class="trend-cum" title="Kumulativní součet za rok">Σ ' + total + '</span>';
+  }
+
+  function ytdBadge(vals) {
+    var first = null, last = null;
+    for (var i = 0; i < vals.length; i++) { if (vals[i] !== null && first === null) first = vals[i]; }
+    for (var i = vals.length - 1; i >= 0; i--) { if (vals[i] !== null) { last = vals[i]; break; } }
+    if (first === null || last === null || first === 0) return '<span class="trend-neu">—</span>';
+    var pct = ((last - first) / Math.abs(first)) * 100;
+    var sign = pct > 0 ? '+' : '';
+    var cls  = pct > 0 ? 'trend-up' : (pct < 0 ? 'trend-down' : 'trend-neu');
+    var arr  = pct > 0 ? '↑ ' : (pct < 0 ? '↓ ' : '→ ');
+    return '<span class="' + cls + '">' + arr + sign + pct.toFixed(1) + ' %</span>';
+  }
+
   function buildTrendTable() {
     var tbody = document.getElementById('trend-tbody');
     if (!tbody) return;
@@ -637,12 +721,28 @@
         return;
       }
       var vals = MDATA[row.key];
+      var isX  = row.nullMark === 'x';
       html += '<tr><td class="trend-lbl">' + row.label + '</td>';
       for (var i = 0; i < n; i++) {
         var v = vals[i];
-        html += '<td class="trend-val">' + (v === null ? '<span class="trend-neu">—</span>' : row.fmt(v)) + '</td>';
+        if (v === null) {
+          html += '<td class="trend-val">' + (isX
+            ? '<span class="trend-x" title="Program se v tomto měsíci nekonal / přihlášky nebyly otevřeny">✗</span>'
+            : '<span class="trend-neu">—</span>') + '</td>';
+        } else {
+          html += '<td class="trend-val">' + row.fmt(v) + '</td>';
+        }
       }
-      html += '<td>' + changeBadge(vals[n - 2], vals[n - 1]) + '</td></tr>';
+      if (row.changeType === 'skip') {
+        html += '<td><span class="trend-neu" title="Není relevantní — program probíhá v bězích">—</span></td>';
+      } else if (trendMode === 'cum') {
+        html += '<td>' + cumBadge(vals) + '</td>';
+      } else if (trendMode === 'ytd') {
+        html += '<td>' + ytdBadge(vals) + '</td>';
+      } else {
+        html += '<td>' + changeBadge(vals[n - 2], vals[n - 1]) + '</td>';
+      }
+      html += '</tr>';
     });
     tbody.innerHTML = html;
   }
@@ -765,6 +865,38 @@
       },
       options: baseOpts()
     });
+
+    /* HR – složení týmu (všechny měsíce) + příchozí/odchozí linky od února (leden=null) */
+    var hrPrichozi = MDATA.hr_prichozi.map(function(v, i) { return i === 0 ? null : v; });
+    var hrOdchozi  = MDATA.hr_odchozi.map(function(v, i)  { return i === 0 ? null : v; });
+    new Chart(document.getElementById('chart-hr'), {
+      type: 'bar',
+      data: {
+        labels: M,
+        datasets: [
+          { label: 'HPP',         data: MDATA.hr_hpp, backgroundColor: C1 + 'dd', borderRadius: 4, stack: 'team', yAxisID: 'y' },
+          { label: 'DPČ',         data: MDATA.hr_dpc, backgroundColor: C2 + 'dd', borderRadius: 4, stack: 'team', yAxisID: 'y' },
+          { label: 'DPP',         data: MDATA.hr_dpp, backgroundColor: C3 + 'cc', borderRadius: 4, stack: 'team', yAxisID: 'y' },
+          { label: 'Externisté',  data: MDATA.hr_ext,  backgroundColor: C4 + 'aa', borderRadius: 4, stack: 'team', yAxisID: 'y' },
+          { label: 'Příchozí',    data: hrPrichozi, type: 'line',
+            borderColor: '#16a34a', backgroundColor: '#16a34a33', pointBackgroundColor: '#16a34a',
+            pointRadius: 5, pointHoverRadius: 7, tension: 0.3, fill: false,
+            borderWidth: 2, yAxisID: 'y1' },
+          { label: 'Odchozí',     data: hrOdchozi, type: 'line',
+            borderColor: '#c0003a', backgroundColor: '#c0003a33', pointBackgroundColor: '#c0003a',
+            pointRadius: 5, pointHoverRadius: 7, tension: 0.3, fill: false,
+            borderWidth: 2, borderDash: [4,3], yAxisID: 'y1' }
+        ]
+      },
+      options: baseOpts({
+        y:  { stacked: true, beginAtZero: true, position: 'left',
+              title: { display: true, text: 'Počet osob', font: { size: 9 }, color: '#999' },
+              ticks: { font: { size: 10 }, color: '#666', stepSize: 10 }, grid: { color: '#f5eef5' } },
+        y1: { beginAtZero: true, position: 'right',
+              title: { display: true, text: 'Příchozí / Odchozí', font: { size: 9 }, color: '#999' },
+              ticks: { font: { size: 10 }, color: '#666', stepSize: 1 }, grid: { drawOnChartArea: false } }
+      })
+    });
   }
 </script>
 
@@ -878,7 +1010,9 @@
     <div class="card">
       <div class="card-title">FTE a vytížení</div>
       <div class="row"><span class="rl">Průměrné FTE (zaměstnanci)</span><span class="rv">7,20</span></div>
-      <div class="row"><span class="rl">Nově příchozích</span><span class="rv">37</span></div>
+      <div class="row"><span class="rl">Nově příchozích</span><span class="rv">—</span></div>
+      <div class="row"><span class="rl">Odchozí</span><span class="rv">—</span></div>
+      <div class="row"><span class="rl">Zájemci o spolupráci</span><span class="rv">0</span></div>
     </div>
 
   </div><!-- /tab-leden -->
@@ -991,6 +1125,8 @@
       <div class="card-title">FTE a vytížení</div>
       <div class="row"><span class="rl">Průměrné FTE (zaměstnanci)</span><span class="rv">7,84</span></div>
       <div class="row"><span class="rl">Nově příchozích</span><span class="rv">3</span></div>
+      <div class="row"><span class="rl">Odchozí</span><span class="rv">1</span></div>
+      <div class="row"><span class="rl">Zájemci o spolupráci</span><span class="rv">0</span></div>
     </div>
 
   </div><!-- /tab-unor -->
@@ -1255,8 +1391,9 @@
       <div class="card">
         <div class="card-title">FTE a vytížení</div>
         <div class="row"><span class="rl">Průměrné FTE (jen zaměstnanci)</span><span class="rv">7,50</span></div>
-        <div class="row"><span class="rl">Vytížení týmu</span><span class="rv">~95 %</span></div>
-        <div class="row"><span class="rl">Klíčové personální změny</span><span class="rv">žádné</span></div>
+        <div class="row"><span class="rl">Nově příchozích</span><span class="rv">—</span></div>
+        <div class="row"><span class="rl">Odchozí</span><span class="rv">1</span></div>
+        <div class="row"><span class="rl">Zájemci o spolupráci</span><span class="rv">0</span></div>
         <p class="note">DPP – předsedkyně podnikatelských klubů</p>
       </div>
       <div class="card">
@@ -1566,7 +1703,8 @@
       <div class="card">
         <div class="card-title">FTE a vytížení</div>
         <div class="row"><span class="rl">Průměrné FTE (jen zaměstnanci)</span><span class="rv">7,43</span></div>
-        <div class="row"><span class="rl">Vytížení týmu</span><span class="rv">~95 %</span></div>
+        <div class="row"><span class="rl">Nově příchozích</span><span class="rv">—</span></div>
+        <div class="row"><span class="rl">Odchozí</span><span class="rv">1</span></div>
         <div class="row"><span class="rl">Zájemci o spolupráci</span><span class="rv">1</span></div>
       </div>
       <div class="card">
@@ -1828,7 +1966,7 @@
       <div class="row"><span class="rl">Počet cirkulárních skenů v květnu</span><span class="rv">1</span></div>
       <div class="row"><span class="rl">Fakturace CE sken</span><span class="rv g">38 264 Kč</span></div>
       <div class="row"><span class="rl">CE sken Letohrad</span><span class="rv"><span class="pill p-green">odevzdán 29. 5.</span></span></div>
-      <div class="row"><span class="rl">CE sken Žďár nad Sázavou</span><span class="rv"><span class="pill p-amber">v průběhu</span></span></div>
+      <div class="row"><span class="rl">CE sken Žďár nad Sázavou</span><span class="rv"><span class="pill p-green">odevzdán červen 2026</span></span></div>
     </div>
 
     <!-- FINANCE -->
@@ -1879,7 +2017,8 @@
       <div class="card">
         <div class="card-title">FTE a vytížení</div>
         <div class="row"><span class="rl">Vytížení týmu</span><span class="rv">100 %</span></div>
-        <div class="row"><span class="rl">Počet nově příchozích</span><span class="rv">2</span></div>
+        <div class="row"><span class="rl">Nově příchozích</span><span class="rv">2</span></div>
+        <div class="row"><span class="rl">Odchozí</span><span class="rv">—</span></div>
         <div class="row"><span class="rl">Zájemci o spolupráci</span><span class="rv">9</span></div>
       </div>
       <div class="card">
@@ -1926,7 +2065,7 @@
           <div class="prog-stat"><span class="prog-sl">Hodin úvodních</span><span class="prog-sv">9,8 hod</span></div>
           <div class="prog-stat"><span class="prog-sl">Hodin placených</span><span class="prog-sv">33,2 hod</span></div>
           <div class="prog-stat"><span class="prog-sl">Hodin zdarma</span><span class="prog-sv">132,5 hod</span></div>
-          <div class="prog-stat"><span class="prog-sl">Hodiny PLATINN</span><span class="prog-sv">0 hod</span></div>
+          <div class="prog-stat"><span class="prog-sl">Hodiny PLATINN</span><span class="prog-sv">10 hod</span></div>
           <div class="prog-stat"><span class="prog-sl">Hodin celkem</span><span class="prog-sv">175,5 hod</span></div>
           <div class="prog-stat"><span class="prog-sl">Tržby z konzultací</span><span class="prog-sv">157 200 Kč</span></div>
           <div class="prog-stat"><span class="prog-sl">Uzavřených klientů celkem</span><span class="prog-sv">7</span></div>
@@ -1984,6 +2123,37 @@
       <div class="row"><span class="rl">Celkem absolventů jarního běhu</span><span class="rv">73</span></div>
     </div>
 
+    <!-- AKCE -->
+    <div class="sec-label">Hlavní akce v červnu</div>
+    <div class="events-grid">
+      <div class="event-card">
+        <div class="event-head">
+          <div class="event-date-box"><div class="event-day">3</div><div class="event-mon">ČERVNA</div></div>
+          <div class="event-title-wrap">
+            <div class="event-title">PINKblocks AI pro firmy</div>
+            <div class="event-sub">Od experimentů k reálné konkurenční výhodě – 2. termín</div>
+          </div>
+        </div>
+      </div>
+      <div class="event-card">
+        <div class="event-head">
+          <div class="event-date-box"><div class="event-day">9</div><div class="event-mon">ČERVNA</div></div>
+          <div class="event-title-wrap">
+            <div class="event-title">Business meetup s Investory</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:6px;">Celkem za oba červnové termíny (3. 6. + 9. 6.): <strong>25 účastníků</strong>, průměrné hodnocení <strong>★★★★½ (4,5/5)</strong></p>
+
+    <!-- CHEERS4EU + CIRKULÁRNÍ HUB -->
+    <div class="sec-label">CHEERS4EU + Cirkulární hub</div>
+    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Pilotní projekt zaměřený na rozvoj cirkulární ekonomiky ve městech Pardubického kraje, podporující inovace směřující k udržitelnější budoucnosti. <a href="https://cirkularni-hub.cz" target="_blank" style="color:#922790;font-weight:600;">Více na cirkularni-hub.cz →</a></p>
+    <div class="card" style="margin-bottom:10px;">
+      <div class="row"><span class="rl">CE sken Žďár nad Sázavou</span><span class="rv"><span class="pill p-green">odevzdán</span></span></div>
+      <div class="row"><span class="rl">Fakturace CE sken Žďár nad Sázavou</span><span class="rv g">40 000 Kč bez DPH</span></div>
+    </div>
+
     <!-- BUDOVA -->
     <div class="sec-label">Budova</div>
     <div class="three" style="margin-bottom:10px;">
@@ -2014,28 +2184,127 @@
     <div class="sec-label">Finance</div>
     <div class="cf-card" style="margin-bottom:10px;">
       <div class="cf-label">Stav na bankovních účtech k 30. 6. 2026 (3 účty)</div>
-      <div class="cf-val">12 072 182 Kč</div>
+      <div class="cf-val">8 437 442 Kč</div>
     </div>
     <div class="card" style="margin-bottom:10px;">
       <div class="card-title">Příjmy a náklady – červen</div>
-      <div class="row"><span class="rl">Příjmy</span><span class="rv g">3 300 000 Kč</span></div>
-      <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–červen)</span><span class="rv" style="color:#999;">23 233 499 Kč</span></div>
-      <div class="row"><span class="rl">Náklady</span><span class="rv r">807 802 Kč</span></div>
-      <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–červen)</span><span class="rv" style="color:#999;">12 588 004 Kč</span></div>
+      <div class="row"><span class="rl">Příjmy</span><span class="rv g">670 683 Kč</span></div>
+      <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–červen)</span><span class="rv" style="color:#999;">20 604 182 Kč</span></div>
+      <div class="row"><span class="rl">Náklady</span><span class="rv r">1 813 075 Kč</span></div>
+      <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–červen)</span><span class="rv" style="color:#999;">13 593 277 Kč</span></div>
+      <div class="row" style="margin-top:6px;padding-top:6px;border-top:1px solid #f0e8f0;"><span class="rl" style="color:#999;font-size:11px;">Poznámka k příjmům</span><span class="rv" style="color:#999;font-size:11px;text-align:right;">Od 6/2026 navýšení nájmu kanceláří o 2,5 %; fakturován pronájem sklepa za 2. pololetí 2026</span></div>
+    </div>
+    <div class="card" style="margin-bottom:10px;">
+      <div class="card-title">Projektové finance – aktuální stav</div>
+      <div class="row"><span class="rl">Kontrola provozní dotace MPCE</span><span class="rv"><span class="pill p-amber">proběhla 6/2026</span></span></div>
+      <div class="row"><span class="rl">Kontrola projektu NPO</span><span class="rv"><span class="pill p-green">úspěšně ukončena</span></span></div>
+      <div class="row"><span class="rl">Zbývající část NPO k doplacení</span><span class="rv">617 582,00 Kč</span></div>
+      <div class="row"><span class="rl">IDZ – 3. Žádost o platbu (26. 6. 2026)</span><span class="rv">807 501,90 Kč</span></div>
     </div>
 
     <!-- LIDSKÉ ZDROJE -->
     <div class="sec-label">Lidské zdroje a kapacity</div>
     <div class="fte-grid">
-      <div class="fte-card"><div class="fte-val">7</div><div class="fte-type">HPP</div><div class="fte-note">Hlavní pracovní poměr</div></div>
+      <div class="fte-card"><div class="fte-val">8</div><div class="fte-type">HPP</div><div class="fte-note">Hlavní pracovní poměr</div></div>
       <div class="fte-card"><div class="fte-val">5</div><div class="fte-type">DPČ</div><div class="fte-note">Dohoda o pracovní činnosti</div></div>
-      <div class="fte-card"><div class="fte-val">9</div><div class="fte-type">DPP</div><div class="fte-note">Dohoda o provedení práce</div></div>
-      <div class="fte-card"><div class="fte-val">21</div><div class="fte-type">Externisté</div><div class="fte-note">Smlouva o spolupráci</div></div>
+      <div class="fte-card"><div class="fte-val">8<span style="font-size:13px;font-weight:500;color:#999;"> / 11</span></div><div class="fte-type">DPP</div><div class="fte-note">aktivní v červnu / celkem</div></div>
+      <div class="fte-card"><div class="fte-val">26</div><div class="fte-type">Externisté</div><div class="fte-note">Smlouva o spolupráci</div></div>
     </div>
+    <div class="two">
+      <div class="card">
+        <div class="card-title">FTE a vytížení</div>
+        <div class="row"><span class="rl">Průměrné FTE (zaměstnanci)</span><span class="rv">9,07</span></div>
+        <div class="row"><span class="rl">Vytížení týmu</span><span class="rv">100 %</span></div>
+        <div class="row"><span class="rl">Nově příchozích</span><span class="rv">3</span></div>
+        <div class="row"><span class="rl">Odchozí</span><span class="rv">1</span></div>
+        <div class="row"><span class="rl">Zájemci o spolupráci</span><span class="rv">9</span></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Obsazování pozic</div>
+        <div class="need-list">
+          <div class="need-item"><div class="need-dot" style="background:#16a34a;"></div><div class="need-text"><strong>Key account manažer</strong> – nastoupil červen 2026 ✓</div></div>
+          <div class="need-item"><div class="need-dot" style="background:#16a34a;"></div><div class="need-text"><strong>Asistentka finanční manažerky</strong> – obsazena ✓</div></div>
+          <div class="need-item"><div class="need-dot"></div><div class="need-text">Asistentka ředitele – administrativa a koordinace</div></div>
+          <div class="need-item"><div class="need-dot"></div><div class="need-text">Senior marketingový specialista</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIZIKA -->
+    <div class="sec-label">Rizika a mitigace</div>
     <div class="card">
-      <div class="card-title">FTE a vytížení</div>
-      <div class="row"><span class="rl">Průměrné FTE (zaměstnanci)</span><span class="rv">7,77</span></div>
-      <div class="row"><span class="rl">Nově příchozích</span><span class="rv">2</span></div>
+      <div class="risk-hdr"><span>Riziko</span><span>Závažnost</span><span>Mitigace</span></div>
+      <div class="risk-row">
+        <span class="risk-lbl">Správné obsazení pozic SMART akcelerátor+ II – výběr probíhá za plného provozu P-PINK</span>
+        <span><span class="pill p-red">vysoká</span></span>
+        <span class="risk-mit">Výběrová řízení vyhlášena v létě, pohovory září–říjen; jako první nastupuje RIS3 manažer, který spolurozhoduje o výběru zbytku týmu</span>
+      </div>
+      <div class="risk-row">
+        <span class="risk-lbl">TO-PINK: financování provozu 2026–2027 a vybavení budovy (15 072 191 Kč bez DPH)</span>
+        <span><span class="pill p-amber">střední</span></span>
+        <span class="risk-mit">Předseda SR jedná s Pardubickým krajem; provozní manažer a vývojář zařazeni do rozpočtu P-PINK 2027; budova musí být obsazena od začátku 2028</span>
+      </div>
+      <div class="risk-row">
+        <span class="risk-lbl">SMART akcelerátor+ II: zajištění 15% spolufinancování P-PINK</span>
+        <span><span class="pill p-amber">střední</span></span>
+        <span class="risk-mit">Vysoká pravděpodobnost úhrady Pardubickým krajem; předseda SR pověřen jednáním; zvažovány varianty přímého spolufinancování i finanční návratné výpomoci</span>
+      </div>
+      <div class="risk-row">
+        <span class="risk-lbl">Budova: prostory plně obsazeny (kanceláře, jednací místnosti) – potřeba dodatečných prostor</span>
+        <span><span class="pill p-amber">střední</span></span>
+        <span class="risk-mit">Sjednána schůzka s městem k pronájmu dalších prostor; podklady budou předloženy na příštím jednání SR</span>
+      </div>
+      <div class="risk-row">
+        <span class="risk-lbl">Nejistota schválení projektů SMART+ II a Interreg CZ-PL</span>
+        <span><span class="pill p-gray">nízká</span></span>
+        <span class="risk-mit">Cíl: vyrovnaný rozpočet do 300 000 Kč; rozpočet bude dovysvětlen SR po rozhodnutí o projektech; čerpání rezervního fondu možné pouze při vykázané ztrátě</span>
+      </div>
+    </div>
+
+    <!-- VÝHLED -->
+    <div class="sec-label">Výhled – červenec 2026</div>
+    <div class="outlook-grid">
+      <div class="card">
+        <div class="card-title">Nadcházející akce</div>
+        <div class="event-card" style="border:none;padding:0;box-shadow:none;">
+          <div class="event-head" style="gap:10px;">
+            <div class="event-date-box" style="min-width:44px;"><div class="event-day">30</div><div class="event-mon">ČVCE</div></div>
+            <div class="event-title-wrap">
+              <div class="event-title">Summer Business Meetup – PI(N)KNIK 3</div>
+              <div class="event-sub">Letní setkání podnikatelů a podnikatelek v neformální atmosféře</div>
+            </div>
+          </div>
+          <div class="event-body" style="margin-top:8px;">
+            <div class="event-row"><div class="event-dot"></div><div class="event-text">Networkingová akce spojující startupy, investory a zkušené podnikatele</div></div>
+            <div class="event-row"><div class="event-dot"></div><div class="event-text">Registrace: <a href="https://luma.com/1zb16dk8" target="_blank" style="color:#922790;font-weight:600;">luma.com/1zb16dk8 →</a></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Body pro příští správní radu</div>
+        <div class="need-list">
+          <div class="need-item">
+            <div class="need-dot"></div>
+            <div class="need-text"><strong>Budova P-PINK</strong> — projednat další kroky ohledně dalších prostor; výsledek schůzky s městem</div>
+          </div>
+          <div class="need-item">
+            <div class="need-dot"></div>
+            <div class="need-text"><strong>SMART akcelerátor+ II</strong> — postup výběrových řízení; stav spolufinancování ze strany Pardubického kraje</div>
+          </div>
+          <div class="need-item">
+            <div class="need-dot"></div>
+            <div class="need-text"><strong>Rozpočet 2027</strong> — dovysvětlení propsání SMART+ II a Interreg CZ-PL; komentář k žádosti o dotaci 10 mil. Kč vs. 8,5 mil. Kč</div>
+          </div>
+          <div class="need-item">
+            <div class="need-dot"></div>
+            <div class="need-text"><strong>FVT 2027</strong> — informace předsedy SR z odboru školství</div>
+          </div>
+          <div class="need-item">
+            <div class="need-dot"></div>
+            <div class="need-text"><strong>Rebranding PP-INK</strong> — komunikace s RRA PK; změna v zakládací listině (schválení SR + provedení zřizovatelem)</div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div><!-- /tab-cerven -->
@@ -2043,7 +2312,7 @@
   <div id="tab-trendy" style="display:none;">
 
     <!-- Trend tabulka -->
-    <div class="sec-label">Vývoj klíčových ukazatelů (meziměsíční)</div>
+    <div class="sec-label">Vývoj klíčových ukazatelů</div>
     <div class="card" style="padding: 0; overflow-x: auto;">
       <table class="trend-table">
         <thead>
@@ -2054,14 +2323,28 @@
             <th>Březen 2026</th>
             <th>Duben 2026</th>
             <th>Květen 2026</th><th>Červen 2026</th>
-            <th>Změna m/m</th>
+            <th style="cursor:pointer; user-select:none;">
+              <div class="trend-mode-dropdown" onclick="toggleTrendMenu()">
+                <span id="trend-change-hdr">Změna m/m</span>
+                <span class="trend-mode-arrow">▾</span>
+                <div class="trend-mode-menu" id="trend-mode-menu">
+                  <div class="trend-mode-menu-item active" data-mode="mom" onclick="event.stopPropagation();setTrendMode('mom')">Změna m/m</div>
+                  <div class="trend-mode-menu-item" data-mode="ytd" onclick="event.stopPropagation();setTrendMode('ytd')">Od začátku roku</div>
+                  <div class="trend-mode-menu-item" data-mode="cum" onclick="event.stopPropagation();setTrendMode('cum')">Σ kumulativní</div>
+                </div>
+              </div>
+            </th>
           </tr>
         </thead>
         <tbody id="trend-tbody">
-          <tr><td colspan="7" style="text-align:center;padding:16px;color:#bbb;font-size:12px;">Načítám data…</td></tr>
+          <tr><td colspan="8" style="text-align:center;padding:16px;color:#bbb;font-size:12px;">Načítám data…</td></tr>
         </tbody>
       </table>
     </div>
+    <p style="font-size:11px;color:#999;margin:6px 12px 0;">
+      <strong>✗</strong> — program se v daném měsíci nekonal nebo přihlášky nebyly otevřeny &nbsp;|&nbsp;
+      <strong>Σ</strong> — kumulativní součet za rok (IDZ studenti/školy se nesdílují meziměsíčně)
+    </p>
 
     <!-- Grafy -->
     <div class="sec-label">Grafy</div>
@@ -2085,6 +2368,10 @@
       <div class="chart-card">
         <div class="chart-title">Budova</div>
         <canvas id="chart-budova" style="max-height:180px;"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Personalistika – složení týmu</div>
+        <canvas id="chart-hr"></canvas>
       </div>
     </div>
 
@@ -2140,6 +2427,14 @@
       </div>
       <div class="pdf-opt-check">✓</div>
     </div>
+    <div class="pdf-opt" data-month="cerven" onclick="selectPdfOpt(this,'cerven')">
+      <div class="pdf-opt-icon">📋</div>
+      <div class="pdf-opt-info">
+        <div class="pdf-opt-label">Červen 2026</div>
+        <div class="pdf-opt-sub">Měsíční report – červen</div>
+      </div>
+      <div class="pdf-opt-check">✓</div>
+    </div>
     <div class="pdf-opt" data-month="trendy" onclick="selectPdfOpt(this,'trendy')">
       <div class="pdf-opt-icon">📈</div>
       <div class="pdf-opt-info">
@@ -2152,7 +2447,7 @@
       <div class="pdf-opt-icon">📦</div>
       <div class="pdf-opt-info">
         <div class="pdf-opt-label">Vše naráz</div>
-        <div class="pdf-opt-sub">Leden + Únor + Březen + Duben + Květen + Trendy za sebou</div>
+        <div class="pdf-opt-sub">Leden + Únor + Březen + Duben + Květen + Červen + Trendy za sebou</div>
       </div>
       <div class="pdf-opt-check">✓</div>
     </div>
