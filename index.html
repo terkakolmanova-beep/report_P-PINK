@@ -280,7 +280,13 @@
     border: 1px solid #dcc8dc;
     box-shadow: 0 8px 40px rgba(83,0,72,0.22);
     padding: 2rem 2rem 1.6rem; width: 360px;
+    max-width: calc(100vw - 32px);
+    max-height: 90vh;
+    display: flex; flex-direction: column;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  }
+  #pdf-opts-scroll {
+    overflow-y: auto; flex: 1; margin: 0 -0.5rem; padding: 0 0.5rem;
   }
   .pdf-modal-title { font-size: 13px; font-weight: 800; color: #530048; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
   .pdf-modal-sub { font-size: 11px; color: #999; margin-bottom: 1.2rem; }
@@ -2705,6 +2711,7 @@
   <div id="pdf-box">
     <div class="pdf-modal-title">Stáhnout jako PDF</div>
     <div class="pdf-modal-sub">Vyberte obsah, který chcete exportovat</div>
+    <div id="pdf-opts-scroll">
     <div class="pdf-opt selected" data-month="leden" onclick="selectPdfOpt(this,'leden')">
       <div class="pdf-opt-icon">📋</div>
       <div class="pdf-opt-info">
@@ -2777,6 +2784,7 @@
       </div>
       <div class="pdf-opt-check">✓</div>
     </div>
+    </div><!-- /pdf-opts-scroll -->
     <div class="pdf-modal-btns">
       <button class="pdf-modal-btn-cancel" onclick="closePdfModal()">Zrušit</button>
       <button class="pdf-modal-btn-primary" onclick="executePrint()">Stáhnout PDF</button>
