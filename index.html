@@ -540,7 +540,7 @@
 
 <script>
   (function() {
-    if (sessionStorage.getItem('ppink-auth') === '1') {
+    if (localStorage.getItem('ppink-auth') === '1') {
       document.getElementById('pw-overlay').style.display = 'none';
     }
   })();
@@ -548,7 +548,7 @@
   function checkPassword() {
     var input = document.getElementById('pw-input');
     if (input.value === '06372562') {
-      sessionStorage.setItem('ppink-auth', '1');
+      localStorage.setItem('ppink-auth', '1');
       document.getElementById('pw-overlay').style.display = 'none';
     } else {
       input.classList.remove('error');
