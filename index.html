@@ -675,8 +675,8 @@
     hr_dpp:             [8,            10,            9,             9,             9,             8,             8,             8],
     hr_ext:             [18,           18,            20,            20,            21,            26,            27,            27],
     hr_odchozi:         [0,            1,             1,             1,             0,             1,             0,             1],
-    hr_prichozi:        [0,            3,             0,             0,             2,             3,             4,             1],
-    hr_zajemci:         [0,            0,             0,             1,             9,             9,             7,             0]
+    hr_prichozi:        [0,            3,             0,             0,             2,             3,             4,             2],
+    hr_zajemci:         [0,            0,             0,             1,             9,             9,             7,             9]
   };
 
   var TREND_ROWS = [
@@ -2752,7 +2752,7 @@
     </div>
 
     <!-- AKCE -->
-    <div class="sec-label">Hlavní akce v srpnu</div>
+    <div class="sec-label">Hlavní akce</div>
     <div class="events-grid">
       <div class="event-card">
         <div class="event-head">
@@ -2774,8 +2774,6 @@
     <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Pilotní projekt zaměřený na rozvoj cirkulární ekonomiky ve městech Pardubického kraje, podporující inovace směřující k udržitelnější budoucnosti. <a href="https://cirkularni-hub.cz" target="_blank" style="color:#922790;font-weight:600;">Více na cirkularni-hub.cz →</a></p>
     <div class="card" style="margin-bottom:10px;">
       <div class="row"><span class="rl">Poptávka pro obce</span><span class="rv">1</span></div>
-      <div class="row"><span class="rl">Poptávka po CE skenu pro firmy</span><span class="rv">0</span></div>
-      <div class="row"><span class="rl">Fakturace srpen</span><span class="rv">0 Kč</span></div>
     </div>
     <p style="font-size:12px;color:#444;line-height:1.65;margin-bottom:10px;">Hlavní aktivitou Cirkulárního hubu byla příprava mezinárodní konference <strong>Study Visit</strong> v rámci projektu CHEERS4EU, která se bude konat <strong>29. 9. a 30. 9. 2026</strong>. Probíhal také vývoj cirkulárního skenu pro firmy a příprava na výpočty uhlíkové stopy firem. Zároveň se pracovalo na výstupu Cirkulárního skenu pro firmu <strong>Proxim s.r.o.</strong> Cirkulární hub se věnoval připomínkování RIS3 strategie – ovlivnit RIS3 je klíčový indikátor projektu CHEERS4EU. Pracovalo se na 3 prezentacích přispívajících k tématu semestru – sociální dopad. Proběhl také průzkum zainteresovaných stran v rámci kraje.</p>
 
@@ -2784,9 +2782,7 @@
     <div class="card" style="margin-bottom:10px;">
       <div class="card-title">Stáž v IT4Innovations (VŠB–TUO Ostrava)</div>
       <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:8px;">Robin Polák, Tereza Všetečková a Tobias Hočevar absolvovali týdenní odbornou stáž v IT4Innovations při VŠB – Technické univerzitě Ostrava. Pracovali na rozšíření aplikace demonstrující fungování konvolučních neuronových sítí (Mask R-CNN) a prohloubili zkušenosti s HPC systémy, Gitem, Pythonem a LLM agenty. Součástí stáže byla i návštěva showroomu se superpočítačovou infrastrukturou a kvantovým počítačem.</p>
-      <div class="row"><span class="rl">Hodnocení IT4Innovations</span><span class="rv g">velmi pozitivní</span></div>
-      <div class="row"><span class="rl">Zájem o další spolupráci</span><span class="rv g">ano</span></div>
-      <div class="row"><span class="rl">Tobias Hočevar – doporučení IT4Innovations</span><span class="rv">zvážit doktorské studium</span></div>
+      <p style="font-size:12px;color:#555;line-height:1.6;margin:0;">IT4Innovations hodnotilo spolupráci velmi pozitivně a má zájem v ní pokračovat. Tobiasovi Hočevarovi výzkumný tým doporučil zvážit doktorské studium.</p>
     </div>
     <div class="card" style="margin-bottom:10px;">
       <div class="card-title">Robin Polák × Cirkulární hub: automatizace Cirkulárního skenu</div>
@@ -2819,8 +2815,8 @@
         <div class="card-title">Kanceláře &amp; Virtuální sídla</div>
         <div class="row"><span class="rl">Příjmy z kanceláří</span><span class="rv">70 923 Kč</span></div>
         <div class="row"><span class="rl">Virtuální sídla P-PINK (příjmy)</span><span class="rv">14 135 Kč</span></div>
-        <div class="row"><span class="rl">Virtuální sídla TO-PINK</span><span class="rv">0 Kč</span></div>
-        <div class="row"><span class="rl">Kanceláře TO-PINK</span><span class="rv">0 Kč</span></div>
+        <div class="row"><span class="rl">Virtuální sídla TO-PINK</span><span class="rv" style="color:#999;">rekonstruuje se</span></div>
+        <div class="row"><span class="rl">Kanceláře TO-PINK</span><span class="rv" style="color:#999;">rekonstruuje se</span></div>
         <div class="row"><span class="rl">Poptávky kanceláře</span><span class="rv">1</span></div>
       </div>
     </div>
@@ -2847,22 +2843,22 @@
     <div class="sec-label">Lidské zdroje a kapacity</div>
     <div class="fte-grid">
       <div class="fte-card"><div class="fte-val">7</div><div class="fte-type">HPP</div><div class="fte-note">Hlavní pracovní poměr</div></div>
-      <div class="fte-card"><div class="fte-val">4</div><div class="fte-type">DPČ</div><div class="fte-note">Dohoda o pracovní činnosti</div></div>
-      <div class="fte-card"><div class="fte-val">8</div><div class="fte-type">DPP</div><div class="fte-note">Dohoda o provedení práce</div></div>
+      <div class="fte-card"><div class="fte-val">4&nbsp;/&nbsp;4</div><div class="fte-type">DPČ</div><div class="fte-note">aktivní v srpnu / celkem</div></div>
+      <div class="fte-card"><div class="fte-val">8&nbsp;/&nbsp;14</div><div class="fte-type">DPP</div><div class="fte-note">aktivní v srpnu / celkem</div></div>
       <div class="fte-card"><div class="fte-val">27</div><div class="fte-type">Externisté</div><div class="fte-note">Smlouva o spolupráci</div></div>
     </div>
     <div class="two">
       <div class="card">
         <div class="card-title">FTE a vytížení</div>
-        <div class="row"><span class="rl">Průměrné FTE (zaměstnanci)</span><span class="rv">9,4</span></div>
-        <div class="row"><span class="rl">Nově příchozích</span><span class="rv">1</span></div>
+        <div class="row"><span class="rl">Průměrné FTE (zaměstnanci)</span><span class="rv">9,39</span></div>
+        <div class="row"><span class="rl">Nově příchozích</span><span class="rv">2</span></div>
         <div class="row"><span class="rl">Odchozí</span><span class="rv">1</span></div>
-        <div class="row"><span class="rl">Zájemci o spolupráci</span><span class="rv">0</span></div>
+        <div class="row"><span class="rl">Zájemci o spolupráci</span><span class="rv">9 <span style="font-size:11px;color:#888;">(vybírá se RIS3 manažer)</span></span></div>
       </div>
       <div class="card">
         <div class="card-title">Obsazování pozic</div>
         <div class="need-list">
-          <div class="need-item"><div class="need-dot"></div><div class="need-text">Asistentka ředitele – administrativa a koordinace</div></div>
+          <div class="need-item"><div class="need-dot" style="background:#2ecc71;"></div><div class="need-text">Asistentka ředitele – administrativa a koordinace <span class="pill p-green">obsazena</span></div></div>
           <div class="need-item"><div class="need-dot"></div><div class="need-text">Senior marketingový specialista</div></div>
           <div class="need-item"><div class="need-dot"></div><div class="need-text">RIS3 manažer (SMART akcelerátor+ II)</div></div>
         </div>
@@ -2908,11 +2904,7 @@
         <div class="need-list">
           <div class="need-item">
             <div class="need-dot"></div>
-            <div class="need-text"><strong>SMART akcelerátor+ II</strong> — výsledky výběrových řízení; spolufinancování</div>
-          </div>
-          <div class="need-item">
-            <div class="need-dot"></div>
-            <div class="need-text"><strong>Showference</strong> — průběh prodeje lístků a partnerství</div>
+            <div class="need-text"><strong>SMART akcelerátor+ II</strong> — účast na výběrových řízeních; audit; vnitřní směrnice; spolufinancování a návratná finanční výpomoc</div>
           </div>
         </div>
       </div>
