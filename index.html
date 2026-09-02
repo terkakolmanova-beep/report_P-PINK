@@ -178,7 +178,11 @@
     background: #fff;
     padding: 0 2rem;
     border-bottom: 2px solid #e0c8dc;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
+  .month-tabs::-webkit-scrollbar { display: none; }
   .month-tab {
     padding: 10px 22px;
     font-size: 11px; font-weight: 700;
@@ -566,6 +570,11 @@
   var TAB_LABELS = { leden: 'Leden 2026', unor: 'Únor 2026', brezen: 'Březen 2026', duben: 'Duben 2026', kveten: 'Květen 2026', cerven: 'Červen 2026', cervenec: 'Červenec 2026', srpen: 'Srpen 2026', trendy: 'Trendy' };
   var activeMonth = 'leden';
 
+  window.addEventListener('load', function() {
+    var bar = document.querySelector('.month-tabs');
+    if (bar) bar.scrollLeft = bar.scrollWidth;
+  });
+
   function switchTab(month) {
     activeMonth = month;
     ['leden','unor','brezen','duben','kveten','cerven','cervenec','srpen','trendy'].forEach(function(m) {
@@ -577,6 +586,8 @@
     var footer = document.getElementById('report-footer');
     if (footer) footer.innerHTML = 'Report zpracoval t&yacute;m P-PINK &bull; ' + label;
     if (month === 'trendy') { buildTrendTable(); buildCharts(); }
+    var btn = document.getElementById('tab-btn-' + month);
+    if (btn) btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
   }
 
   var pdfSelectedMonth = 'leden';
