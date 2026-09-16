@@ -1190,7 +1190,7 @@
         t += '<tr><td colspan="100" style="padding:7px 8px;font-size:10px;font-weight:700;color:#922790;text-transform:uppercase;letter-spacing:0.08em;background:#faf3fa;border:1px solid #e0c8dc;">' + row.label + '</td></tr>';
         return;
       }
-      var indent = ['','  · ','    · '][row.l] || '';
+      var indent = ['','  ','    '][row.l] || '';
       var rowBg = row.l === 0 ? 'background:#fdf8fd;font-weight:700;' : row.l === 1 ? 'background:#fff;font-weight:600;' : 'background:#fff;';
       t += '<tr style="' + rowBg + '">'
         + '<td style="padding:3px 7px;font-size:10px;border:1px solid #ede0ed;position:sticky;left:0;background:' + (row.l===0?'#fdf8fd':row.l===1?'#fff':'#fff') + ';z-index:1;white-space:nowrap;">'
