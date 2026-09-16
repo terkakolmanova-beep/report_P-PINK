@@ -688,7 +688,9 @@
     hr_ext:             [18,           18,            20,            20,            21,            26,            27,            28],
     hr_odchozi:         [0,            1,             1,             1,             0,             1,             0,             1],
     hr_prichozi:        [0,            3,             0,             0,             2,             3,             4,             2],
-    hr_zajemci:         [0,            0,             0,             1,             9,             9,             7,             9]
+    hr_zajemci:         [0,            0,             0,             1,             9,             9,             7,             9],
+    naklady_plan:       [1569667,      1577667,       1762667,       1562667,       1577667,       1437667,       1437667,       1452667],
+    naklady_finance:    [1614638,      1453730,       1392073,       1341671,       1361994,       2150229,       1161608,       0]
   };
 
   var TREND_ROWS = [
@@ -890,6 +892,21 @@
         ]
       },
       options: finOpts
+    });
+
+    /* 2b – Rozpočet náklady plán vs realita */
+    var rozpocetOpts = baseOpts();
+    rozpocetOpts.scales.y.ticks.callback = function(v) { return (v / 1e6).toFixed(1) + ' M'; };
+    new Chart(document.getElementById('chart-rozpocet'), {
+      type: 'bar',
+      data: {
+        labels: M,
+        datasets: [
+          { label: 'Plán', data: MDATA.naklady_plan, backgroundColor: '#c8a5cc88', borderColor: '#922790', borderWidth: 1, borderRadius: 4 },
+          { label: 'Realita', data: MDATA.naklady_finance.map(function(v){ return v === 0 ? null : v; }), backgroundColor: C3 + 'cc', borderRadius: 4 }
+        ]
+      },
+      options: rozpocetOpts
     });
 
     /* 3 – PINKaka */
@@ -2828,6 +2845,40 @@
       <div class="row"><span class="rl">NPO – celkem proplaceno</span><span class="rv">618 384 Kč <span class="pill p-green">proplaceno</span></span></div>
     </div>
 
+    <!-- ČERPÁNÍ ROZPOČTU -->
+    <div class="card" style="margin-bottom:10px;">
+      <div class="card-title">Čerpání rozpočtu 2026 – přehled (YTD leden–srpen)</div>
+
+      <div style="font-size:10px;font-weight:700;color:#922790;text-transform:uppercase;letter-spacing:0.07em;margin:6px 0 4px;">Výnosy</div>
+      <div style="display:grid;grid-template-columns:1fr 90px 90px 48px;gap:2px 8px;font-size:11px;margin-bottom:2px;">
+        <span style="color:#777;font-weight:600;font-size:10px;">Položka</span>
+        <span style="color:#777;font-weight:600;font-size:10px;text-align:right;">Plán 2026</span>
+        <span style="color:#777;font-weight:600;font-size:10px;text-align:right;">Realita YTD</span>
+        <span style="color:#777;font-weight:600;font-size:10px;text-align:right;">%</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 90px 90px 48px;gap:3px 8px;font-size:11.5px;line-height:1.55;">
+        <span>Celkem výnosy</span><span style="text-align:right;color:#555;">18 547 222 Kč</span><span style="text-align:right;color:#555;">23 663 614 Kč</span><span style="text-align:right;"><span class="pill p-green" style="font-size:10px;">128 %</span></span>
+        <span style="padding-left:10px;color:#666;">Provozní dotace</span><span style="text-align:right;color:#777;">11 000 000 Kč</span><span style="text-align:right;color:#777;">13 500 000 Kč</span><span style="text-align:right;"><span class="pill p-green" style="font-size:10px;">123 %</span></span>
+        <span style="padding-left:10px;color:#666;">Tržby vlastní (budova)</span><span style="text-align:right;color:#777;">2 234 772 Kč</span><span style="text-align:right;color:#777;">3 688 247 Kč</span><span style="text-align:right;"><span class="pill p-green" style="font-size:10px;">165 %</span></span>
+        <span style="padding-left:18px;color:#888;font-size:10.5px;">Coworking</span><span style="text-align:right;color:#888;font-size:10.5px;">420 000 Kč</span><span style="text-align:right;color:#888;font-size:10.5px;">358 614 Kč</span><span style="text-align:right;"><span style="font-size:10px;color:#b36a00;">85 %</span></span>
+        <span style="padding-left:18px;color:#888;font-size:10.5px;">Pronájem kanceláří</span><span style="text-align:right;color:#888;font-size:10.5px;">962 772 Kč</span><span style="text-align:right;color:#888;font-size:10.5px;">613 275 Kč</span><span style="text-align:right;"><span style="font-size:10px;color:#c0392b;">64 %</span></span>
+        <span style="padding-left:18px;color:#888;font-size:10.5px;">Virtuální sídla P-PINK</span><span style="text-align:right;color:#888;font-size:10.5px;">300 000 Kč</span><span style="text-align:right;color:#888;font-size:10.5px;">316 706 Kč</span><span style="text-align:right;"><span style="font-size:10px;color:#27ae60;">106 %</span></span>
+        <span style="padding-left:10px;color:#666;">Konzultace a programy</span><span style="text-align:right;color:#777;">1 812 000 Kč</span><span style="text-align:right;color:#777;">2 740 625 Kč</span><span style="text-align:right;"><span class="pill p-green" style="font-size:10px;">151 %</span></span>
+        <span style="padding-left:10px;color:#666;">Projekty (FVT)</span><span style="text-align:right;color:#777;">796 450 Kč</span><span style="text-align:right;color:#777;">796 450 Kč</span><span style="text-align:right;"><span class="pill p-green" style="font-size:10px;">100 %</span></span>
+      </div>
+
+      <div style="border-top:1px solid #f0e4f0;margin:10px 0;"></div>
+
+      <div style="font-size:10px;font-weight:700;color:#922790;text-transform:uppercase;letter-spacing:0.07em;margin:4px 0 4px;">Náklady</div>
+      <div style="display:grid;grid-template-columns:1fr 90px 90px 48px;gap:3px 8px;font-size:11.5px;line-height:1.55;">
+        <span>Celkem náklady (1–7M)</span><span style="text-align:right;color:#555;">10 925 669 Kč</span><span style="text-align:right;color:#555;">10 475 943 Kč</span><span style="text-align:right;"><span class="pill p-green" style="font-size:10px;">96 %</span></span>
+        <span style="padding-left:10px;color:#666;">Mzdové náklady</span><span style="text-align:right;color:#777;">8 164 000 Kč</span><span style="text-align:right;color:#777;">5 354 587 Kč</span><span style="text-align:right;"><span class="pill p-green" style="font-size:10px;">66 %</span></span>
+        <span style="padding-left:10px;color:#666;">AI Talentový program</span><span style="text-align:right;color:#777;">2 100 000 Kč</span><span style="text-align:right;color:#777;">772 250 Kč</span><span style="text-align:right;"><span style="font-size:10px;color:#c0392b;">37 %</span></span>
+        <span style="padding-left:10px;color:#666;">Mentoring, externisté</span><span style="text-align:right;color:#777;">3 000 000 Kč</span><span style="text-align:right;color:#777;">1 229 510 Kč</span><span style="text-align:right;"><span style="font-size:10px;color:#c0392b;">41 %</span></span>
+      </div>
+      <div style="font-size:10px;color:#aaa;margin-top:8px;">Zdroj: KPI&#39;s 2026.xlsx – záložka Finance. Náklady celkem leden–červen (plán YTD vs realita YTD), roční plán subcategory položek je z celého roku 2026.</div>
+    </div>
+
     <!-- LIDSKÉ ZDROJE -->
     <div class="sec-label">Lidské zdroje a kapacity</div>
     <div class="fte-grid">
@@ -2957,6 +3008,10 @@
       <div class="chart-card">
         <div class="chart-title">Finance – příjmy a náklady</div>
         <canvas id="chart-finance"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Čerpání rozpočtu – náklady (plán vs. realita)</div>
+        <canvas id="chart-rozpocet"></canvas>
       </div>
       <div class="chart-card">
         <div class="chart-title">PINKaka</div>
