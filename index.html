@@ -1239,7 +1239,10 @@
 
     BUDGET.rows.forEach(function(row) {
       if (row.h) {
-        t += '<tr><td colspan="100" style="padding:7px 8px;font-size:10px;font-weight:700;color:#922790;text-transform:uppercase;letter-spacing:0.08em;background:#faf3fa;border:1px solid #e0c8dc;">' + row.label + '</td></tr>';
+        t += '<tr>'
+          + '<td style="padding:7px 8px;font-size:10px;font-weight:700;color:#922790;text-transform:uppercase;letter-spacing:0.08em;background:#faf3fa;border:1px solid #e0c8dc;position:sticky;left:0;z-index:2;white-space:nowrap;">' + row.label + '</td>'
+          + '<td colspan="99" style="background:#faf3fa;border:1px solid #e0c8dc;"></td>'
+          + '</tr>';
         return;
       }
       var indent = ['','  ','    '][row.l] || '';
