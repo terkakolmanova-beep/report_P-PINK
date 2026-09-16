@@ -567,7 +567,7 @@
     if (e.key === 'Enter') checkPassword();
   });
 
-  var TAB_LABELS = { leden: 'Leden 2026', unor: 'Únor 2026', brezen: 'Březen 2026', duben: 'Duben 2026', kveten: 'Květen 2026', cerven: 'Červen 2026', cervenec: 'Červenec 2026', srpen: 'Srpen 2026', trendy: 'Trendy' };
+  var TAB_LABELS = { leden: 'Leden 2026', unor: 'Únor 2026', brezen: 'Březen 2026', duben: 'Duben 2026', kveten: 'Květen 2026', cerven: 'Červen 2026', cervenec: 'Červenec 2026', srpen: 'Srpen 2026', trendy: 'Trendy', rozpocet: 'Rozpočet 2026' };
   var activeMonth = 'srpen';
 
   window.addEventListener('load', function() {
@@ -578,7 +578,7 @@
 
   function switchTab(month) {
     activeMonth = month;
-    ['leden','unor','brezen','duben','kveten','cerven','cervenec','srpen','trendy'].forEach(function(m) {
+    ['leden','unor','brezen','duben','kveten','cerven','cervenec','srpen','trendy','rozpocet'].forEach(function(m) {
       document.getElementById('tab-' + m).style.display = m === month ? '' : 'none';
       document.getElementById('tab-btn-' + m).classList.toggle('active', m === month);
     });
@@ -587,6 +587,7 @@
     var footer = document.getElementById('report-footer');
     if (footer) footer.innerHTML = 'Report zpracoval t&yacute;m P-PINK &bull; ' + label;
     if (month === 'trendy') { buildTrendTable(); buildCharts(); }
+    if (month === 'rozpocet') { buildRozpocetTable(); }
     var btn = document.getElementById('tab-btn-' + month);
     if (btn) btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
   }
@@ -1002,6 +1003,234 @@
       })
     });
   }
+
+  /* ===================== ROZPOČET DATA ===================== */
+  var fmtKcR = function(v) { if (v == null) return '—'; return Math.round(v).toLocaleString('cs-CZ') + ' Kč'; };
+  var pct = function(real, plan) { if (!plan || real == null) return null; return Math.round(real / plan * 100); };
+  var pctPill = function(p, isNak) {
+    if (p == null) return '';
+    var cls = isNak
+      ? (p <= 100 ? 'p-green' : p <= 120 ? 'p-amber' : 'p-red')
+      : (p >= 90 ? 'p-green' : p >= 70 ? 'p-amber' : 'p-red');
+    return '<span class="pill ' + cls + '" style="font-size:10px;">' + p + ' %</span>';
+  };
+
+  var BUDGET = {
+    months12: ['Led','Úno','Bře','Dub','Kvě','Čvn','Čvc','Srp','Zář','Říj','Lis','Pro'],
+    hasReal:  [true,true,true,true,true,true,true,false,false,false,false,false],
+    vyn_plan: [9558681,262231,262231,262231,3362231,662231,262231,262231,287231,887231,287231,2191231],
+    vyn_real: [455114,984273,8897362,253138,2936490,558030,286193,304472,null,null,null,null],
+    nak_plan: [1569667,1577667,1762667,1562667,1577667,1437667,1437667,1452667,1437667,1437667,1552667,1709117],
+    nak_real: [1614638,1453730,1392073,1341671,1361994,2150229,1161608,null,null,null,null,null],
+    rows: [
+      { h: true, label: 'VÝNOSY' },
+      { label:'Celkem výnosy', l:0, a:18547222, yr:23663614, isNak:false,
+        p:[9558681,262231,262231,262231,3362231,662231,262231,262231,287231,887231,287231,2191231],
+        r:[455114,984273,8897362,253138,2936490,558030,286193,304472,null,null,null,null] },
+      { label:'Tržby vlastní (budova)', l:1, a:2234772, yr:3688247, isNak:false,
+        p:[186231,186231,186231,186231,186231,186231,186231,186231,186231,186231,186231,186231],
+        r:[452864,168863,170580,186437,171626,180830,167849,140657,null,null,null,null] },
+      { label:'Coworking', l:2, a:420000, yr:358614, isNak:false,
+        p:[35000,35000,35000,35000,35000,35000,35000,35000,35000,35000,35000,35000],
+        r:[41033,38000,43000,51000,43250,49531,51400,41400,null,null,null,null] },
+      { label:'Pronájem kanceláří', l:2, a:962772, yr:613275, isNak:false,
+        p:[80231,80231,80231,80231,80231,80231,80231,80231,80231,80231,80231,80231],
+        r:[78605,76105,76105,76105,76105,81229,78098,70923,null,null,null,null] },
+      { label:'Virtuální sídla P-PINK', l:2, a:300000, yr:316706, isNak:false,
+        p:[25000,25000,25000,25000,25000,25000,25000,25000,25000,25000,25000,25000],
+        r:[254625,9634,6240,9347,8549,4958,9218,14135,null,null,null,null] },
+      { label:'Jednorázové pronájmy', l:2, a:240000, yr:139760, isNak:false,
+        p:[20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000],
+        r:[19250,14900,19400,24150,16690,25570,6000,13800,null,null,null,null] },
+      { label:'TO-PINK – Česká Třebová', l:2, a:312000, yr:173845, isNak:false,
+        p:[26000,26000,26000,26000,26000,26000,26000,26000,26000,26000,26000,26000],
+        r:[25835,25835,25835,25835,25835,22335,22335,0,null,null,null,null] },
+      { label:'Konzultace, inkubace, akc.', l:1, a:1812000, yr:2740625, isNak:false,
+        p:[76000,76000,76000,76000,76000,476000,76000,76000,101000,101000,101000,501000],
+        r:[2250,15960,72650,66701,264864,377200,102729,102270,null,null,null,null] },
+      { label:'Konzultace, Odpinkni se', l:2, a:480000, yr:450550, isNak:false,
+        p:[40000,40000,40000,40000,40000,40000,40000,40000,40000,40000,40000,40000],
+        r:[2250,8000,42650,8850,26600,157200,102729,102270,null,null,null,null] },
+      { label:'PINKaka', l:2, a:800000, yr:380000, isNak:false,
+        p:[0,0,0,0,200000,180000,0,0,0,0,0,400000],
+        r:[0,0,0,0,400000,0,0,0,null,null,null,null] },
+      { label:'Cirkulární hub/SCAN', l:2, a:300000, yr:108264, isNak:false,
+        p:[25000,25000,25000,25000,25000,25000,25000,25000,25000,25000,25000,25000],
+        r:[0,0,30000,0,38264,40000,0,0,null,null,null,null] },
+      { label:'Projekty', l:1, a:3400450, yr:3400450, isNak:false,
+        p:[796450,0,0,0,600000,0,0,0,600000,0,0,1404000],
+        r:[0,796450,0,0,0,0,0,0,null,null,null,null] },
+      { label:'Provozní dotace', l:1, a:11000000, yr:13500000, isNak:false,
+        p:[8500000,0,0,0,2500000,0,0,0,0,0,0,0],
+        r:[0,0,8500000,2500000,0,0,0,0,null,null,null,null] },
+      { label:'Pardubický kraj', l:2, a:8500000, yr:8500000, isNak:false,
+        p:[8500000,0,0,0,0,0,0,0,0,0,0,0],
+        r:[0,0,8500000,0,0,0,0,0,null,null,null,null] },
+      { label:'Statutární město Pardubice', l:2, a:2500000, yr:2500000, isNak:false,
+        p:[0,0,0,0,2500000,0,0,0,0,0,0,0],
+        r:[0,0,0,2500000,0,0,0,0,null,null,null,null] },
+      { h: true, label: 'NÁKLADY' },
+      { label:'Celkem náklady', l:0, a:18515458, yr:10475943, isNak:true,
+        p:[1569667,1577667,1762667,1562667,1577667,1437667,1437667,1452667,1437667,1437667,1552667,1709117],
+        r:[1614638,1453730,1392073,1341671,1361994,2150229,1161608,null,null,null,null,null] },
+      { label:'Mzdové náklady', l:1, a:8164000, yr:5354587, isNak:true,
+        p:[680333,680333,680333,680333,680333,680333,680333,680333,680333,680333,680333,680333],
+        r:[662212,702099,731888,748545,764611,1076276,668956,null,null,null,null,null] },
+      { label:'Odměny Tým P-PINK', l:2, a:2400000, yr:2117874, isNak:true,
+        p:[200000,200000,200000,200000,200000,200000,200000,200000,200000,200000,200000,200000],
+        r:[240325,222363,247650,243109,252342,595252,316833,null,null,null,null,null] },
+      { label:'Odměny Tým PINKaka', l:2, a:1360000, yr:766067, isNak:true,
+        p:[113333,113333,113333,113333,113333,113333,113333,113333,113333,113333,113333,113333],
+        r:[90372,80800,122177,125577,176125,112911,58104,null,null,null,null,null] },
+      { label:'Odměny Tým IDZ', l:2, a:1404000, yr:926773, isNak:true,
+        p:[117000,117000,117000,117000,117000,117000,117000,117000,117000,117000,117000,117000],
+        r:[130604,127305,136963,137032,130274,131560,133035,null,null,null,null,null] },
+      { label:'Odměny Tým CHEERS4EU', l:2, a:1200000, yr:800475, isNak:true,
+        p:[100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000],
+        r:[101690,149513,92100,112198,118324,128425,98226,null,null,null,null,null] },
+      { label:'Marketingový tým', l:2, a:1200000, yr:471871, isNak:true,
+        p:[100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000,100000],
+        r:[49949,83831,77165,83029,61947,74033,41918,null,null,null,null,null] },
+      { label:'Rozvojové aktivity', l:1, a:6746450, yr:3055844, isNak:true,
+        p:[612500,612500,612500,612500,612500,487500,487500,487500,487500,487500,587500,658950],
+        r:[404699,360886,425912,334116,423701,837940,268590,null,null,null,null,null] },
+      { label:'Semináře, workshopy', l:2, a:96000, yr:91766, isNak:true,
+        p:[8000,8000,8000,8000,8000,8000,8000,8000,8000,8000,8000,8000],
+        r:[0,52054,36856,0,536,2320,0,null,null,null,null,null] },
+      { label:'FVT projekt', l:2, a:796450, yr:690791, isNak:true,
+        p:[125000,125000,125000,125000,125000,0,0,0,0,0,100000,71450],
+        r:[41648,62135,81237,48146,105712,345559,6355,null,null,null,null,null] },
+      { label:'AI Talentový program', l:2, a:2100000, yr:772250, isNak:true,
+        p:[175000,175000,175000,175000,175000,175000,175000,175000,175000,175000,175000,175000],
+        r:[141291,101957,100540,100140,128890,108920,90513,null,null,null,null,null] },
+      { label:'Mentoring, externisté', l:2, a:3000000, yr:1229510, isNak:true,
+        p:[250000,250000,250000,250000,250000,250000,250000,250000,250000,250000,250000,250000],
+        r:[162342,115458,170154,154280,160086,335531,131659,null,null,null,null,null] },
+      { label:'Provozní náklady P-PINK', l:1, a:2663208, yr:1448580, isNak:true,
+        p:[191934,206934,391934,191934,206934,191934,191934,206934,191934,191934,206934,291934],
+        r:[193434,349320,205652,168137,135216,210017,186804,null,null,null,null,null] },
+      { label:'Provozní náklady TO-PINK', l:1, a:941800, yr:616933, isNak:true,
+        p:[84900,77900,77900,77900,77900,77900,77900,77900,77900,77900,77900,77900],
+        r:[354293,41425,28622,90873,38465,25997,37258,null,null,null,null,null] }
+    ]
+  };
+
+  /* -- build mini-cards for each month tab -- */
+  function buildBudgetMiniCards() {
+    var MONTH_KEYS = ['leden','unor','brezen','duben','kveten','cerven','cervenec','srpen'];
+    MONTH_KEYS.forEach(function(k, idx) {
+      var el = document.getElementById('budget-mini-' + k);
+      if (!el) return;
+      var hasR = BUDGET.hasReal[idx];
+      var nakP = BUDGET.nak_plan[idx], nakR = BUDGET.nak_real[idx];
+      var vynP = BUDGET.vyn_plan[idx], vynR = BUDGET.vyn_real[idx];
+      var nakPct = hasR ? pct(nakR, nakP) : null;
+      var vynPct = hasR ? pct(vynR, vynP) : null;
+      var html = '<div class="card" style="margin-bottom:10px;">'
+        + '<div class="card-title">Čerpání rozpočtu – přehled měsíce</div>'
+        + '<div class="row"><span class="rl">Náklady – plán</span><span class="rv" style="color:#555;">' + fmtKcR(nakP) + '</span></div>'
+        + '<div class="row"><span class="rl">Náklady – realita</span><span class="rv">'
+        + (hasR ? fmtKcR(nakR) + ' ' + pctPill(nakPct, true) : '<span style="color:#bbb;">zatím nezadáno</span>') + '</span></div>'
+        + '<div class="row" style="margin-top:4px;"><span class="rl">Výnosy – plán</span><span class="rv" style="color:#555;">' + fmtKcR(vynP) + '</span></div>'
+        + '<div class="row"><span class="rl">Výnosy – realita</span><span class="rv">'
+        + (hasR ? fmtKcR(vynR) + ' <span style="font-size:10px;color:#999;">*</span>' : '<span style="color:#bbb;">zatím nezadáno</span>') + '</span></div>'
+        + '<div style="font-size:10px;color:#aaa;margin-top:5px;">* Výnosy jsou ovlivněny načasováním přijetí dotací – měsíční srovnání je orientační. Přehled za rok viz záložka Rozpočet.</div>'
+        + '</div>';
+      el.innerHTML = html;
+    });
+  }
+
+  /* -- build full Rozpočet table -- */
+  var rozpocetBuilt = false;
+  function buildRozpocetTable() {
+    if (rozpocetBuilt) return;
+    rozpocetBuilt = true;
+    var wrap = document.getElementById('rozpocet-table-wrap');
+    if (!wrap) return;
+    var M = BUDGET.months12;
+    var HR = BUDGET.hasReal;
+
+    // Summary totals card
+    var sumHtml = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">'
+      + '<div class="card"><div class="card-title">Celkem výnosy 2026 (YTD)</div>'
+      + '<div class="row"><span class="rl">Roční plán</span><span class="rv">18 547 222 Kč</span></div>'
+      + '<div class="row"><span class="rl">Realita YTD (leden–srpen)</span><span class="rv g">23 663 614 Kč <span class="pill p-green" style="font-size:10px;">128 %</span></span></div>'
+      + '</div>'
+      + '<div class="card"><div class="card-title">Celkem náklady 2026 (YTD leden–červenec)</div>'
+      + '<div class="row"><span class="rl">Roční plán</span><span class="rv">18 515 458 Kč</span></div>'
+      + '<div class="row"><span class="rl">Realita YTD (leden–červenec)</span><span class="rv">10 475 943 Kč <span class="pill p-green" style="font-size:10px;">96 %</span></span></div>'
+      + '</div></div>';
+
+    // Table
+    var thStyle = 'padding:5px 7px;font-size:10px;font-weight:700;color:#530048;text-align:center;background:#f9f0f9;border:1px solid #e0c8dc;white-space:nowrap;';
+    var th2Style = 'padding:3px 5px;font-size:9px;font-weight:600;color:#888;text-align:center;background:#fdf8fd;border:1px solid #e0c8dc;white-space:nowrap;';
+    var tdStyle = 'padding:3px 6px;font-size:10px;border:1px solid #ede0ed;text-align:right;white-space:nowrap;';
+    var tdFut = 'padding:3px 6px;font-size:10px;border:1px solid #ede0ed;text-align:right;color:#bbb;white-space:nowrap;';
+
+    var t = '<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">'
+      + '<table style="border-collapse:collapse;font-size:10px;min-width:900px;width:100%;">'
+      + '<thead><tr>'
+      + '<th style="' + thStyle + 'min-width:160px;text-align:left;position:sticky;left:0;z-index:2;background:#f9f0f9;">Položka</th>'
+      + '<th style="' + thStyle + 'min-width:80px;">Roční plán</th>';
+    for (var mi = 0; mi < 12; mi++) {
+      t += '<th colspan="' + (HR[mi] ? '3' : '1') + '" style="' + thStyle + '">' + M[mi] + '</th>';
+    }
+    t += '<th style="' + thStyle + '">Realita YTD</th><th style="' + thStyle + '">% plnění</th>'
+      + '</tr><tr>'
+      + '<th style="' + th2Style + 'text-align:left;position:sticky;left:0;z-index:2;background:#fdf8fd;"></th>'
+      + '<th style="' + th2Style + '"></th>';
+    for (var mi2 = 0; mi2 < 12; mi2++) {
+      if (HR[mi2]) { t += '<th style="' + th2Style + '">Plán</th><th style="' + th2Style + '">Real.</th><th style="' + th2Style + '">%</th>'; }
+      else { t += '<th style="' + th2Style + '">Plán</th>'; }
+    }
+    t += '<th style="' + th2Style + '"></th><th style="' + th2Style + '"></th></tr></thead><tbody>';
+
+    BUDGET.rows.forEach(function(row) {
+      if (row.h) {
+        t += '<tr><td colspan="100" style="padding:7px 8px;font-size:10px;font-weight:700;color:#922790;text-transform:uppercase;letter-spacing:0.08em;background:#faf3fa;border:1px solid #e0c8dc;">' + row.label + '</td></tr>';
+        return;
+      }
+      var indent = ['','  · ','    · '][row.l] || '';
+      var rowBg = row.l === 0 ? 'background:#fdf8fd;font-weight:700;' : row.l === 1 ? 'background:#fff;font-weight:600;' : 'background:#fff;';
+      t += '<tr style="' + rowBg + '">'
+        + '<td style="padding:3px 7px;font-size:10px;border:1px solid #ede0ed;position:sticky;left:0;background:' + (row.l===0?'#fdf8fd':row.l===1?'#fff':'#fff') + ';z-index:1;white-space:nowrap;">'
+        + indent + row.label + '</td>'
+        + '<td style="' + tdStyle + 'font-weight:' + (row.l===0?'700':'400') + ';">' + fmtKcR(row.a) + '</td>';
+      for (var ci = 0; ci < 12; ci++) {
+        var planV = row.p[ci] || 0;
+        var realV = row.r[ci];
+        if (HR[ci]) {
+          var p = pct(realV, planV);
+          var pStyle = '';
+          if (p != null) {
+            if (row.isNak) { pStyle = p <= 100 ? 'color:#27ae60;' : p <= 120 ? 'color:#e67e22;' : 'color:#c0392b;'; }
+            else { pStyle = p >= 90 ? 'color:#27ae60;' : p >= 70 ? 'color:#e67e22;' : 'color:#c0392b;'; }
+          }
+          t += '<td style="' + tdStyle + 'color:#555;">' + (planV ? fmtKcR(planV) : '—') + '</td>'
+            + '<td style="' + tdStyle + '">' + (realV != null ? fmtKcR(realV) : '—') + '</td>'
+            + '<td style="' + tdStyle + pStyle + '">' + (p != null ? p + ' %' : '—') + '</td>';
+        } else {
+          t += '<td style="' + tdFut + '">' + (planV ? fmtKcR(planV) : '—') + '</td>';
+        }
+      }
+      var ytdPct = pct(row.yr, row.a);
+      var ytdStyle = '';
+      if (ytdPct != null) {
+        if (row.isNak) { ytdStyle = ytdPct <= 100 ? 'color:#27ae60;' : ytdPct <= 120 ? 'color:#e67e22;' : 'color:#c0392b;'; }
+        else { ytdStyle = ytdPct >= 90 ? 'color:#27ae60;' : ytdPct >= 70 ? 'color:#e67e22;' : 'color:#c0392b;'; }
+      }
+      t += '<td style="' + tdStyle + 'font-weight:600;">' + fmtKcR(row.yr) + '</td>'
+        + '<td style="' + tdStyle + ytdStyle + 'font-weight:700;">' + (ytdPct != null ? ytdPct + ' %' : '—') + '</td>'
+        + '</tr>';
+    });
+
+    t += '</tbody></table></div>'
+      + '<div style="font-size:10px;color:#aaa;margin-top:8px;">Zdroj: KPI\'s 2026.xlsx – záložka Finance. Realita výnosů: YTD leden–srpen. Realita nákladů: YTD leden–červenec (srpen zatím nezadán). Výnosy jsou ovlivněny načasováním přijetí dotací.</div>';
+
+    wrap.innerHTML = sumHtml + t;
+  }
+
+  window.addEventListener('load', function() { buildBudgetMiniCards(); });
 </script>
 
 <div class="page">
@@ -1025,6 +1254,7 @@
     <div class="month-tab" id="tab-btn-cervenec" onclick="switchTab('cervenec')">Červenec 2026</div>
     <div class="month-tab active" id="tab-btn-srpen" onclick="switchTab('srpen')">Srpen 2026</div>
     <div class="month-tab" id="tab-btn-trendy" onclick="switchTab('trendy')">📈 Trendy</div>
+    <div class="month-tab" id="tab-btn-rozpocet" onclick="switchTab('rozpocet')">💰 Rozpočet</div>
   </div>
 
   <div class="body">
@@ -1102,6 +1332,7 @@
       <div class="row"><span class="rl">Příjmy</span><span class="rv g">611 773 Kč</span></div>
       <div class="row"><span class="rl">Náklady</span><span class="rv r">574 593 Kč</span></div>
     </div>
+    <div id="budget-mini-leden"></div>
     <div class="card" style="margin-bottom:10px;">
       <div class="card-title">Přehled dotací</div>
       <div class="row"><span class="rl">Podaný záměr dotace</span><span class="rv"><span class="pill p-amber">1 záměr podán</span></span></div>
@@ -1213,6 +1444,7 @@
       <div class="row"><span class="rl">Náklady</span><span class="rv r">2 762 756 Kč</span></div>
       <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–únor)</span><span class="rv" style="color:#999;">3 337 349 Kč</span></div>
     </div>
+    <div id="budget-mini-unor"></div>
     <div class="card" style="margin-bottom:10px;">
       <div class="card-title">Přehled dotací</div>
       <div class="row">
@@ -1441,6 +1673,7 @@
       <div class="row"><span class="rl">Příjmy</span><span class="rv g">8 879 760 Kč</span></div>
       <div class="row"><span class="rl">Náklady</span><span class="rv r">1 665 523 Kč</span></div>
     </div>
+    <div id="budget-mini-brezen"></div>
 
     <div class="card">
       <div class="card-title">Přehled dotací</div>
@@ -1773,6 +2006,7 @@
       <div class="row"><span class="rl">Náklady</span><span class="rv r">1 718 361 Kč</span></div>
       <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–duben)</span><span class="rv" style="color:#999;">6 721 233 Kč</span></div>
     </div>
+    <div id="budget-mini-duben"></div>
 
     <div class="card" style="margin-bottom:10px;">
       <div class="card-title">Přehled dotací</div>
@@ -2088,6 +2322,7 @@
       <div class="row"><span class="rl">Náklady</span><span class="rv r">5 058 968 Kč</span></div>
       <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–květen)</span><span class="rv" style="color:#999;">11 780 202 Kč</span></div>
     </div>
+    <div id="budget-mini-kveten"></div>
 
     <div class="card" style="margin-bottom:10px;">
       <div class="card-title">Přehled dotací</div>
@@ -2298,6 +2533,7 @@
       <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–červen)</span><span class="rv" style="color:#999;">13 593 277 Kč</span></div>
       <div class="row" style="margin-top:6px;padding-top:6px;border-top:1px solid #f0e8f0;"><span class="rl" style="color:#999;font-size:11px;">Poznámka k příjmům</span><span class="rv" style="color:#999;font-size:11px;text-align:right;">Od 6/2026 navýšení nájmu kanceláří o 2,5 %; fakturován pronájem sklepa za 2. pololetí 2026</span></div>
     </div>
+    <div id="budget-mini-cerven"></div>
     <div class="card" style="margin-bottom:10px;">
       <div class="card-title">Projektové finance – aktuální stav</div>
       <div class="row"><span class="rl">Kontrola provozní dotace MPCE</span><span class="rv"><span class="pill p-amber">proběhla 6/2026</span></span></div>
@@ -2580,6 +2816,7 @@
       <div class="row"><span class="rl">Náklady</span><span class="rv r">1 970 805 Kč</span></div>
       <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–červenec)</span><span class="rv" style="color:#999;">15 564 232 Kč</span></div>
     </div>
+    <div id="budget-mini-cervenec"></div>
     <div class="card" style="margin-bottom:10px;">
       <div class="card-title">Projektové finance – aktuální stav</div>
       <div class="row"><span class="rl">NPO – celkem proplaceno</span><span class="rv">618 582 Kč <span class="pill p-green">proplaceno</span></span></div>
@@ -2840,6 +3077,7 @@
       <div class="row"><span class="rl">Náklady</span><span class="rv r">1 389 856 Kč</span></div>
       <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–srpen)</span><span class="rv" style="color:#999;">16 954 088 Kč</span></div>
     </div>
+    <div id="budget-mini-srpen"></div>
     <div class="card" style="margin-bottom:10px;">
       <div class="card-title">Projektové finance – aktuální stav</div>
       <div class="row"><span class="rl">NPO – celkem proplaceno</span><span class="rv">618 384 Kč <span class="pill p-green">proplaceno</span></span></div>
@@ -3033,6 +3271,11 @@
 
 
   </div><!-- /tab-trendy -->
+
+  <div id="tab-rozpocet" style="display:none;">
+    <div class="sec-label">Čerpání rozpočtu 2026 – plán vs. realita</div>
+    <div id="rozpocet-table-wrap"></div>
+  </div>
 
   </div><!-- /body -->
 
