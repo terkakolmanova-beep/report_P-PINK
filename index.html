@@ -544,6 +544,19 @@
   </div>
 </div>
 
+<div id="bpw-overlay" style="display:none;position:fixed;inset:0;background:rgba(80,0,70,0.55);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:14px;padding:2rem 2.2rem;max-width:320px;width:90%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.22);">
+    <div style="font-size:13px;font-weight:700;color:#530048;margin-bottom:1.2rem;">🔒 Záložka Rozpočet je chráněna heslem</div>
+    <input id="bpw-input" type="password" placeholder="Zadejte heslo" autocomplete="off"
+      style="width:100%;padding:0.6rem 0.8rem;border:1.5px solid #d0aad0;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;margin-bottom:0.7rem;"
+      onkeydown="if(event.key==='Enter')checkBudgetPassword()" />
+    <button onclick="checkBudgetPassword()"
+      style="width:100%;padding:0.65rem;background:#922790;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">Vstoupit</button>
+    <div id="bpw-err" style="font-size:11px;color:#c0003a;margin-top:0.5rem;min-height:16px;"></div>
+    <div style="font-size:10px;color:#bbb;margin-top:0.8rem;cursor:pointer;" onclick="document.getElementById('bpw-overlay').style.display='none';">Zrušit</div>
+  </div>
+</div>
+
 <script>
   (function() {
     if (localStorage.getItem('ppink-auth') === '1') {
@@ -569,6 +582,19 @@
     if (e.key === 'Enter') checkPassword();
   });
 
+  function checkBudgetPassword() {
+    var input = document.getElementById('bpw-input');
+    if (input.value === '5005') {
+      localStorage.setItem('ppink-budget-auth', '1');
+      document.getElementById('bpw-overlay').style.display = 'none';
+      switchTab('rozpocet');
+    } else {
+      input.classList.remove('error'); void input.offsetWidth; input.classList.add('error');
+      document.getElementById('bpw-err').textContent = 'Nesprávné heslo.';
+      input.value = '';
+    }
+  }
+
   var TAB_LABELS = { leden: 'Leden 2026', unor: 'Únor 2026', brezen: 'Březen 2026', duben: 'Duben 2026', kveten: 'Květen 2026', cerven: 'Červen 2026', cervenec: 'Červenec 2026', srpen: 'Srpen 2026', trendy: 'Trendy', rozpocet: 'Rozpočet 2026' };
   var activeMonth = 'srpen';
 
@@ -579,6 +605,11 @@
   });
 
   function switchTab(month) {
+    if (month === 'rozpocet' && localStorage.getItem('ppink-budget-auth') !== '1') {
+      document.getElementById('bpw-overlay').style.display = 'flex';
+      setTimeout(function(){ document.getElementById('bpw-input').focus(); }, 50);
+      return;
+    }
     activeMonth = month;
     ['leden','unor','brezen','duben','kveten','cerven','cervenec','srpen','trendy','rozpocet'].forEach(function(m) {
       document.getElementById('tab-' + m).style.display = m === month ? '' : 'none';
