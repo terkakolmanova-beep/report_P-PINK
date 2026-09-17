@@ -1236,7 +1236,7 @@
     var sumHtml = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">'
       + '<div class="card"><div class="card-title">Celkem výnosy 2026 (YTD)</div>'
       + '<div class="row"><span class="rl">Roční plán</span><span class="rv">18 547 222 Kč</span></div>'
-      + '<div class="row"><span class="rl">Realita YTD (leden–srpen)</span><span class="rv g">14 675 073 Kč <span class="pill p-amber" style="font-size:10px;">79 %</span></span></div>'
+      + '<div class="row"><span class="rl">Realita YTD (leden–srpen)</span><span class="rv g">14 675 073 Kč <span class="pill p-green" style="font-size:10px;">79 %</span></span></div>'
       + '</div>'
       + '<div class="card"><div class="card-title">Celkem náklady 2026 (YTD leden–červenec)</div>'
       + '<div class="row"><span class="rl">Roční plán</span><span class="rv">18 515 458 Kč</span></div>'
@@ -1297,8 +1297,8 @@
           var p = pct(realV, planV);
           var pStyle = '';
           if (p != null) {
-            if (row.isNak) { pStyle = p <= 100 ? 'color:#27ae60;' : p <= 120 ? 'color:#e67e22;' : 'color:#c0392b;'; }
-            else { pStyle = p >= 90 ? 'color:#27ae60;' : p >= 70 ? 'color:#e67e22;' : 'color:#c0392b;'; }
+            if (row.isNak) { pStyle = p <= 50 ? 'color:#27ae60;' : p <= 75 ? 'color:#e67e22;' : 'color:#c0392b;'; }
+            else { pStyle = p >= 76 ? 'color:#27ae60;' : p >= 51 ? 'color:#e67e22;' : 'color:#c0392b;'; }
           }
           t += '<td style="' + tdStyle + 'color:#555;">' + (planV ? fmtKcR(planV) : '—') + '</td>'
             + '<td style="' + tdStyle + '">' + (realV != null ? fmtKcR(realV) : '—') + '</td>'
