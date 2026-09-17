@@ -1043,8 +1043,8 @@
   var pctPill = function(p, isNak) {
     if (p == null) return '';
     var cls = isNak
-      ? (p <= 100 ? 'p-green' : p <= 120 ? 'p-amber' : 'p-red')
-      : (p >= 90 ? 'p-green' : p >= 70 ? 'p-amber' : 'p-red');
+      ? (p <= 50 ? 'p-green' : p <= 75 ? 'p-amber' : 'p-red')
+      : (p >= 76 ? 'p-green' : p >= 51 ? 'p-amber' : 'p-red');
     return '<span class="pill ' + cls + '" style="font-size:10px;">' + p + ' %</span>';
   };
 
