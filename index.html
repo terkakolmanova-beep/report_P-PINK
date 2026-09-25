@@ -566,7 +566,7 @@
 
   function checkPassword() {
     var input = document.getElementById('pw-input');
-    if (input.value === '06372562') {
+    if (input.value.trim() === '06372562') {
       localStorage.setItem('ppink-auth', '1');
       document.getElementById('pw-overlay').style.display = 'none';
     } else {
@@ -584,7 +584,7 @@
 
   function checkBudgetPassword() {
     var input = document.getElementById('bpw-input');
-    if (input.value === '5005') {
+    if (input.value.trim() === '5005') {
       localStorage.setItem('ppink-budget-auth', '1');
       document.getElementById('bpw-overlay').style.display = 'none';
       switchTab('rozpocet');
