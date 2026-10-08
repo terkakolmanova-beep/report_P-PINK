@@ -715,7 +715,7 @@
     idz_studenti:       [305,          349,           567,           665,           493,           328,           0,             0,            null],
     idz_skoly:          [3,            10,            13,            24,            5,             9,             0,             0,            null],
     virtualni_sidlo:    [2,            1,             4,             3,             2,             2,             3,             7,            null],
-    poptavky_coworking: [3,            5,             3,             3,             7,             4,             6,             2,            null],
+    poptavky_coworking: [3,            5,             3,             3,             7,             4,             6,             2,            2],
     hr_hpp:             [7,            7,             7,             7,             7,             8,             7,             8,            null],
     hr_dpc:             [4,            5,             5,             4,             5,             5,             4,             4,            null],
     hr_dpp:             [8,            10,            9,             9,             9,             8,             8,             10,           null],
@@ -1062,22 +1062,22 @@
         r:[455114,984273,8897362,253138,2936490,558030,286193,304472,null,null,null,null] },
       { label:'Tržby vlastní (budova)', l:1, a:2234772, yr:1639706, isNak:false,
         p:[186231,186231,186231,186231,186231,186231,186231,186231,186231,186231,186231,186231],
-        r:[452864,168863,170580,186437,171626,180830,167849,140657,null,null,null,null] },
+        r:[452864,168863,170580,186437,171626,180830,167849,140657,132807,null,null,null] },
       { label:'Coworking', l:2, a:420000, yr:358614, isNak:false,
         p:[35000,35000,35000,35000,35000,35000,35000,35000,35000,35000,35000,35000],
-        r:[41033,38000,43000,51000,43250,49531,51400,41400,null,null,null,null] },
+        r:[41033,38000,43000,51000,43250,49531,51400,41400,39230,null,null,null] },
       { label:'Pronájem kanceláří', l:2, a:962772, yr:613275, isNak:false,
         p:[80231,80231,80231,80231,80231,80231,80231,80231,80231,80231,80231,80231],
-        r:[78605,76105,76105,76105,76105,81229,78098,70923,null,null,null,null] },
+        r:[78605,76105,76105,76105,76105,81229,78098,70923,70923,null,null,null] },
       { label:'Virtuální sídla P-PINK', l:2, a:300000, yr:316706, isNak:false,
         p:[25000,25000,25000,25000,25000,25000,25000,25000,25000,25000,25000,25000],
-        r:[254625,9634,6240,9347,8549,4958,9218,14135,null,null,null,null] },
+        r:[254625,9634,6240,9347,8549,4958,9218,14135,9254,null,null,null] },
       { label:'Jednorázové pronájmy', l:2, a:240000, yr:139760, isNak:false,
         p:[20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000],
-        r:[19250,14900,19400,24150,16690,25570,6000,13800,null,null,null,null] },
+        r:[19250,14900,19400,24150,16690,25570,6000,13800,13400,null,null,null] },
       { label:'TO-PINK – Česká Třebová', l:2, a:312000, yr:173845, isNak:false,
         p:[26000,26000,26000,26000,26000,26000,26000,26000,26000,26000,26000,26000],
-        r:[25835,25835,25835,25835,25835,22335,22335,0,null,null,null,null] },
+        r:[25835,25835,25835,25835,25835,22335,22335,0,0,null,null,null] },
       { label:'Konzultace, inkubace, akc.', l:1, a:1812000, yr:1004625, isNak:false,
         p:[76000,76000,76000,76000,76000,476000,76000,76000,101000,101000,101000,501000],
         r:[2250,15960,72650,66701,264864,377200,102729,102270,null,null,null,null] },
@@ -3264,7 +3264,7 @@
       <div class="kpi"><div class="kpi-val">—</div><div class="kpi-lbl">Inkubované subjekty</div></div>
       <div class="kpi"><div class="kpi-val">—</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
       <div class="kpi"><div class="kpi-val">—</div><div class="kpi-lbl">Nová virtuální sídla</div></div>
-      <div class="kpi"><div class="kpi-val">—</div><div class="kpi-lbl">Poptávky coworking</div></div>
+      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Poptávky coworking</div></div>
     </div>
 
     <!-- Příjmy a výdaje -->
@@ -3272,7 +3272,7 @@
     <div class="outlook-grid">
       <div class="card">
         <div class="card-title">Příjmy září 2026</div>
-        <div class="row"><span class="rl">Tržby vlastní</span><span class="rv">— Kč <span style="font-size:10px;color:#aaa;">(plán 186 231 Kč)</span></span></div>
+        <div class="row"><span class="rl">Tržby vlastní</span><span class="rv">132 807 Kč <span style="font-size:10px;color:#aaa;">(plán 186 231 Kč)</span></span></div>
         <div class="row"><span class="rl">Konzultace, inkubace</span><span class="rv">— Kč <span style="font-size:10px;color:#aaa;">(plán 101 000 Kč)</span></span></div>
         <div class="row"><span class="rl">Projekty</span><span class="rv">— Kč</span></div>
         <div class="row"><span class="rl">Dotace</span><span class="rv">— Kč</span></div>
@@ -3311,6 +3311,33 @@
         </div>
         <div style="margin-top:10px;padding:8px 12px;background:#f6eef6;border-left:3px solid #922790;border-radius:0 6px 6px 0;font-size:12px;color:#333;line-height:1.5;">
           Dodány <strong>2 příběhy klientů</strong> a <strong>1 reference</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- Prostory -->
+    <div class="sec-label">Prostory – budova P-PINK</div>
+    <div class="prog-row">
+      <div class="prog-head">
+        <div class="prog-head-title">Pronájmy</div>
+        <div class="prog-head-tag">Coworking, kanceláře, zasedací místnosti</div>
+      </div>
+      <div class="prog-body">
+        <div class="prog-stats-grid">
+          <div class="prog-stat"><span class="prog-sl">Coworking (10 dní) – osob</span><span class="prog-sv">9</span></div>
+          <div class="prog-stat"><span class="prog-sl">Coworking flexi – osob</span><span class="prog-sv">4</span></div>
+          <div class="prog-stat"><span class="prog-sl">Coworking fix – osob</span><span class="prog-sv">4</span></div>
+          <div class="prog-stat"><span class="prog-sl">Příjmy coworking</span><span class="prog-sv">39 230 Kč</span></div>
+          <div class="prog-stat"><span class="prog-sl">Příjmy kanceláře</span><span class="prog-sv">70 923 Kč</span></div>
+          <div class="prog-stat"><span class="prog-sl">Virtuální sídla P-PINK</span><span class="prog-sv">9 254 Kč</span></div>
+          <div class="prog-stat"><span class="prog-sl">Konferenční místnost (dny)</span><span class="prog-sv">17</span></div>
+          <div class="prog-stat"><span class="prog-sl">Příjmy konferenční místnost</span><span class="prog-sv">8 000 Kč</span></div>
+          <div class="prog-stat"><span class="prog-sl">Jednací místnost (dny)</span><span class="prog-sv">21</span></div>
+          <div class="prog-stat"><span class="prog-sl">Příjmy jednací místnost</span><span class="prog-sv">5 400 Kč</span></div>
+          <div class="prog-stat"><span class="prog-sl">Poptávky coworking</span><span class="prog-sv">2</span></div>
+          <div class="prog-stat"><span class="prog-sl">Poptávky kanceláře</span><span class="prog-sv">2</span></div>
+          <div class="prog-stat"><span class="prog-sl">Poptávky zasedacích místností</span><span class="prog-sv">6</span></div>
+          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">TRŽBY VLASTNÍ CELKEM</span><span class="prog-sv">132 807 Kč</span></div>
         </div>
       </div>
     </div>
