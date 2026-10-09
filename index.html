@@ -595,7 +595,7 @@
     }
   }
 
-  var TAB_LABELS = { leden: 'Leden 2026', unor: 'Únor 2026', brezen: 'Březen 2026', duben: 'Duben 2026', kveten: 'Květen 2026', cerven: 'Červen 2026', cervenec: 'Červenec 2026', srpen: 'Srpen 2026', trendy: 'Trendy', rozpocet: 'Rozpočet 2026' };
+  var TAB_LABELS = { leden: 'Leden 2026', unor: 'Únor 2026', brezen: 'Březen 2026', duben: 'Duben 2026', kveten: 'Květen 2026', cerven: 'Červen 2026', cervenec: 'Červenec 2026', srpen: 'Srpen 2026', zari: 'Září 2026', trendy: 'Trendy', rozpocet: 'Rozpočet 2026' };
   var activeMonth = 'srpen';
 
   window.addEventListener('load', function() {
@@ -702,19 +702,19 @@
     hodin:              [15.4,         35.7,          63,            126.7,         131.4,         175.5,         58,            32,            31],
     subjekty:           [12,           21,            22,            23,            25,            25,            21,            28,            30],
     faktury_hodnota:    [2250,         8000,          42650,         8850,          26600,         157200,        102729,        102270,        55145],
-    inkubace:           [2,            3,             1,             2,             3,             3,             2,             3,            null],
-    akcelerace:         [1,            1,             2,             2,             3,             4,             2,             7,            null],
-    prijmy:             [611773,       2182185,       8879760,       1257942,       7001839,       670683,        1090500,       461239,       null],
-    naklady:            [574593,       2762756,       1665523,       1718361,       5058968,       1813075,       1970805,       1389856,      null],
-    stav_uctu:          [1463866.40,   883295.80,     8097532.98,    7637114,       9579984.16,    8437442,       7557136.40,    6628520,      null],
-    pinkaka_prihlaseni: [null,         null,          111,           null,          null,          null,          null,          null,         null],
-    pinkaka_pritomni:   [null,         null,          70,            null,          null,          null,          null,          null,         null],
+    inkubace:           [2,            3,             1,             2,             3,             3,             2,             3,            3],
+    akcelerace:         [1,            1,             2,             2,             3,             4,             2,             7,            2],
+    prijmy:             [611773,       2182185,       8879760,       1257942,       7001839,       670683,        1090500,       461239,       461925],
+    naklady:            [574593,       2762756,       1665523,       1718361,       5058968,       1813075,       1970805,       1389856,      1747362],
+    stav_uctu:          [1463866.40,   883295.80,     8097532.98,    7637114,       9579984.16,    8437442,       7557136.40,    6628520,      5343082],
+    pinkaka_prihlaseni: [null,         null,          111,           null,          null,          null,          null,          null,         18],
+    pinkaka_pritomni:   [null,         null,          70,            null,          null,          null,          null,          null,         22],
     pinkaka_absolventi: [null,         null,          null,          21,            32,            20,            null,          null,         null],
 
-    idz_akce:           [17,           18,            32,            38,            25,            22,            0,             0,            null],
-    idz_studenti:       [305,          349,           567,           665,           493,           328,           0,             0,            null],
-    idz_skoly:          [3,            10,            13,            24,            5,             9,             0,             0,            null],
-    virtualni_sidlo:    [2,            1,             4,             3,             2,             2,             3,             7,            null],
+    idz_akce:           [17,           18,            32,            38,            25,            22,            0,             0,            12],
+    idz_studenti:       [305,          349,           567,           665,           493,           328,           0,             0,            280],
+    idz_skoly:          [3,            10,            13,            24,            5,             9,             0,             0,            11],
+    virtualni_sidlo:    [2,            1,             4,             3,             2,             2,             3,             7,            5],
     poptavky_coworking: [3,            5,             3,             3,             7,             4,             6,             2,            2],
     hr_hpp:             [7,            7,             7,             7,             7,             8,             7,             8,            7],
     hr_dpc:             [4,            5,             5,             4,             5,             5,             4,             4,            4],
@@ -1245,7 +1245,7 @@
     var sumHtml = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">'
       + '<div class="card"><div class="card-title">Celkem výnosy 2026 (YTD)</div>'
       + '<div class="row"><span class="rl">Roční plán</span><span class="rv">18 547 222 Kč</span></div>'
-      + '<div class="row"><span class="rl">Realita YTD (leden–srpen)</span><span class="rv g">14 675 073 Kč <span class="pill p-green" style="font-size:10px;">79 %</span></span></div>'
+      + '<div class="row"><span class="rl">Realita YTD (leden–září)</span><span class="rv g">14 915 303 Kč <span class="pill p-green" style="font-size:10px;">80 %</span></span></div>'
       + '</div>'
       + '<div class="card"><div class="card-title">Celkem náklady 2026 (YTD leden–červenec)</div>'
       + '<div class="row"><span class="rl">Roční plán</span><span class="rv">18 515 458 Kč</span></div>'
@@ -3562,7 +3562,7 @@
             <th>Únor 2026</th>
             <th>Březen 2026</th>
             <th>Duben 2026</th>
-            <th>Květen 2026</th><th>Červen 2026</th><th>Červenec 2026</th><th>Srpen 2026</th>
+            <th>Květen 2026</th><th>Červen 2026</th><th>Červenec 2026</th><th>Srpen 2026</th><th>Září 2026</th>
             <th style="cursor:pointer; user-select:none;">
               <div class="trend-mode-dropdown" onclick="toggleTrendMenu()">
                 <span id="trend-change-hdr">Změna m/m</span>
