@@ -736,8 +736,8 @@
     { label: 'Akcelerované subjekty',      key: 'akcelerace',        fmt: function(v){ return v; } },
     { cat: 'Finance' },
     { label: 'Příjmy',                     key: 'prijmy',            fmt: fmtKc },
-    { label: 'Náklady',                    key: 'naklady',           fmt: fmtKc },
-    { label: 'Stav bankovních účtů',       key: 'stav_uctu',         fmt: fmtKc },
+    { label: 'Výdaje',                      key: 'naklady',           fmt: fmtKc },
+    { label: 'Cash flow (stav BÚ)',        key: 'stav_uctu',         fmt: fmtKc },
     { cat: 'PINKaka – Akademie podnikání' },
     { label: 'Přihlášení účastníci',       key: 'pinkaka_prihlaseni',fmt: function(v){ return v; }, nullMark: 'x', changeType: 'skip' },
     { label: 'Přítomni na 1. setkání',     key: 'pinkaka_pritomni',  fmt: function(v){ return v; }, nullMark: 'x', changeType: 'skip' },
@@ -943,29 +943,32 @@
       options: rozpocetOpts
     });
 
-    /* 3 – PINKaka */
-    var sumNonNull = function(arr) { return arr.reduce(function(a, v) { return a + (v != null ? v : 0); }, 0); };
+    /* 3 – PINKaka (jarní vs. podzimní běh) */
     new Chart(document.getElementById('chart-pinkaka'), {
       type: 'bar',
       data: {
         labels: ['Přihlášení', 'Na 1. setkání', 'Absolventi programu'],
-        datasets: [{
-          data: [
-            sumNonNull(MDATA.pinkaka_prihlaseni),
-            sumNonNull(MDATA.pinkaka_pritomni),
-            sumNonNull(MDATA.pinkaka_absolventi)
-          ],
-          backgroundColor: [C1 + 'cc', C2 + 'cc', C3 + 'cc'],
-          borderRadius: 6
-        }]
+        datasets: [
+          {
+            label: 'Jarní běh 2026',
+            data: [MDATA.pinkaka_prihlaseni[2], MDATA.pinkaka_pritomni[2],
+                   (MDATA.pinkaka_absolventi[3]||0)+(MDATA.pinkaka_absolventi[4]||0)+(MDATA.pinkaka_absolventi[5]||0)],
+            backgroundColor: C1 + 'cc', borderRadius: 4
+          },
+          {
+            label: 'Podzimní běh 2026',
+            data: [MDATA.pinkaka_prihlaseni[8], MDATA.pinkaka_pritomni[8], null],
+            backgroundColor: C3 + 'cc', borderRadius: 4
+          }
+        ]
       },
       options: {
         responsive: true,
         aspectRatio: 2,
         animation: { duration: 500 },
         plugins: {
-          legend: { display: false },
-          tooltip: { titleFont: { size: 10 }, bodyFont: { size: 10 }, callbacks: { label: function(ctx) { return ctx.parsed.y + ' osob'; } } }
+          legend: { labels: { font: { size: 10, family: 'inherit' }, color: '#555', boxWidth: 10, padding: 8 } },
+          tooltip: { titleFont: { size: 10 }, bodyFont: { size: 10 }, callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + (ctx.parsed.y != null ? ctx.parsed.y + ' osob' : '–'); } } }
         },
         scales: {
           x: { ticks: { font: { size: 11 }, color: '#555' }, grid: { display: false } },
@@ -3303,6 +3306,10 @@
         <div style="margin-top:10px;padding:8px 12px;background:#f6eef6;border-left:3px solid #922790;border-radius:0 6px 6px 0;font-size:12px;color:#333;line-height:1.5;">
           Dodány <strong>2 příběhy klientů</strong> a <strong>1 reference</strong>
         </div>
+        <a href="https://p-pink.cz/pribeh-medfima-firma-stojici-na-dvou-zakladatelich-k-tymu-ktery-sdili-odpovednost/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;font-weight:600;color:#922790;text-decoration:none;">📖 Příběh klienta: MEDFIMA – od firmy dvou zakladatelů k týmu sdílené odpovědnosti →</a>
+        <a href="https://p-pink.cz/modularni_system_prevence_psychosoci%C3%A1ln%C3%ADch_rizik_ziskal_podporu_pro_dalsi_rojvoj_dboc_rdfc/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#922790;text-decoration:none;">📖 BP pro UPCE: Modulární systém prevence psychosociálních rizik získal podporu →</a>
+        <a href="https://p-pink.cz/uroset_necekejte_at_bude_pozde_zacnete_s_prevenci_uz_dnes/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#922790;text-decoration:none;">📖 Příběh klienta: UROSET – Nečekejte, až bude pozdě. Začněte s prevencí už dnes →</a>
+        <a href="https://p-pink.cz/pavel_pinkas_miri_do_ranketty/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#922790;text-decoration:none;">📖 Ranketta: Pavel Pinkas přijímá novou startupovou výzvu →</a>
       </div>
     </div>
 
@@ -3377,6 +3384,7 @@
         </div>
         <div class="event-body" style="margin-top:8px;">
           <div class="event-row"><div class="event-dot"></div><div class="event-text">Prodej lístků probíhá</div></div>
+          <div class="event-row"><div class="event-dot" style="background:#f59e0b;"></div><div class="event-text"><strong>Do 18. 10.</strong> – nominace TOP projektů · <a href="https://p-pink.cz/znate_projekt_ktery_si_zaslouzi_pozornost_nominujte_ho_na_top_projekt_showference_2026/" target="_blank" style="color:#922790;font-weight:600;">Nominovat →</a></div></div>
         </div>
       </div>
     </div>
