@@ -348,6 +348,7 @@
     body.print-all #tab-cerven,
     body.print-all #tab-cervenec,
     body.print-all #tab-srpen,
+    body.print-all #tab-zari,
     body.print-all #tab-trendy { display: block !important; }
     body.print-all #tab-leden    { page-break-after: always; break-after: page; }
     body.print-all #tab-unor     { page-break-after: always; break-after: page; }
@@ -355,8 +356,9 @@
     body.print-all #tab-duben    { page-break-after: always; break-after: page; }
     body.print-all #tab-kveten   { page-break-after: always; break-after: page; }
     body.print-all #tab-cerven   { page-break-after: always; break-after: page; }
-    body.print-all #tab-cervenec,
-    body.print-all #tab-srpen { page-break-after: always; break-after: page; }
+    body.print-all #tab-cervenec { page-break-after: always; break-after: page; }
+    body.print-all #tab-srpen    { page-break-after: always; break-after: page; }
+    body.print-all #tab-zari     { page-break-after: always; break-after: page; }
 
     /* Stránka – odebrat overflow:hidden aby se obsah nelámala/neořezával */
     .page {
@@ -663,14 +665,38 @@
   function executePrint() {
     closePdfModal();
     var prev = document.title;
-    var isTrendy = pdfSelectedMonth === 'trendy' || pdfSelectedMonth === 'vse';
 
+    if (pdfSelectedMonth === 'rozpocet') {
+      if (localStorage.getItem('ppink-budget-auth') !== '1') {
+        document.getElementById('bpw-overlay').style.display = 'flex';
+        setTimeout(function(){ document.getElementById('bpw-input').focus(); }, 50);
+        var origCheck = window.checkBudgetPassword;
+        window.checkBudgetPassword = function() {
+          var input = document.getElementById('bpw-input');
+          if (input.value.trim() === '5005') {
+            localStorage.setItem('ppink-budget-auth', '1');
+            document.getElementById('bpw-overlay').style.display = 'none';
+            window.checkBudgetPassword = origCheck;
+            doPrint('rozpocet', prev);
+          } else {
+            input.classList.remove('error'); void input.offsetWidth; input.classList.add('error');
+            document.getElementById('bpw-err').textContent = 'Nesprávné heslo.';
+            input.value = '';
+          }
+        };
+        return;
+      }
+      doPrint('rozpocet', prev);
+      return;
+    }
+
+    var isTrendy = pdfSelectedMonth === 'trendy' || pdfSelectedMonth === 'vse';
     if (isTrendy) addTrendyPrintStyle();
 
     if (pdfSelectedMonth === 'vse') {
       buildTrendTable(); buildCharts();
       document.body.classList.add('print-all');
-      document.title = 'P-PINK-Report-leden-unor-brezen-duben-kveten-cerven-cervenec-srpen-trendy';
+      document.title = 'P-PINK-Report-leden-unor-brezen-duben-kveten-cerven-cervenec-srpen-zari-trendy';
       window.addEventListener('afterprint', function onAP() {
         window.removeEventListener('afterprint', onAP);
         document.body.classList.remove('print-all');
@@ -680,20 +706,24 @@
       });
       setTimeout(function() { window.print(); }, 400);
     } else {
-      switchTab(pdfSelectedMonth);
-      var label = TAB_LABELS[pdfSelectedMonth] || 'Report';
-      var slug = 'P-PINK-Report-' + label.toLowerCase()
-        .replace(/\s+/g, '-')
-        .replace(/[^\w-]/g, '')
-        .replace(/--+/g, '-');
-      document.title = slug;
-      window.addEventListener('afterprint', function onAP() {
-        window.removeEventListener('afterprint', onAP);
-        if (isTrendy) removeTrendyPrintStyle();
-        document.title = prev;
-      });
-      setTimeout(function() { window.print(); }, 350);
+      doPrint(pdfSelectedMonth, prev, isTrendy);
     }
+  }
+
+  function doPrint(month, prevTitle, isTrendy) {
+    switchTab(month);
+    var label = TAB_LABELS[month] || 'Report';
+    var slug = 'P-PINK-Report-' + label.toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w-]/g, '')
+      .replace(/--+/g, '-');
+    document.title = slug;
+    window.addEventListener('afterprint', function onAP() {
+      window.removeEventListener('afterprint', onAP);
+      if (isTrendy) removeTrendyPrintStyle();
+      document.title = prevTitle;
+    });
+    setTimeout(function() { window.print(); }, 350);
   }
 
   /* ===================== TRENDY DATA ===================== */
@@ -3712,10 +3742,14 @@
       <div class="pdf-opt-check">✓</div>
     </div>
     <div class="pdf-opt" data-month="zari" onclick="selectPdfOpt(this,'zari')">
-        <div class="pdf-opt-title">Září 2026</div>
-        <div class="pdf-opt-sub">Měsíční zpráva</div>
+      <div class="pdf-opt-icon">📋</div>
+      <div class="pdf-opt-info">
+        <div class="pdf-opt-label">Září 2026</div>
+        <div class="pdf-opt-sub">Měsíční report – září</div>
       </div>
-        <div class="pdf-opt" data-month="trendy" onclick="selectPdfOpt(this,'trendy')">
+      <div class="pdf-opt-check">✓</div>
+    </div>
+    <div class="pdf-opt" data-month="trendy" onclick="selectPdfOpt(this,'trendy')">
       <div class="pdf-opt-icon">📈</div>
       <div class="pdf-opt-info">
         <div class="pdf-opt-label">Trendy</div>
@@ -3723,11 +3757,19 @@
       </div>
       <div class="pdf-opt-check">✓</div>
     </div>
+    <div class="pdf-opt" data-month="rozpocet" onclick="selectPdfOpt(this,'rozpocet')">
+      <div class="pdf-opt-icon">🔒</div>
+      <div class="pdf-opt-info">
+        <div class="pdf-opt-label">Rozpočet 2026</div>
+        <div class="pdf-opt-sub">Chráněno heslem – budete vyzváni k zadání</div>
+      </div>
+      <div class="pdf-opt-check">✓</div>
+    </div>
     <div class="pdf-opt" data-month="vse" onclick="selectPdfOpt(this,'vse')">
       <div class="pdf-opt-icon">📦</div>
       <div class="pdf-opt-info">
         <div class="pdf-opt-label">Vše naráz</div>
-        <div class="pdf-opt-sub">Leden + Únor + Březen + Duben + Květen + Červen + Červenec + Srpen + Trendy za sebou</div>
+        <div class="pdf-opt-sub">Leden – Září + Trendy za sebou</div>
       </div>
       <div class="pdf-opt-check">✓</div>
     </div>
