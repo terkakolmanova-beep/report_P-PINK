@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P-PINK – Přehled aktivit (partnerská verze), březen 2026</title>
+<title>P-PINK – Přehled aktivit (veřejná verze), březen 2026</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -462,11 +462,6 @@
     .risk-row { grid-template-columns: minmax(0,1fr); gap: 4px; }
   }
   /* Password overlay */
-  #pw-overlay {
-    position: fixed; inset: 0; z-index: 9999;
-    background: #ECE8F0;
-    display: flex; align-items: center; justify-content: center;
-  }
   #pw-box {
     background: #fff; border-radius: 14px;
     border: 1px solid #ECE8F0;
@@ -474,34 +469,6 @@
     padding: 2.5rem 2rem 2rem;
     width: 320px; text-align: center;
   }
-  #pw-logo { margin-bottom: 1.2rem; }
-  #pw-title { font-size: 13px; font-weight: 700; color: #411467; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
-  #pw-title { margin-bottom: 1.4rem; }
-  #pw-input {
-    width: 100%; padding: 10px 14px; border: 1.5px solid #ECE8F0;
-    border-radius: 8px; font-size: 16px; letter-spacing: 0.15em;
-    text-align: center; outline: none; color: #1a1a1a;
-    font-family: 'Fira Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    margin-bottom: 0.8rem;
-    transition: border-color 0.2s;
-  }
-  #pw-input:focus { border-color: #8A37D2; }
-  #pw-input.error { border-color: #c0003a; animation: shake 0.3s; }
-  #pw-btn {
-    width: 100%; padding: 11px; border: none; border-radius: 8px; cursor: pointer;
-    background: linear-gradient(135deg, #411467 0%, #8A37D2 100%);
-    color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.05em;
-    font-family: 'Fira Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    transition: opacity 0.2s;
-  }
-  #pw-btn:hover { opacity: 0.88; }
-  #pw-err { font-size: 11px; color: #c0003a; margin-top: 0.7rem; min-height: 16px; }
-  @keyframes shake {
-    0%,100% { transform: translateX(0); }
-    25% { transform: translateX(-6px); }
-    75% { transform: translateX(6px); }
-  }
-  @media print { #pw-overlay { display: none !important; } }
   /* Čerpání rozpočtu – progress bary */
   .budg-section-hdr { margin: 10px 0 3px; font-size: 10px; font-weight: 800; color: #8A37D2; text-transform: uppercase; letter-spacing: 0.08em; padding-bottom: 3px; border-bottom: 1px solid #ECE8F0; }
   .budg-row { display: grid; grid-template-columns: 1fr 100px 105px 80px; gap: 6px; align-items: center; padding: 5px 0; border-bottom: 1px solid #F3EAFC; font-size: 12px; }
@@ -544,64 +511,10 @@
 </style>
 </head>
 <body>
-
-<!-- PASSWORD OVERLAY -->
-<div id="pw-overlay">
-  <div id="pw-box">
-    <div id="pw-logo">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABdwAAAFxCAYAAABp+GpHAAAEr2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS41LjAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgeG1sbnM6ZXhpZj0iaHR0cDovL25zLmFkb2JlLmNvbS9leGlmLzEuMC8iCiAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyIKICAgIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIKICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgZXhpZjpQaXhlbFhEaW1lbnNpb249IjE1MDAiCiAgIGV4aWY6UGl4ZWxZRGltZW5zaW9uPSIzNjkiCiAgIGV4aWY6Q29sb3JTcGFjZT0iMSIKICAgdGlmZjpJbWFnZVdpZHRoPSIxNTAwIgogICB0aWZmOkltYWdlTGVuZ3RoPSIzNjkiCiAgIHRpZmY6UmVzb2x1dGlvblVuaXQ9IjIiCiAgIHRpZmY6WFJlc29sdXRpb249IjcyLzEiCiAgIHRpZmY6WVJlc29sdXRpb249IjcyLzEiCiAgIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiCiAgIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIKICAgeG1wOk1vZGlmeURhdGU9IjIwMjYtMDctMTBUMTA6NTM6NTErMDI6MDAiCiAgIHhtcDpNZXRhZGF0YURhdGU9IjIwMjYtMDctMTBUMTA6NTM6NTErMDI6MDAiPgogICA8eG1wTU06SGlzdG9yeT4KICAgIDxyZGY6U2VxPgogICAgIDxyZGY6bGkKICAgICAgc3RFdnQ6YWN0aW9uPSJwcm9kdWNlZCIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWZmaW5pdHkgMy4wLjEiCiAgICAgIHN0RXZ0OndoZW49IjIwMjYtMDctMTBUMTA6NTM6NTErMDI6MDAiLz4KICAgIDwvcmRmOlNlcT4KICAgPC94bXBNTTpIaXN0b3J5PgogIDwvcmRmOkRlc2NyaXB0aW9uPgogPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KPD94cGFja2V0IGVuZD0iciI/PjM/beEAAAGBaUNDUHNSR0IgSUVDNjE5NjYtMi4xAAAokXWR3ytDYRjHPxuahiguXLg4CVebtilxo0xCLWmmDDfbcbapne10zpbkVrlVlLjx64K/gFvlWikiJddySdyg4zm2mmTP2/M+n/f7vs/T+z4vuGNZVbdqA6DnCmZ0LKzMxucUzzMevNTTTTChWsbw1FSEqvZ+i8uJ136nVvVz/1rDomap4KoXHlINsyA8LhxZLhgObwm3qZnEovCJsM+UCwrfOHqyxE8Op0v86bAZi46Au0VYSf/i5C9WM6YuLC+nS88W1fJ9nJc0armZaYmd4h1YRBkjjMIEo4zQT5BBmfvxE6JXVlTJD/zkT5KXXFVmgxVMlkiToYBP1KJU1ySmRNdkZFlx+v+3r1aqL1Sq3hiGukfbfu0GzyZ8bdj2x4Ftfx1CzQOc5yr5+X0YeBN9o6J17UHzGpxeVLTkNpytQ/u9kTATP1KNuDuVgpdjaIpD6xV450s9K+9zdAexVfmqS9jZhR4537zwDXSvZ+wWNizbAAAACXBIWXMAAAsTAAALEwEAmpwYAAAgAElEQVR4nOzdd5SlVZWw8adJgiCmg2LABAqYMDtjwmMOOA4ZxDAqesaIEWXUMSso6pjQo6CgogiYs4MeFRQjZh1QEbPiUQwISOrvj3v7o2k63NtdVfuG57fWu6roru5+WAt2de1673lBkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQtvWXRAZIkSZI0zXIqWwDXB643fHt94NrAlYfXFmt4uww4H/gHcN5qrnOB3wC/BH4B/LL1+sel+veSJEnS+GZm4Z5TuSXw/pV+aNkU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" alt="P-PINK" style="height:36px;display:block;margin:0 auto;">
-    </div>
-    <div id="pw-title">Měsíční report P-PINK 2026</div>
-    <input id="pw-input" type="password" placeholder="Zadejte heslo" autocomplete="off" />
-    <button id="pw-btn" onclick="checkPassword()">Vstoupit</button>
-    <div id="pw-err"></div>
-  </div>
-</div>
-
-<div id="bpw-overlay" style="display:none;position:fixed;inset:0;background:rgba(80,0,70,0.55);z-index:9999;align-items:center;justify-content:center;">
-  <div style="background:#fff;border-radius:14px;padding:2rem 2.2rem;max-width:320px;width:90%;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,0.22);">
-    <div style="font-size:13px;font-weight:700;color:#411467;margin-bottom:1.2rem;">🔒 Záložka Rozpočet je chráněna heslem</div>
-    <input id="bpw-input" type="password" placeholder="Zadejte heslo" autocomplete="off"
-      style="width:100%;padding:0.6rem 0.8rem;border:1.5px solid #ECE8F0;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;margin-bottom:0.7rem;"
-      onkeydown="if(event.key==='Enter')checkBudgetPassword()" />
-    <button onclick="checkBudgetPassword()"
-      style="width:100%;padding:0.65rem;background:#8A37D2;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">Vstoupit</button>
-    <div id="bpw-err" style="font-size:11px;color:#c0003a;margin-top:0.5rem;min-height:16px;"></div>
-    <div style="font-size:10px;color:#bbb;margin-top:0.8rem;cursor:pointer;" onclick="document.getElementById('bpw-overlay').style.display='none';">Zrušit</div>
-  </div>
-</div>
+<div style="background:#32989A;color:#fff;text-align:center;font-size:11px;font-weight:700;padding:5px;letter-spacing:0.08em;font-family:'Oswald',sans-serif;">VEŘEJNÁ VERZE · P-PINK MĚSÍČNÍ PŘEHLED AKTIVIT</div>
 
 <script>
 
-  function checkPassword() {
-    var input = document.getElementById('pw-input');
-    if (input.value.trim() === 'pardubickykraj') {
-      localStorage.setItem('ppink-auth', '1');
-      document.getElementById('pw-overlay').style.display = 'none';
-    } else {
-      input.classList.remove('error');
-      void input.offsetWidth;
-      input.classList.add('error');
-      document.getElementById('pw-err').textContent = 'Nesprávné heslo, zkuste to znovu.';
-      input.value = '';
-    }
-  }
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') checkPassword();
-  });
-
-  function checkBudgetPassword() {
-    var input = document.getElementById('bpw-input');
-    if (input.value.trim() === '5005') {
-      localStorage.setItem('ppink-budget-auth', '1');
-      document.getElementById('bpw-overlay').style.display = 'none';
-    } else {
-      input.classList.remove('error'); void input.offsetWidth; input.classList.add('error');
-      document.getElementById('bpw-err').textContent = 'Nesprávné heslo.';
-      input.value = '';
-    }
-  }
 
   var TAB_LABELS = { leden: 'Leden 2026', unor: 'Únor 2026', brezen: 'Březen 2026', duben: 'Duben 2026', kveten: 'Květen 2026', cerven: 'Červen 2026', cervenec: 'Červenec 2026', srpen: 'Srpen 2026', zari: 'Září 2026', trendy: 'Trendy', rozpocet: 'Rozpočet 2026' };
   var activeMonth = 'srpen';
@@ -613,13 +526,6 @@
   });
 
   function switchTab(month) {
-    if (month === 'rozpocet' && localStorage.getItem('ppink-budget-auth') !== '1') {
-      var bpwEl = document.getElementById('bpw-overlay');
-      if (bpwEl) { bpwEl.style.display = 'flex'; }
-      var bpwInput = document.getElementById('bpw-input');
-      if (bpwInput) setTimeout(function(){ bpwInput.focus(); }, 50);
-      return;
-    }
     activeMonth = month;
     ['leden','unor','brezen','duben','kveten','cerven','cervenec','srpen','zari','trendy'].forEach(function(m) {
       var tabEl = document.getElementById('tab-' + m);
@@ -675,30 +581,6 @@
   function executePrint() {
     closePdfModal();
     var prev = document.title;
-
-    if (pdfSelectedMonth === 'rozpocet') {
-      if (localStorage.getItem('ppink-budget-auth') !== '1') {
-        document.getElementById('bpw-overlay').style.display = 'flex';
-        setTimeout(function(){ document.getElementById('bpw-input').focus(); }, 50);
-        var origCheck = window.checkBudgetPassword;
-        window.checkBudgetPassword = function() {
-          var input = document.getElementById('bpw-input');
-          if (input.value.trim() === '5005') {
-            localStorage.setItem('ppink-budget-auth', '1');
-            document.getElementById('bpw-overlay').style.display = 'none';
-            window.checkBudgetPassword = origCheck;
-            doPrint('rozpocet', prev);
-          } else {
-            input.classList.remove('error'); void input.offsetWidth; input.classList.add('error');
-            document.getElementById('bpw-err').textContent = 'Nesprávné heslo.';
-            input.value = '';
-          }
-        };
-        return;
-      }
-      doPrint('rozpocet', prev);
-      return;
-    }
 
     var isTrendy = pdfSelectedMonth === 'trendy' || pdfSelectedMonth === 'vse';
     if (isTrendy) addTrendyPrintStyle();
@@ -1178,7 +1060,6 @@
   function buildBudgetMiniCards() {
     var MONTH_KEYS = ['leden','unor','brezen','duben','kveten','cerven','cervenec','srpen'];
     MONTH_KEYS.forEach(function(k, idx) {
-      var el = document.getElementById('budget-mini-' + k);
       if (!el) return;
       var hasR = BUDGET.hasReal[idx];
       var nakP = BUDGET.nak_plan[idx], nakR = BUDGET.nak_real[idx];
@@ -1375,22 +1256,6 @@
       </div>
     </div>
 
-    <div class="sec-label">Finance</div>
-    <div class="cf-card" style="margin-bottom:10px;">
-      <div class="cf-label">Stav na bankovních účtech k 31. 1. 2026 (3 účty)</div>
-      <div class="cf-val">1 463 866 Kč</div>
-    </div>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="card-title">Příjmy a náklady – leden</div>
-      <div class="row"><span class="rl">Příjmy</span><span class="rv g">611 773 Kč</span></div>
-      <div class="row"><span class="rl">Výdaje</span><span class="rv r">574 593 Kč</span></div>
-    </div>
-    <div id="budget-mini-leden"></div>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="card-title">Přehled dotací</div>
-      <div class="row"><span class="rl">Podaný záměr dotace</span><span class="rv"><span class="pill p-amber">1 záměr podán</span></span></div>
-    </div>
-
   </div><!-- /tab-leden -->
 
   <div id="tab-unor" style="display:none;">
@@ -1461,28 +1326,6 @@
       </div>
     </div>
 
-    <div class="sec-label">Finance</div>
-    <div class="cf-card" style="margin-bottom:10px;">
-      <div class="cf-label">Stav na bankovních účtech k 28. 2. 2026 (3 účty)</div>
-      <div class="cf-val">883 296 Kč</div>
-    </div>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="card-title">Příjmy a náklady – únor</div>
-      <div class="row"><span class="rl">Příjmy</span><span class="rv g">2 182 185 Kč</span></div>
-      <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–únor)</span><span class="rv" style="color:#999;">2 793 958 Kč</span></div>
-      <div class="row"><span class="rl">Výdaje</span><span class="rv r">2 762 756 Kč</span></div>
-      <div class="row"><span class="rl" style="color:#999;">Kumulativně (leden–únor)</span><span class="rv" style="color:#999;">3 337 349 Kč</span></div>
-    </div>
-    <div id="budget-mini-unor"></div>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="card-title">Přehled dotací</div>
-      <div class="row">
-        <span class="rl">CHEERS4EU – 2. semestr</span>
-        <span class="rv g">796 450 Kč <span class="pill p-green" style="font-size:9px;">obdržena</span></span>
-      </div>
-      <p class="note">Náklady únoru zahrnují finanční výpomoc 1 000 000 Kč Pardubickému kraji (IDZ).</p>
-    </div>
-
   </div><!-- /tab-unor -->
 
   <div id="tab-brezen" style="display:none;">
@@ -1544,35 +1387,6 @@
     </div>
 
     <!-- PIPELINE -->
-    <div class="pipeline-wrap">
-      <div class="pipeline-header">
-        <span class="pipeline-header-title">Pipeline konzultačních projektů</span>
-        <span class="pipeline-header-total">celkem 24 projektů</span>
-      </div>
-      <div class="pipeline-body">
-        <div class="pipe-col">
-          <div class="pipe-col-title">Rozvoj leadu</div>
-          <div class="pipe-item"><span class="pipe-stage">Lead</span><div class="pipe-vals"><div class="pipe-count">7</div><div class="pipe-amount">18 250 Kč</div></div></div>
-          <div class="pipe-item"><span class="pipe-stage">Úvodní schůzka</span><div class="pipe-vals"><div class="pipe-count">3</div><div class="pipe-amount">9 000 Kč</div></div></div>
-          <div class="pipe-item"><span class="pipe-stage">Nacenění</span><div class="pipe-vals"><div class="pipe-count">3</div><div class="pipe-amount">17 100 Kč</div></div></div>
-          <div class="pipe-col-total"><span class="pipe-col-total-label">Mezisoučet</span><span class="pipe-col-total-val">13 / 44 350 Kč</span></div>
-        </div>
-        <div class="pipe-col">
-          <div class="pipe-col-title">Uzavírání</div>
-          <div class="pipe-item"><span class="pipe-stage">Nabídka odeslána</span><div class="pipe-vals"><div class="pipe-count">9</div><div class="pipe-amount">180 900 Kč</div></div></div>
-          <div class="pipe-item"><span class="pipe-stage">Nabídka přijata</span><div class="pipe-vals"><div class="pipe-count">3</div><div class="pipe-amount">51 750 Kč</div></div></div>
-          <div class="pipe-item"><span class="pipe-stage">Fakturace</span><div class="pipe-vals"><div class="pipe-count">1</div><div class="pipe-amount">90 000 Kč</div></div></div>
-          <div class="pipe-col-total"><span class="pipe-col-total-label">Mezisoučet</span><span class="pipe-col-total-val">13 / 322 650 Kč</span></div>
-        </div>
-        <div class="pipe-col">
-          <div class="pipe-col-title">Realizace — 22 subjektů</div>
-          <div class="pipe-item"><span class="pipe-stage">Nová konzultace</span><div class="pipe-vals"><div class="pipe-count">4</div></div></div>
-          <div class="pipe-item"><span class="pipe-stage">Konzultace v řešení</span><div class="pipe-vals"><div class="pipe-count">18</div></div></div>
-          <div class="pipe-col-total"><span class="pipe-col-total-label">Mezisoučet</span><span class="pipe-col-total-val">22 subjektů</span></div>
-        </div>
-      </div>
-    </div>
-
     <!-- PINKAKA -->
     <div class="sec-label">PINKaka</div>
     <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Akademie podnikání PINKaka je bezplatný vzdělávací program pro začínající podnikatele v Pardubickém kraji. Účastníci projdou sérii praktických setkání zaměřených na byznys plán, marketing, finance a prodej. <a href="https://www.p-pink.cz/pinkaka/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
@@ -1743,35 +1557,6 @@
     </div>
 
     <!-- PIPELINE -->
-    <div class="pipeline-wrap">
-      <div class="pipeline-header">
-        <span class="pipeline-header-title">Pipeline konzultačních projektů</span>
-        <span class="pipeline-header-total">celkem 30 projektů / 281 950 Kč</span>
-      </div>
-      <div class="pipeline-body">
-        <div class="pipe-col">
-          <div class="pipe-col-title">Rozvoj leadu</div>
-          <div class="pipe-item"><span class="pipe-stage">Lead</span><div class="pipe-vals"><div class="pipe-count">9</div><div class="pipe-amount">18 250 Kč</div></div></div>
-          <div class="pipe-item"><span class="pipe-stage">Úvodní schůzka</span><div class="pipe-vals"><div class="pipe-count">4</div><div class="pipe-amount">9 000 Kč</div></div></div>
-          <div class="pipe-item"><span class="pipe-stage">Nacenění</span><div class="pipe-vals"><div class="pipe-count">2</div><div class="pipe-amount">12 600 Kč</div></div></div>
-          <div class="pipe-col-total"><span class="pipe-col-total-label">Mezisoučet</span><span class="pipe-col-total-val">15 / 39 850 Kč</span></div>
-        </div>
-        <div class="pipe-col">
-          <div class="pipe-col-title">Uzavírání</div>
-          <div class="pipe-item"><span class="pipe-stage">Nabídka odeslána</span><div class="pipe-vals"><div class="pipe-count">10</div><div class="pipe-amount">186 300 Kč</div></div></div>
-          <div class="pipe-item"><span class="pipe-stage">Nabídka přijata</span><div class="pipe-vals"><div class="pipe-count">3</div><div class="pipe-amount">51 750 Kč</div></div></div>
-          <div class="pipe-item"><span class="pipe-stage">Fakturace</span><div class="pipe-vals"><div class="pipe-count">2</div><div class="pipe-amount">4 050 Kč</div></div></div>
-          <div class="pipe-col-total"><span class="pipe-col-total-label">Mezisoučet</span><span class="pipe-col-total-val">15 / 242 100 Kč</span></div>
-        </div>
-        <div class="pipe-col">
-          <div class="pipe-col-title">Realizace — 23 subjektů</div>
-          <div class="pipe-item"><span class="pipe-stage">Nová konzultace</span><div class="pipe-vals"><div class="pipe-count">—</div></div></div>
-          <div class="pipe-item"><span class="pipe-stage">Konzultace v řešení</span><div class="pipe-vals"><div class="pipe-count">23</div></div></div>
-          <div class="pipe-col-total"><span class="pipe-col-total-label">Mezisoučet</span><span class="pipe-col-total-val">23 subjektů</span></div>
-        </div>
-      </div>
-    </div>
-
     <!-- PINKAKA -->
     <div class="sec-label">PINKaka</div>
     <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Akademie podnikání PINKaka je bezplatný vzdělávací program pro začínající podnikatele v Pardubickém kraji. Účastníci projdou sérii praktických setkání zaměřených na byznys plán, marketing, finance a prodej. <a href="https://www.p-pink.cz/pinkaka/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
