@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>P-PINK – Přehled aktivit (veřejná verze), březen 2026</title>
+<title>P-PINK – Měsíční přehled aktivit</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -507,6 +507,21 @@
   .sec-label, .card-title, .kpi-val, .fte-val, .cf-val,
   .tab-btn, .nav-logo, .event-title, .pipe-col-title,
   .trend-cat td, .risk-hdr span { font-family: 'Oswald', sans-serif; }
+
+
+  /* Veřejná verze – blog příběhy */
+  .stories-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+  .story-card {
+    display: flex; align-items: center; gap: 12px;
+    background: linear-gradient(135deg, #F3EAFC 0%, #EBF5F5 100%);
+    border: 1px solid #c8a5cc; border-radius: 10px;
+    padding: 14px 16px; text-decoration: none;
+    transition: box-shadow 0.2s, transform 0.15s;
+  }
+  .story-card:hover { box-shadow: 0 4px 16px rgba(138,55,210,0.18); transform: translateY(-1px); }
+  .story-icon { font-size: 20px; flex-shrink: 0; }
+  .story-text { font-size: 13px; font-weight: 700; color: #411467; flex: 1; line-height: 1.35; }
+  .story-arrow { font-size: 16px; color: #8A37D2; flex-shrink: 0; }
 
 </style>
 </head>
@@ -1204,235 +1219,16 @@
 
   <div id="tab-leden">
 
-    <div class="sec-label">KPI hlavní činnosti – konzultace</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Zapojené školy IDZ</div></div>
-      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Inkubované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">1</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Nová virtuální sídla</div></div>
-    </div>
 
-    <div class="sec-label">Konzultace</div>
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Konzultace</div>
-        <div class="prog-head-tag">Subjekty s konkrétním problémem</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Flexibilní individuální podpora zaměřená na různé oblasti podnikání. Jednorázové nebo balíčkové služby přizpůsobené potřebám subjektu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">CELKEM</span><span class="prog-sv">15,4 hod</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sec-label">IDZ – Podnikavost pro středoškoláky</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Projekt zaměřený na rozvoj podnikavého myšlení středoškoláků prostřednictvím workshopů, exkurzí a setkání s podnikateli. <a href="https://p-pink.cz/podnikavost-pro-stredoskolaky-idz/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card">
-      <div class="row"><span class="rl">Zapojených škol (nových v lednu)</span><span class="rv">3</span></div>
-      <div class="row"><span class="rl">Zapojených žáků a studentů</span><span class="rv">305</span></div>
-      <div class="row"><span class="rl">Zapojených pedagogů</span><span class="rv">3</span></div>
-    </div>
-
-    <div class="sec-label">Budova</div>
-    <div class="three" style="margin-bottom:10px;">
-      <div class="card">
-        <div class="card-title">Coworking</div>
-        <div class="row"><span class="rl">10denní (obsazenost)</span><span class="rv">9 osob</span></div>
-        <div class="row"><span class="rl">Flexi (obsazenost)</span><span class="rv">5 osob</span></div>
-        <div class="row"><span class="rl">Fix (obsazenost)</span><span class="rv">5 osob</span></div>
-        <div class="row"><span class="rl">Poptávky</span><span class="rv">3</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Zasedací místnosti</div>
-        <div class="row"><span class="rl">Konferenční (obsazenost)</span><span class="rv">18 dní</span></div>
-        <div class="row"><span class="rl">Jednací (obsazenost)</span><span class="rv">21 dní</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Kanceláře &amp; Virtuální sídla</div>
-        <div class="row"><span class="rl">Poptávky kanceláře</span><span class="rv">2</span></div>
-        <div class="row"><span class="rl">Virtuální sídla P-PINK (celkem)</span><span class="rv">71</span></div>
-        <div class="row"><span class="rl">Virtuální sídla TO-PINK (celkem)</span><span class="rv">7</span></div>
-      </div>
-    </div>
-
-  </div><!-- /tab-leden -->
+</div><!-- /tab-leden -->
 
   <div id="tab-unor" style="display:none;">
 
-    <div class="sec-label">KPI hlavní činnosti – konzultace</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="kpi-val">10</div><div class="kpi-lbl">Zapojené školy IDZ</div></div>
-      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Inkubované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">1</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">1</div><div class="kpi-lbl">Nová virtuální sídla</div></div>
-    </div>
 
-    <div class="sec-label">Konzultace</div>
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Konzultace</div>
-        <div class="prog-head-tag">Subjekty s konkrétním problémem</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Flexibilní individuální podpora zaměřená na různé oblasti podnikání. Jednorázové nebo balíčkové služby přizpůsobené potřebám subjektu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">CELKEM</span><span class="prog-sv">35,7 hod</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sec-label">IDZ – Podnikavost pro středoškoláky</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Projekt zaměřený na rozvoj podnikavého myšlení středoškoláků prostřednictvím workshopů, exkurzí a setkání s podnikateli. <a href="https://p-pink.cz/podnikavost-pro-stredoskolaky-idz/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Zapojených škol (nových v únoru)</span><span class="rv">7</span></div>
-      <div class="row"><span class="rl">Zapojených žáků a studentů</span><span class="rv">349</span></div>
-      <div class="row"><span class="rl">Zapojených pedagogů</span><span class="rv">21</span></div>
-    </div>
-
-    <div class="sec-label">Festival vědy a techniky (FVT)</div>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Počet projektů</span><span class="rv">91</span></div>
-      <div class="row"><span class="rl">Počet studentů</span><span class="rv">120</span></div>
-      <div class="row"><span class="rl">Počet škol</span><span class="rv">19</span></div>
-    </div>
-
-    <div class="sec-label">CHEERS4EU + Cirkulární hub</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Pilotní projekt zaměřený na rozvoj cirkulární ekonomiky ve městech Pardubického kraje. <a href="https://cirkularni-hub.cz" target="_blank" style="color:#8A37D2;font-weight:600;">Více na cirkularni-hub.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Realizovaných CE skenů</span><span class="rv">1</span></div>
-    </div>
-
-    <div class="sec-label">Budova</div>
-    <div class="three" style="margin-bottom:10px;">
-      <div class="card">
-        <div class="card-title">Coworking</div>
-        <div class="row"><span class="rl">10denní (obsazenost)</span><span class="rv">9 osob</span></div>
-        <div class="row"><span class="rl">Flexi (obsazenost)</span><span class="rv">5 osob</span></div>
-        <div class="row"><span class="rl">Fix (obsazenost)</span><span class="rv">5 osob</span></div>
-        <div class="row"><span class="rl">Poptávky</span><span class="rv">5</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Zasedací místnosti</div>
-        <div class="row"><span class="rl">Konferenční (obsazenost)</span><span class="rv">17 dní</span></div>
-        <div class="row"><span class="rl">Jednací (obsazenost)</span><span class="rv">17 dní</span></div>
-        <div class="row"><span class="rl">Multimediální místnost</span><span class="rv">2 hod</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Kanceláře &amp; Virtuální sídla</div>
-        <div class="row"><span class="rl">Poptávky kanceláře</span><span class="rv">1</span></div>
-        <div class="row"><span class="rl">Virtuální sídla P-PINK (celkem)</span><span class="rv">72</span></div>
-        <div class="row"><span class="rl">Virtuální sídla TO-PINK (celkem)</span><span class="rv">7</span></div>
-      </div>
-    </div>
-
-  </div><!-- /tab-unor -->
+</div><!-- /tab-unor -->
 
   <div id="tab-brezen" style="display:none;">
 
-    <!-- KPI -->
-    <div class="sec-label">KPI hlavní činnosti – konzultace, inkubace, akcelerace</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="kpi-val">13</div><div class="kpi-lbl">Zapojené školy IDZ</div></div>
-      <div class="kpi"><div class="kpi-val">1</div><div class="kpi-lbl">Inkubované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">4</div><div class="kpi-lbl">Nová virtuální sídla</div></div>
-    </div>
-
-    <!-- PROGRAMY -->
-    <div class="sec-label">Konzultace, inkubace a akcelerace</div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Konzultace</div>
-        <div class="prog-head-tag">Subjekty s konkrétním problémem</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Flexibilní individuální podpora zaměřená na různé oblasti podnikání. Jednorázové nebo balíčkové služby přizpůsobené potřebám subjektu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">CELKEM</span><span class="prog-sv">63 hod</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Inkubace</div>
-        <div class="prog-head-tag">Nápad → MVP → první zákazníci</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Strukturovaný 12týdenní program (6 bloků) pro jednotlivce s nápadem nebo začínající subjekty: validace nápadu, tým, MVP, go-to-market, prodej a základy fundraisingu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv" style="font-size:10px;">1 – Pheme AI</span></div>
-          <div class="prog-stat"><span class="prog-sl">Délka programu</span><span class="prog-sv">12 týdnů</span></div>
-          <div class="prog-stat"><span class="prog-sl">Počet bloků</span><span class="prog-sv">6</span></div>
-          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">Cílová skupina</span><span class="prog-sv" style="font-size:10px;">Jednotlivci s nápadem, early-stage</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Akcelerace</div>
-        <div class="prog-head-tag">MVP → trh → škálování → investice</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Dlouhodobá individuální spolupráce (až 2 roky) pro subjekty s MVP a první tržní validací: vstup na trh, škálování prodeje a příprava na investici ve dvou fázích.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv" style="font-size:10px;">2 – Sinucraft, Medfima</span></div>
-          <div class="prog-stat"><span class="prog-sl">Financování</span><span class="prog-sv" style="font-size:10px;">samotní klienti + PLATINN</span></div>
-          <div class="prog-stat"><span class="prog-sl">Max. délka</span><span class="prog-sv">až 2 roky</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PIPELINE -->
-    <!-- PINKAKA -->
-    <div class="sec-label">PINKaka</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Akademie podnikání PINKaka je bezplatný vzdělávací program pro začínající podnikatele v Pardubickém kraji. Účastníci projdou sérii praktických setkání zaměřených na byznys plán, marketing, finance a prodej. <a href="https://www.p-pink.cz/pinkaka/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card">
-      <div class="row"><span class="rl">Jarní běh zahájen</span><span class="rv">6 měst Pardubického kraje</span></div>
-      <div class="row"><span class="rl">Města</span><span class="rv" style="font-size:11px;">Pardubice, Mor. Třebová, Hlinsko, Lanškroun, Žamberk, Letohrad</span></div>
-      <div class="row"><span class="rl">Celkem přihlášeni</span><span class="rv">111 účastníků</span></div>
-      <div class="row"><span class="rl">Přítomni na 1. setkání</span><span class="rv">70 účastníků (63 %)</span></div>
-    </div>
-
-    <!-- IDZ -->
-    <div class="sec-label">IDZ – Podnikavost pro středoškoláky</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Projekt zaměřený na rozvoj podnikavého myšlení středoškoláků prostřednictvím workshopů, exkurzí a setkání s podnikateli. <a href="https://p-pink.cz/podnikavost-pro-stredoskolaky-idz/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card">
-      <div class="row"><span class="rl">Počet akcí</span><span class="rv">32</span></div>
-      <div class="row"><span class="rl">Zapojených studentů</span><span class="rv">567</span></div>
-      <div class="row"><span class="rl">Zapojených škol (nových / kumulativně)</span><span class="rv">3 / 13</span></div>
-      <div class="row"><span class="rl">Predikce škol na celý rok 2026</span><span class="rv">25</span></div>
-    </div>
-
-    <!-- BUDOVA -->
-    <div class="sec-label">Budova</div>
-    <div class="card">
-      <div class="row"><span class="rl">Souhlasy pro virtuální sídlo</span><span class="rv">4 (z toho 1 zapsána v OR)</span></div>
-      <div class="row"><span class="rl">Zájemci o coworking</span><span class="rv">3</span></div>
-      <div class="row"><span class="rl">Nový vstup coworking</span><span class="rv">1× 10denní zakoupen</span></div>
-    </div>
-
-    <!-- PINKBLOCKS -->
-    <div class="sec-label">PINKblocks</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Vzdělávací program pro podnikatele nabízející přístupné přednášky od odborníků z klíčových oblastí podnikání. <a href="https://p-pink.cz/pinkblocks/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card">
-      <div class="row"><span class="rl">Březen 2026</span><span class="rv">žádné akce</span></div>
-    </div>
-
-    <!-- CHEERS4EU -->
-    <div class="sec-label">CHEERS4EU + Cirkulární hub</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Pilotní projekt zaměřený na rozvoj cirkulární ekonomiky ve městech Pardubického kraje, podporující inovace směřující k udržitelnější budoucnosti. <a href="https://cirkularni-hub.cz" target="_blank" style="color:#8A37D2;font-weight:600;">Více na cirkularni-hub.cz →</a></p>
-    <div class="card">
-      <div class="row"><span class="rl">Proplacená dotace za 3. semestr</span><span class="rv">572 290,51 Kč (24 191,17 EUR)</span></div>
-      <div class="row"><span class="rl">Datum proplacení</span><span class="rv">9. 4. 2026</span></div>
-      <div class="row"><span class="rl">CE sken Česká Třebová</span><span class="rv">odevzdán</span></div>
-      <div class="row"><span class="rl">CE sken Letohrad</span><span class="rv">zahájen</span></div>
-    </div>
-
-    <!-- AI TALENTOVÝ PROGRAM -->
     <div class="sec-label">AI Talentový program</div>
     <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Program pro studenty, kteří získávají finanční podporu, odborné stáže a možnost pracovat na reálných AI projektech v rámci pardubického AI hubu. <a href="https://pardubice.ai/talentovy-program-ai/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na pardubice.ai →</a></p>
     <div class="card">
@@ -1481,145 +1277,11 @@
     </div>
 
     <!-- VÝHLED -->
-    <div class="sec-label">Výhled – duben 2026</div>
-    <div class="outlook-grid">
-      <div class="card">
-        <div class="card-title">Plánované aktivity</div>
-        <div class="row"><span class="rl">Business v tandemu</span><span class="rv">20. 4.</span></div>
-        <div class="row"><span class="rl">PINKaka – průběžná setkání (6 měst)</span></div>
-        <div class="row"><span class="rl">Pokračování akcelerace Sinucraft</span></div>
-        <div class="row"><span class="rl">Řešení výpovědí nájemníků TO-PINK</span></div>
-        <div class="row"><span class="rl">Příprava projektu SMART akcelerátor+</span></div>
-        <div class="row"><span class="rl">Příprava pilotního ověření inovačního centra</span></div>
-        <div class="row"><span class="rl">Akvizice do inkubačního programu</span></div>
-      </div>
-    </div>
 
-  </div><!-- /tab-brezen -->
+</div><!-- /tab-brezen -->
 
   <div id="tab-duben" style="display:none;">
 
-    <!-- KPI -->
-    <div class="sec-label">KPI hlavní činnosti – konzultace, inkubace, akcelerace</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="kpi-val">24</div><div class="kpi-lbl">Zapojené školy IDZ</div></div>
-      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Inkubované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Nová virtuální sídla</div></div>
-    </div>
-
-    <!-- PROGRAMY -->
-    <div class="sec-label">Konzultace, inkubace a akcelerace</div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Konzultace</div>
-        <div class="prog-head-tag">Subjekty s konkrétním problémem</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Flexibilní individuální podpora zaměřená na různé oblasti podnikání. Jednorázové nebo balíčkové služby přizpůsobené potřebám subjektu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Uzavření klienti</span><span class="prog-sv">3</span></div>
-          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">CELKEM</span><span class="prog-sv">126,7 hod</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Inkubace</div>
-        <div class="prog-head-tag">Nápad → MVP → první zákazníci</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Strukturovaný 12týdenní program (6 bloků) pro jednotlivce s nápadem nebo začínající subjekty: validace nápadu, tým, MVP, go-to-market, prodej a základy fundraisingu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">2</span></div>
-          <div class="prog-stat"><span class="prog-sl">Délka programu</span><span class="prog-sv">12 týdnů</span></div>
-          <div class="prog-stat"><span class="prog-sl">Počet bloků</span><span class="prog-sv">6</span></div>
-          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">Cílová skupina</span><span class="prog-sv" style="font-size:10px;">Jednotlivci s nápadem, early-stage</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Akcelerace</div>
-        <div class="prog-head-tag">MVP → trh → škálování → investice</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Dlouhodobá individuální spolupráce (až 2 roky) pro subjekty s MVP a první tržní validací: vstup na trh, škálování prodeje a příprava na investici ve dvou fázích.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">2</span></div>
-          <div class="prog-stat"><span class="prog-sl">Financování</span><span class="prog-sv" style="font-size:10px;">samotní klienti + PLATINN</span></div>
-          <div class="prog-stat"><span class="prog-sl">Max. délka</span><span class="prog-sv">až 2 roky</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PIPELINE -->
-    <!-- PINKAKA -->
-    <div class="sec-label">PINKaka</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Akademie podnikání PINKaka je bezplatný vzdělávací program pro začínající podnikatele v Pardubickém kraji. Účastníci projdou sérii praktických setkání zaměřených na byznys plán, marketing, finance a prodej. <a href="https://www.p-pink.cz/pinkaka/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card">
-      <div class="row"><span class="rl">Jarní běh – stav</span><span class="rv"><span class="pill p-amber">v průběhu</span></span></div>
-      <div class="row"><span class="rl">Města</span><span class="rv" style="font-size:11px;">Pardubice, Mor. Třebová, Hlinsko, Lanškroun, Žamberk, Letohrad</span></div>
-      <div class="row"><span class="rl">Předpokládané ukončení</span><span class="rv">květen / červen 2026</span></div>
-      <div class="row"><span class="rl">Absolventi (Základy podnikání UPCE)</span><span class="rv">21</span></div>
-    </div>
-
-    <!-- IDZ -->
-    <div class="sec-label">IDZ – Podnikavost pro středoškoláky</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Projekt zaměřený na rozvoj podnikavého myšlení středoškoláků prostřednictvím workshopů, exkurzí a setkání s podnikateli. <a href="https://p-pink.cz/podnikavost-pro-stredoskolaky-idz/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card">
-      <div class="row"><span class="rl">Počet akcí</span><span class="rv">38</span></div>
-      <div class="row"><span class="rl">Zapojených žáků a studentů</span><span class="rv">665</span></div>
-      <div class="row"><span class="rl">Zapojených škol (nových / kumulativně)</span><span class="rv">11 / 24</span></div>
-      <div class="row"><span class="rl">Zapojených pedagogů na akcích</span><span class="rv">38</span></div>
-      <div class="row"><span class="rl">Predikce škol na celý rok 2026</span><span class="rv">25</span></div>
-    </div>
-
-    <!-- BUDOVA -->
-    <div class="sec-label">Budova</div>
-    <div class="three" style="margin-bottom:10px;">
-      <div class="card">
-        <div class="card-title">Coworking</div>
-        <div class="row"><span class="rl">10denní (obsazenost)</span><span class="rv">9 osob</span></div>
-        <div class="row"><span class="rl">Flexi (obsazenost)</span><span class="rv">5 osob</span></div>
-        <div class="row"><span class="rl">Fix (obsazenost)</span><span class="rv">5 osob</span></div>
-        <div class="row"><span class="rl">Poptávky</span><span class="rv">3</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Zasedací místnosti</div>
-        <div class="row"><span class="rl">Konferenční (obsazenost)</span><span class="rv">19 dní</span></div>
-        <div class="row"><span class="rl">Jednací (obsazenost)</span><span class="rv">18 dní</span></div>
-        <div class="row"><span class="rl">Multimediální místnost</span><span class="rv">1 hod</span></div>
-        <div class="row"><span class="rl">Poptávky</span><span class="rv">7</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Kanceláře &amp; Virtuální sídla</div>
-        <div class="row"><span class="rl">Poptávky kanceláře</span><span class="rv">1</span></div>
-        <div class="row"><span class="rl">Nová virtuální sídla – P-PINK</span><span class="rv">2</span></div>
-        <div class="row"><span class="rl">Nová virtuální sídla – TO-PINK</span><span class="rv">1</span></div>
-      </div>
-    </div>
-
-    <!-- PINKBLOCKS -->
-    <div class="sec-label">PINKblocks</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Vzdělávací program pro podnikatele nabízející přístupné přednášky od odborníků z klíčových oblastí podnikání. <a href="https://p-pink.cz/pinkblocks/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card">
-      <div class="row"><span class="rl">Duben 2026</span><span class="rv">nebyl</span></div>
-    </div>
-
-    <!-- CHEERS4EU -->
-    <div class="sec-label">CHEERS4EU + Cirkulární hub</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Pilotní projekt zaměřený na rozvoj cirkulární ekonomiky ve městech Pardubického kraje, podporující inovace směřující k udržitelnější budoucnosti. <a href="https://cirkularni-hub.cz" target="_blank" style="color:#8A37D2;font-weight:600;">Více na cirkularni-hub.cz →</a></p>
-    <div class="card">
-      <div class="row"><span class="rl">Dotace – 3. semestr</span><span class="rv g">762 005 Kč (24 191,17 EUR)</span></div>
-      <div class="row"><span class="rl">CE sken Letohrad</span><span class="rv"><span class="pill p-amber">v průběhu</span></span></div>
-      <div class="row"><span class="rl">CE sken Žďár nad Sázavou</span><span class="rv"><span class="pill p-green">zahájen duben 2026</span></span></div>
-    </div>
-
-    <!-- AI TALENTOVÝ PROGRAM -->
     <div class="sec-label">AI Talentový program</div>
     <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Program pro studenty, kteří získávají finanční podporu, odborné stáže a možnost pracovat na reálných AI projektech v rámci pardubického AI hubu. <a href="https://pardubice.ai/talentovy-program-ai/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na pardubice.ai →</a></p>
     <div class="card">
@@ -1648,80 +1310,11 @@
     </div>
 
     <!-- VÝHLED -->
-    <div class="sec-label">Výhled – květen 2026</div>
-    <div class="outlook-grid">
-      <div class="card">
-        <div class="card-title">Plánované aktivity</div>
-        <div class="row"><span class="rl">PINKaka – závěrečná setkání</span></div>
-        <div class="row"><span class="rl">Odevzdání CE skenu Letohrad</span><span class="rv">29. 5.</span></div>
-        <div class="row"><span class="rl">Dotace z města</span></div>
-        <div class="row" style="padding-top:8px; border-top: 1px solid #ECE8F0; margin-top:4px;"><span class="rl" style="font-size:11px;"><strong>Business v tandemu (14. 5.):</strong> AI pro firmy – Od experimentů k reálné konkurenční výhodě</span></div>
-        <div class="row"><span class="rl">Přihlášených</span><span class="rv">30 <span class="pill p-green" style="font-size:9px;">plně obsazeno</span></span></div>
-        <div class="row"><span class="rl">Ve frontě</span><span class="rv">6 (připravujeme další workshop)</span></div>
-      </div>
-    </div>
 
-  </div><!-- /tab-duben -->
+</div><!-- /tab-duben -->
 
   <div id="tab-kveten" style="display:none;">
 
-    <!-- KPI -->
-    <div class="sec-label">KPI hlavní činnosti – konzultace, inkubace, akcelerace</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="kpi-val">5</div><div class="kpi-lbl">Zapojené školy IDZ</div></div>
-      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Inkubované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Nová virtuální sídla</div></div>
-    </div>
-
-    <!-- PROGRAMY -->
-    <div class="sec-label">Konzultace, inkubace a akcelerace</div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Konzultace</div>
-        <div class="prog-head-tag">Subjekty s konkrétním problémem</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Flexibilní individuální podpora zaměřená na různé oblasti podnikání. Jednorázové nebo balíčkové služby přizpůsobené potřebám subjektu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Uzavření klienti</span><span class="prog-sv">3</span></div>
-          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">CELKEM</span><span class="prog-sv">131,4 hod</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Inkubace</div>
-        <div class="prog-head-tag">Nápad → MVP → první zákazníci</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Strukturovaný 12týdenní program (6 bloků) pro jednotlivce s nápadem nebo začínající subjekty: validace nápadu, tým, MVP, go-to-market, prodej a základy fundraisingu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">3</span></div>
-          <div class="prog-stat"><span class="prog-sl">Délka programu</span><span class="prog-sv">12 týdnů</span></div>
-          <div class="prog-stat"><span class="prog-sl">Počet bloků</span><span class="prog-sv">6</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Akcelerace</div>
-        <div class="prog-head-tag">MVP → trh → škálování → investice</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Dlouhodobá individuální spolupráce (až 2 roky) pro subjekty s MVP a první tržní validací: vstup na trh, škálování prodeje a příprava na investici ve dvou fázích.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">3</span></div>
-          <div class="prog-stat"><span class="prog-sl">Financování</span><span class="prog-sv" style="font-size:10px;">samotní klienti + PLATINN</span></div>
-          <div class="prog-stat"><span class="prog-sl">Max. délka</span><span class="prog-sv">až 2 roky</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- AKCE -->
     <div class="sec-label">Hlavní akce v květnu</div>
     <div class="events-grid">
       <div class="event-card">
@@ -1749,142 +1342,11 @@
     </div>
 
     <!-- PINKAKA -->
-    <div class="sec-label">PINKaka</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Akademie podnikání PINKaka je bezplatný vzdělávací program pro začínající podnikatele v Pardubickém kraji. Účastníci projdou sérii praktických setkání zaměřených na byznys plán, marketing, finance a prodej. <a href="https://www.p-pink.cz/pinkaka/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Jarní běh – stav</span><span class="rv"><span class="pill p-amber">končí červen 2026</span></span></div>
-      <div class="row"><span class="rl">Absolventi programu</span><span class="rv">32</span></div>
-      <div class="row"><span class="rl">Města</span><span class="rv" style="font-size:11px;">Moravská Třebová, Pardubice, Hlinsko</span></div>
-      <div class="row"><span class="rl">Účastníci, kteří začali podnikat</span><span class="rv">1 — Koumio (nyní konzultuje v P-PINK)</span></div>
 
-    </div>
-
-    <!-- IDZ -->
-    <div class="sec-label">IDZ – Podnikavost pro středoškoláky</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Projekt zaměřený na rozvoj podnikavého myšlení středoškoláků prostřednictvím workshopů, exkurzí a setkání s podnikateli. <a href="https://p-pink.cz/podnikavost-pro-stredoskolaky-idz/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Počet akcí</span><span class="rv">25</span></div>
-      <div class="row"><span class="rl">Zapojených žáků a studentů</span><span class="rv">493</span></div>
-      <div class="row"><span class="rl">Zapojených pedagogů</span><span class="rv">12</span></div>
-      <div class="row"><span class="rl">Nových zapojených škol</span><span class="rv">5</span></div>
-    </div>
-
-    <!-- BUDOVA -->
-    <div class="sec-label">Budova</div>
-    <div class="three" style="margin-bottom:10px;">
-      <div class="card">
-        <div class="card-title">Coworking</div>
-        <div class="row"><span class="rl">10denní (obsazenost)</span><span class="rv">12 osob</span></div>
-        <div class="row"><span class="rl">Flexi (obsazenost)</span><span class="rv">5 osob</span></div>
-        <div class="row"><span class="rl">Fix (obsazenost)</span><span class="rv">4 osoby</span></div>
-        <div class="row"><span class="rl">Poptávky</span><span class="rv">7</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Zasedací místnosti</div>
-        <div class="row"><span class="rl">Konferenční (obsazenost)</span><span class="rv">8 dní</span></div>
-        <div class="row"><span class="rl">Jednací (obsazenost)</span><span class="rv">15 dní</span></div>
-        <div class="row"><span class="rl">Multimediální místnost</span><span class="rv">1 hod</span></div>
-        <div class="row"><span class="rl">Poptávky zasedaček</span><span class="rv">8</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Kanceláře &amp; Virtuální sídla</div>
-        <div class="row"><span class="rl">Poptávky kanceláře</span><span class="rv">1</span></div>
-        <div class="row"><span class="rl">Nová virtuální sídla – P-PINK</span><span class="rv">2</span></div>
-        <div class="row"><span class="rl">Nová virtuální sídla – TO-PINK</span><span class="rv">0</span></div>
-      </div>
-    </div>
-
-    <!-- CHEERS4EU + CIRKULÁRNÍ HUB -->
-    <div class="sec-label">CHEERS4EU + Cirkulární hub</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Pilotní projekt zaměřený na rozvoj cirkulární ekonomiky ve městech Pardubického kraje, podporující inovace směřující k udržitelnější budoucnosti. <a href="https://cirkularni-hub.cz" target="_blank" style="color:#8A37D2;font-weight:600;">Více na cirkularni-hub.cz →</a></p>
-    <div class="card">
-      <div class="row"><span class="rl">Dotace – 3. semestr</span><span class="rv g">762 005 Kč (24 191,17 EUR)</span></div>
-      <div class="row"><span class="rl">Počet cirkulárních skenů v květnu</span><span class="rv">1</span></div>
-      <div class="row"><span class="rl">Fakturace CE sken</span><span class="rv g">38 264 Kč</span></div>
-      <div class="row"><span class="rl">CE sken Letohrad</span><span class="rv"><span class="pill p-green">odevzdán 29. 5.</span></span></div>
-      <div class="row"><span class="rl">CE sken Žďár nad Sázavou</span><span class="rv"><span class="pill p-green">odevzdán červen 2026</span></span></div>
-    </div>
-
-  </div><!-- /tab-kveten -->
+</div><!-- /tab-kveten -->
 
   <div id="tab-cerven" style="display:none;">
 
-    <!-- KPI -->
-    <div class="sec-label">KPI hlavní činnosti – konzultace, inkubace, akcelerace</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="kpi-val">9</div><div class="kpi-lbl">Zapojené školy IDZ</div></div>
-      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Inkubované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">4</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Nová virtuální sídla</div></div>
-    </div>
-
-    <!-- PROGRAMY -->
-    <div class="sec-label">Konzultace, inkubace a akcelerace</div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Konzultace</div>
-        <div class="prog-head-tag">Subjekty s konkrétním problémem</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Flexibilní individuální podpora zaměřená na různé oblasti podnikání. Jednorázové nebo balíčkové služby přizpůsobené potřebám subjektu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Uzavření klienti</span><span class="prog-sv">7</span></div>
-          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">CELKEM</span><span class="prog-sv">175,5 hod</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Inkubace</div>
-        <div class="prog-head-tag">Nápad → MVP → první zákazníci</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Strukturovaný 12týdenní program (6 bloků) pro jednotlivce s nápadem nebo začínající subjekty: validace nápadu, tým, MVP, go-to-market, prodej a základy fundraisingu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">3</span></div>
-          <div class="prog-stat"><span class="prog-sl">Délka programu</span><span class="prog-sv">12 týdnů</span></div>
-          <div class="prog-stat"><span class="prog-sl">Počet bloků</span><span class="prog-sv">6</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Akcelerace</div>
-        <div class="prog-head-tag">MVP → trh → škálování → investice</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Dlouhodobá individuální spolupráce (až 2 roky) pro subjekty s MVP a první tržní validací: vstup na trh, škálování prodeje a příprava na investici ve dvou fázích.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">4</span></div>
-          <div class="prog-stat"><span class="prog-sl">Financování</span><span class="prog-sv" style="font-size:10px;">samotní klienti + PLATINN</span></div>
-          <div class="prog-stat"><span class="prog-sl">Max. délka</span><span class="prog-sv">až 2 roky</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- IDZ -->
-    <div class="sec-label">IDZ – Podnikavost pro středoškoláky</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Projekt zaměřený na rozvoj podnikavého myšlení středoškoláků prostřednictvím workshopů, exkurzí a setkání s podnikateli. <a href="https://p-pink.cz/podnikavost-pro-stredoskolaky-idz/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Počet akcí</span><span class="rv">22</span></div>
-      <div class="row"><span class="rl">Zapojených žáků a studentů</span><span class="rv">328</span></div>
-      <div class="row"><span class="rl">Zapojených pedagogů</span><span class="rv">15</span></div>
-      <div class="row"><span class="rl">Nových zapojených škol</span><span class="rv">9</span></div>
-    </div>
-
-    <!-- PINKAKA -->
-    <div class="sec-label">PINKaka</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Akademie podnikání PINKaka je bezplatný vzdělávací program pro začínající podnikatele v Pardubickém kraji. <a href="https://www.p-pink.cz/pinkaka/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Jarní běh – stav</span><span class="rv"><span class="pill p-green">ukončen</span></span></div>
-      <div class="row"><span class="rl">Absolventi červen</span><span class="rv">20</span></div>
-      <div class="row"><span class="rl">Celkem absolventů jarního běhu</span><span class="rv">73</span></div>
-    </div>
-
-    <!-- AKCE -->
     <div class="sec-label">Hlavní akce v červnu</div>
     <div class="events-grid">
       <div class="event-card">
@@ -1908,133 +1370,11 @@
     <p class="note" style="margin-top:6px;">Celkem za oba červnové termíny (3. 6. + 9. 6.): <strong>25 účastníků</strong>, průměrné hodnocení <strong>★★★★½ (4,5/5)</strong></p>
 
     <!-- CHEERS4EU + CIRKULÁRNÍ HUB -->
-    <div class="sec-label">CHEERS4EU + Cirkulární hub</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Pilotní projekt zaměřený na rozvoj cirkulární ekonomiky ve městech Pardubického kraje, podporující inovace směřující k udržitelnější budoucnosti. <a href="https://cirkularni-hub.cz" target="_blank" style="color:#8A37D2;font-weight:600;">Více na cirkularni-hub.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">CE sken Žďár nad Sázavou</span><span class="rv"><span class="pill p-green">odevzdán</span></span></div>
-      <div class="row"><span class="rl">Fakturace CE sken Žďár nad Sázavou</span><span class="rv g">40 000 Kč bez DPH</span></div>
-    </div>
 
-    <!-- BUDOVA -->
-    <div class="sec-label">Budova</div>
-    <div class="three" style="margin-bottom:10px;">
-      <div class="card">
-        <div class="card-title">Coworking</div>
-        <div class="row"><span class="rl">10denní (obsazenost)</span><span class="rv">15 osob</span></div>
-        <div class="row"><span class="rl">Flexi (obsazenost)</span><span class="rv">4 osoby</span></div>
-        <div class="row"><span class="rl">Fix (obsazenost)</span><span class="rv">4 osoby</span></div>
-        <div class="row"><span class="rl">Poptávky</span><span class="rv">4</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Zasedací místnosti</div>
-        <div class="row"><span class="rl">Konferenční (obsazenost)</span><span class="rv">17 dní</span></div>
-        <div class="row"><span class="rl">Jednací (obsazenost)</span><span class="rv">20 dní</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Kanceláře &amp; Virtuální sídla</div>
-        <div class="row"><span class="rl">Poptávky kanceláře</span><span class="rv">1</span></div>
-        <div class="row"><span class="rl">Nová virtuální sídla</span><span class="rv">2</span></div>
-      </div>
-    </div>
-
-    <!-- VÝHLED -->
-    <div class="sec-label">Výhled – červenec 2026</div>
-    <div class="outlook-grid">
-      <div class="card">
-        <div class="card-title">Nadcházející akce</div>
-        <div class="event-card" style="border:none;padding:0;box-shadow:none;">
-          <div class="event-head" style="gap:10px;">
-            <div class="event-date-box" style="min-width:44px;"><div class="event-day">30</div><div class="event-mon">ČVCE</div></div>
-            <div class="event-title-wrap">
-              <div class="event-title">Summer Business Meetup – PI(N)KNIK 3</div>
-              <div class="event-sub">Letní setkání podnikatelů a podnikatelek v neformální atmosféře</div>
-            </div>
-          </div>
-          <div class="event-body" style="margin-top:8px;">
-            <div class="event-row"><div class="event-dot"></div><div class="event-text">Networkingová akce spojující startupy, investory a zkušené podnikatele</div></div>
-            <div class="event-row"><div class="event-dot"></div><div class="event-text">Registrace: <a href="https://luma.com/1zb16dk8" target="_blank" style="color:#8A37D2;font-weight:600;">luma.com/1zb16dk8 →</a></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /tab-cerven -->
+</div><!-- /tab-cerven -->
 
   <div id="tab-cervenec" style="display:none;">
 
-    <!-- KPI -->
-    <div class="sec-label">KPI hlavní činnosti – konzultace, inkubace, akcelerace</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="kpi-val">0</div><div class="kpi-lbl">Zapojené školy IDZ</div></div>
-      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Inkubované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Nová virtuální sídla</div></div>
-    </div>
-
-    <!-- PROGRAMY -->
-    <div class="sec-label">Konzultace, inkubace a akcelerace</div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Konzultace</div>
-        <div class="prog-head-tag">Subjekty s konkrétním problémem</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Flexibilní individuální podpora zaměřená na různé oblasti podnikání. Jednorázové nebo balíčkové služby přizpůsobené potřebám subjektu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Uzavření klienti</span><span class="prog-sv">10</span></div>
-          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">CELKEM</span><span class="prog-sv">58 hod</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Inkubace</div>
-        <div class="prog-head-tag">Nápad → MVP → první zákazníci</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Strukturovaný 12týdenní program (6 bloků) pro jednotlivce s nápadem nebo začínající subjekty: validace nápadu, tým, MVP, go-to-market, prodej a základy fundraisingu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">2</span></div>
-          <div class="prog-stat"><span class="prog-sl">Délka programu</span><span class="prog-sv">12 týdnů</span></div>
-          <div class="prog-stat"><span class="prog-sl">Počet bloků</span><span class="prog-sv">6</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Akcelerace</div>
-        <div class="prog-head-tag">MVP → trh → škálování → investice</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Dlouhodobá individuální spolupráce (až 2 roky) pro subjekty s MVP a první tržní validací: vstup na trh, škálování prodeje a příprava na investici ve dvou fázích.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">2</span></div>
-          <div class="prog-stat"><span class="prog-sl">Financování</span><span class="prog-sv" style="font-size:10px;">samotní klienti + PLATINN</span></div>
-          <div class="prog-stat"><span class="prog-sl">Max. délka</span><span class="prog-sv">až 2 roky</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- IDZ -->
-    <div class="sec-label">IDZ – Podnikavost pro středoškoláky</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Projekt zaměřený na rozvoj podnikavého myšlení středoškoláků prostřednictvím workshopů, exkurzí a setkání s podnikateli. <a href="https://p-pink.cz/podnikavost-pro-stredoskolaky-idz/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Aktivity</span><span class="rv"><span class="pill p-gray">prázdninový provoz</span></span></div>
-      <div class="row"><span class="rl" style="color:#999;font-size:11px;">Komunikace se školami pro navázání spolupráce v novém školním roce</span><span class="rv"></span></div>
-      <div class="row"><span class="rl">Očekávaná platba (10/2026)</span><span class="rv" style="color:#8A37D2;font-weight:600;">1 107 501,90 Kč</span></div>
-    </div>
-
-    <!-- PINKAKA -->
-    <div class="sec-label">PINKaka</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Akademie podnikání PINKaka je bezplatný vzdělávací program pro začínající podnikatele v Pardubickém kraji. <a href="https://www.p-pink.cz/pinkaka/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Podzimní běh – stav</span><span class="rv"><span class="pill p-amber">příprava</span></span></div>
-    </div>
-
-    <!-- AKCE -->
     <div class="sec-label">Hlavní akce v červenci</div>
     <div class="events-grid">
       <div class="event-card">
@@ -2067,132 +1407,15 @@
     </div>
 
     <!-- CHEERS4EU + CIRKULÁRNÍ HUB -->
-    <div class="sec-label">CHEERS4EU + Cirkulární hub</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Pilotní projekt zaměřený na rozvoj cirkulární ekonomiky ve městech Pardubického kraje, podporující inovace směřující k udržitelnější budoucnosti. <a href="https://cirkularni-hub.cz" target="_blank" style="color:#8A37D2;font-weight:600;">Více na cirkularni-hub.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Poptávka pro obce</span><span class="rv">1</span></div>
-      <div class="row"><span class="rl">Poptávka po CE skenu pro firmy</span><span class="rv">1</span></div>
-      <div class="row"><span class="rl">Fakturace červenec</span><span class="rv">0 Kč</span></div>
-      <div class="row"><span class="rl" style="color:#555;font-style:italic;">Probíhá příprava na návštěvu partnerů projektu CHEERS4EU v září</span><span class="rv"></span></div>
-    </div>
 
-    <!-- BUDOVA -->
-    <div class="sec-label">Budova</div>
-    <div class="three" style="margin-bottom:10px;">
-      <div class="card">
-        <div class="card-title">Coworking</div>
-        <div class="row"><span class="rl">10denní (obsazenost)</span><span class="rv">13 osob</span></div>
-        <div class="row"><span class="rl">Flexi (obsazenost)</span><span class="rv">5 osob</span></div>
-        <div class="row"><span class="rl">Fix (obsazenost)</span><span class="rv">4 osoby</span></div>
-        <div class="row"><span class="rl">Poptávky</span><span class="rv">6</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Zasedací místnosti</div>
-        <div class="row"><span class="rl">Konferenční (obsazenost)</span><span class="rv">7 dní</span></div>
-        <div class="row"><span class="rl">Jednací (obsazenost)</span><span class="rv">15 dní</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Kanceláře &amp; Virtuální sídla</div>
-        <div class="row"><span class="rl">Poptávky kanceláře</span><span class="rv">2</span></div>
-        <div class="row"><span class="rl">Nová virtuální sídla</span><span class="rv">3</span></div>
-      </div>
-    </div>
-
-    <!-- VÝHLED -->
-    <div class="sec-label">Výhled – srpen 2026</div>
-    <div class="outlook-grid">
-      <div class="card">
-        <div class="card-title">Nadcházející akce</div>
-        <div class="need-list">
-          <div class="need-item"><div class="need-dot"></div><div class="need-text">Prázdninový provoz – omezená kapacita týmu</div></div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /tab-cervenec -->
+</div><!-- /tab-cervenec -->
 
   <div id="tab-srpen" style="display:none;">
 
-    <!-- KPI -->
-    <div class="sec-label">KPI hlavní činnosti – konzultace, inkubace, akcelerace</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="kpi-val">0</div><div class="kpi-lbl">Zapojené školy IDZ</div></div>
-      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Inkubované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">7</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">7</div><div class="kpi-lbl">Nová virtuální sídla</div></div>
+    <div class="sec-label">Z blogu – příběhy klientů</div>
+    <div class="stories-grid">
+      <a href="https://p-pink.cz/pribeh-firmy-ktera-chtěla-rust-a-pritom-zustat-sama-sebou-suvo-technik_dboc/" target="_blank" class="story-card"><span class="story-icon">📖</span><span class="story-text">Firma, která chtěla růst a přitom zůstat sama sebou – SUVO Technik</span><span class="story-arrow">→</span></a>
     </div>
-
-    <!-- PROGRAMY -->
-    <div class="sec-label">Konzultace, inkubace a akcelerace</div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Konzultace</div>
-        <div class="prog-head-tag">Subjekty s konkrétním problémem</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Flexibilní individuální podpora zaměřená na různé oblasti podnikání. Jednorázové nebo balíčkové služby přizpůsobené potřebám subjektu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Uzavření klienti</span><span class="prog-sv">10</span></div>
-          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">CELKEM</span><span class="prog-sv">32 hod</span></div>
-        </div>
-        <div style="margin-top:10px;padding:8px 12px;background:#F3EAFC;border-left:3px solid #8A37D2;border-radius:0 6px 6px 0;font-size:12px;color:#333;line-height:1.5;">
-          <strong style="color:#8A37D2;">Uzavřeny již tři konzultační zakázky s UPCE</strong> — tvorba byznys plánů
-        </div>
-        <a href="https://p-pink.cz/pribeh-firmy-ktera-chtěla-rust-a-pritom-zustat-sama-sebou-suvo-technik_dboc/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;font-weight:600;color:#8A37D2;text-decoration:none;">📖 Příběh klienta: Firma, která chtěla růst a přitom zůstat sama sebou – SUVO Technik →</a>
-        <a href="https://p-pink.cz/modularni_system_prevence_psychosocialních_rizik_ziskal_podporu_pro_dalsi_rojvoj_dboc_rdfc/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#8A37D2;text-decoration:none;">📖 Modulární systém prevence psychosociálních rizik získal podporu pro další rozvoj →</a>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Inkubace</div>
-        <div class="prog-head-tag">Nápad → MVP → první zákazníci</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Strukturovaný 12týdenní program (6 bloků) pro jednotlivce s nápadem nebo začínající subjekty: validace nápadu, tým, MVP, go-to-market, prodej a základy fundraisingu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">3</span></div>
-          <div class="prog-stat"><span class="prog-sl">Délka programu</span><span class="prog-sv">12 týdnů</span></div>
-          <div class="prog-stat"><span class="prog-sl">Počet bloků</span><span class="prog-sv">6</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Akcelerace</div>
-        <div class="prog-head-tag">MVP → trh → škálování → investice</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Dlouhodobá individuální spolupráce (až 2 roky) pro subjekty s MVP a první tržní validací: vstup na trh, škálování prodeje a příprava na investici ve dvou fázích.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">7</span></div>
-          <div class="prog-stat"><span class="prog-sl">Financování</span><span class="prog-sv" style="font-size:10px;">samotní klienti + PLATINN</span></div>
-          <div class="prog-stat"><span class="prog-sl">Max. délka</span><span class="prog-sv">až 2 roky</span></div>
-        </div>
-        <div style="margin-top:10px;padding:8px 12px;background:#F3EAFC;border-left:3px solid #8A37D2;border-radius:0 6px 6px 0;font-size:12px;color:#333;line-height:1.5;">
-          <strong style="color:#8A37D2;">Úspěch klienta PLATINN – Sinucraft:</strong> získal 5 000 000 Kč v rámci Technologické inkubace CzechInvest na výzkum a vývoj produktu
-        </div>
-      </div>
-    </div>
-
-    <!-- IDZ -->
-    <div class="sec-label">IDZ – Podnikavost pro středoškoláky</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Projekt zaměřený na rozvoj podnikavého myšlení středoškoláků prostřednictvím workshopů, exkurzí a setkání s podnikateli. <a href="https://p-pink.cz/podnikavost-pro-stredoskolaky-idz/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Aktivity</span><span class="rv"><span class="pill p-gray">prázdninový provoz</span></span></div>
-      <div class="row"><span class="rl" style="color:#999;font-size:11px;">Komunikace se školami pro navázání spolupráce v novém školním roce</span><span class="rv"></span></div>
-    </div>
-
-    <!-- PINKAKA -->
-    <div class="sec-label">PINKaka</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Akademie podnikání PINKaka je bezplatný vzdělávací program pro začínající podnikatele v Pardubickém kraji. <a href="https://www.p-pink.cz/pinkaka/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Podzimní běh – stav</span><span class="rv"><span class="pill p-amber">příprava</span></span></div>
-    </div>
-
-    <!-- AKCE -->
     <div class="sec-label">Hlavní akce</div>
     <div class="events-grid">
       <div class="event-card">
@@ -2211,14 +1434,6 @@
     </div>
 
     <!-- CHEERS4EU + CIRKULÁRNÍ HUB -->
-    <div class="sec-label">CHEERS4EU + Cirkulární hub</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Pilotní projekt zaměřený na rozvoj cirkulární ekonomiky ve městech Pardubického kraje, podporující inovace směřující k udržitelnější budoucnosti. <a href="https://cirkularni-hub.cz" target="_blank" style="color:#8A37D2;font-weight:600;">Více na cirkularni-hub.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Poptávka pro obce</span><span class="rv">1</span></div>
-    </div>
-    <p style="font-size:12px;color:#444;line-height:1.65;margin-bottom:10px;">Hlavní aktivitou Cirkulárního hubu byla příprava mezinárodní konference <strong>Study Visit</strong> v rámci projektu CHEERS4EU, která se bude konat <strong>29. 9. a 30. 9. 2026</strong>. Probíhal také vývoj cirkulárního skenu pro firmy a příprava na výpočty uhlíkové stopy firem. Zároveň se pracovalo na výstupu Cirkulárního skenu pro firmu <strong>Proxim s.r.o.</strong> Cirkulární hub se věnoval připomínkování RIS3 strategie – ovlivnit RIS3 je klíčový indikátor projektu CHEERS4EU. Pracovalo se na 3 prezentacích přispívajících k tématu semestru – sociální dopad. Proběhl také průzkum zainteresovaných stran v rámci kraje.</p>
-
-    <!-- AI HUB / AI TALENTI -->
     <div class="sec-label">AI Hub – AI Talenti</div>
     <div class="card" style="margin-bottom:10px;">
       <div class="card-title">Stáž v IT4Innovations (VŠB–TUO Ostrava)</div>
@@ -2234,130 +1449,16 @@
     </div>
 
     <!-- BUDOVA -->
-    <div class="sec-label">Budova</div>
-    <div class="three" style="margin-bottom:10px;">
-      <div class="card">
-        <div class="card-title">Coworking</div>
-        <div class="row"><span class="rl">10denní (obsazenost)</span><span class="rv">12 osob</span></div>
-        <div class="row"><span class="rl">Flexi (obsazenost)</span><span class="rv">4 osob</span></div>
-        <div class="row"><span class="rl">Fix (obsazenost)</span><span class="rv">4 osob</span></div>
-        <div class="row"><span class="rl">Poptávky coworking</span><span class="rv">2</span></div>
-        <div class="row"><span class="rl">Poptávky zasedacích místností</span><span class="rv">8</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Zasedací místnosti</div>
-        <div class="row"><span class="rl">Konferenční (obsazenost)</span><span class="rv">10 dní</span></div>
-        <div class="row"><span class="rl">Jednací (obsazenost)</span><span class="rv">22 dní</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Kanceláře &amp; Virtuální sídla</div>
-        <div class="row"><span class="rl">Virtuální sídla TO-PINK</span><span class="rv" style="color:#999;">rekonstruuje se</span></div>
-        <div class="row"><span class="rl">Kanceláře TO-PINK</span><span class="rv" style="color:#999;">rekonstruuje se</span></div>
-        <div class="row"><span class="rl">Poptávky kanceláře</span><span class="rv">1</span></div>
-      </div>
-    </div>
 
-    <!-- VÝHLED -->
-    <div class="sec-label">Výhled – září 2026</div>
-    <div class="outlook-grid">
-      <div class="card">
-        <div class="card-title">Nadcházející akce</div>
-        <div class="need-list">
-          <div class="need-item"><div class="need-dot"></div><div class="need-text">Návštěva partnerů projektu CHEERS4EU</div></div>
-          <div class="need-item"><div class="need-dot"></div><div class="need-text">Pohovory SMART akcelerátor+ II – zahájení výběrových řízení</div></div>
-          <div class="need-item"><div class="need-dot"></div><div class="need-text"><strong>24. 9.</strong> — Jak díky vztahům lépe prodávat | P-PINK &amp; Raynet</div></div>
-          <div class="need-item"><div class="need-dot"></div><div class="need-text"><strong>19. 11.</strong> — Showference 2026</div></div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /tab-srpen -->
+</div><!-- /tab-srpen -->
 
   <div id="tab-zari" style="display:none;">
 
-    <!-- KPI -->
-    <div class="sec-label">KPI hlavní činnosti – konzultace, inkubace, akcelerace</div>
-    <div class="kpi-grid">
-      <div class="kpi"><div class="kpi-val">11</div><div class="kpi-lbl">Zapojené školy IDZ</div></div>
-      <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Inkubované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">5</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">5</div><div class="kpi-lbl">Nová virtuální sídla</div></div>
+    <div class="sec-label">Z blogu – příběhy klientů</div>
+    <div class="stories-grid">
+      <a href="https://p-pink.cz/pribeh-medfima-firma-stojici-na-dvou-zakladatelich-k-tymu-ktery-sdili-odpovednost/" target="_blank" class="story-card"><span class="story-icon">📖</span><span class="story-text">MEDFIMA – od firmy dvou zakladatelů k týmu sdílené odpovědnosti</span><span class="story-arrow">→</span></a>
+      <a href="https://p-pink.cz/uroset_necekejte_at_bude_pozde_zacnete_s_prevenci_uz_dnes/" target="_blank" class="story-card"><span class="story-icon">📖</span><span class="story-text">UROSET – Nečekejte, až bude pozdě. Začněte s prevencí už dnes</span><span class="story-arrow">→</span></a>
     </div>
-
-    <!-- PROGRAMY -->
-    <div class="sec-label">Konzultace, inkubace a akcelerace</div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Konzultace</div>
-        <div class="prog-head-tag">Subjekty s konkrétním problémem</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Flexibilní individuální podpora zaměřená na různé oblasti podnikání. Jednorázové nebo balíčkové služby přizpůsobené potřebám subjektu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat" style="grid-column:1/-1;"><span class="prog-sl">CELKEM</span><span class="prog-sv">34 hod</span></div>
-        </div>
-        <div style="margin-top:10px;padding:8px 12px;background:#F3EAFC;border-left:3px solid #8A37D2;border-radius:0 6px 6px 0;font-size:12px;color:#333;line-height:1.5;">
-          Dodány <strong>2 příběhy klientů</strong> a <strong>1 reference</strong>
-        </div>
-        <a href="https://p-pink.cz/pribeh-medfima-firma-stojici-na-dvou-zakladatelich-k-tymu-ktery-sdili-odpovednost/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;font-weight:600;color:#8A37D2;text-decoration:none;">📖 Příběh klienta: MEDFIMA – od firmy dvou zakladatelů k týmu sdílené odpovědnosti →</a>
-        <a href="https://p-pink.cz/modularni_system_prevence_psychosoci%C3%A1ln%C3%ADch_rizik_ziskal_podporu_pro_dalsi_rojvoj_dboc_rdfc/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#8A37D2;text-decoration:none;">📖 BP pro UPCE: Modulární systém prevence psychosociálních rizik získal podporu →</a>
-        <a href="https://p-pink.cz/uroset_necekejte_at_bude_pozde_zacnete_s_prevenci_uz_dnes/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#8A37D2;text-decoration:none;">📖 Příběh klienta: UROSET – Nečekejte, až bude pozdě. Začněte s prevencí už dnes →</a>
-        <a href="https://p-pink.cz/pavel_pinkas_miri_do_ranketty/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;font-weight:600;color:#8A37D2;text-decoration:none;">📖 Ranketta: Pavel Pinkas přijímá novou startupovou výzvu →</a>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Inkubace</div>
-        <div class="prog-head-tag">Nápad → MVP → první zákazníci</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Strukturovaný 12týdenní program (6 bloků) pro jednotlivce s nápadem nebo začínající subjekty: validace nápadu, tým, MVP, go-to-market, prodej a základy fundraisingu.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">3</span></div>
-          <div class="prog-stat"><span class="prog-sl">Délka programu</span><span class="prog-sv">12 týdnů</span></div>
-          <div class="prog-stat"><span class="prog-sl">Počet bloků</span><span class="prog-sv">6</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="prog-row">
-      <div class="prog-head">
-        <div class="prog-head-title">Akcelerace</div>
-        <div class="prog-head-tag">MVP → trh → škálování → investice</div>
-      </div>
-      <div class="prog-body">
-        <p class="prog-desc">Dlouhodobá individuální spolupráce (až 2 roky) pro subjekty s MVP a první tržní validací: vstup na trh, škálování prodeje a příprava na investici ve dvou fázích.</p>
-        <div class="prog-stats-grid">
-          <div class="prog-stat"><span class="prog-sl">Aktivní subjekty</span><span class="prog-sv">5</span></div>
-          <div class="prog-stat"><span class="prog-sl">Financování</span><span class="prog-sv" style="font-size:10px;">samotní klienti + PLATINN</span></div>
-          <div class="prog-stat"><span class="prog-sl">Max. délka</span><span class="prog-sv">až 2 roky</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- IDZ -->
-    <div class="sec-label">IDZ – Podnikavost pro středoškoláky</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Projekt zaměřený na rozvoj podnikavého myšlení středoškoláků prostřednictvím workshopů, exkurzí a setkání s podnikateli. <a href="https://p-pink.cz/podnikavost-pro-stredoskolaky-idz/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Zapojených škol</span><span class="rv">11</span></div>
-      <div class="row"><span class="rl">Zapojených žáků a studentů</span><span class="rv">280</span></div>
-      <div class="row"><span class="rl">Zapojených pedagogů</span><span class="rv">24</span></div>
-      <div class="row"><span class="rl">Počet akcí / aktivit</span><span class="rv">12</span></div>
-    </div>
-
-    <!-- PINKAKA -->
-    <div class="sec-label">PINKaka</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Akademie podnikání PINKaka je bezplatný vzdělávací program pro začínající podnikatele v Pardubickém kraji. <a href="https://www.p-pink.cz/pinkaka/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="row"><span class="rl">Počet měst</span><span class="rv">4</span></div>
-      <div class="row"><span class="rl">Přihlášky září</span><span class="rv">18</span></div>
-      <div class="row"><span class="rl" style="color:#999;">Přihlášky celkem Q3</span><span class="rv" style="color:#999;">31</span></div>
-      <div class="row"><span class="rl">Přítomni na 1. setkání</span><span class="rv">22</span></div>
-    </div>
-
-    <!-- AKCE -->
     <div class="sec-label">Hlavní akce</div>
     <div class="events-grid">
       <div class="event-card">
@@ -2388,31 +1489,6 @@
     </div>
 
     <!-- CHEERS4EU + CIRKULÁRNÍ HUB -->
-    <div class="sec-label">CHEERS4EU + Cirkulární hub</div>
-    <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Pilotní projekt zaměřený na rozvoj cirkulární ekonomiky ve městech Pardubického kraje, podporující inovace směřující k udržitelnější budoucnosti. <a href="https://cirkularni-hub.cz" target="_blank" style="color:#8A37D2;font-weight:600;">Více na cirkularni-hub.cz →</a></p>
-    <div class="two" style="margin-bottom:10px;">
-      <div class="card">
-        <div class="card-title">Cirkulární sken</div>
-        <div class="row"><span class="rl">Zapojené firmy</span><span class="rv">1 (DGF a.s.)</span></div>
-        <div class="row"><span class="rl">Měření</span><span class="rv">uhlíková stopa</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Akce a projekty</div>
-        <div class="row"><span class="rl">Vlastní akce</span><span class="rv">2 (stakeholder meeting + study visit)</span></div>
-        <div class="row"><span class="rl">Study Visit CHEERS4EU</span><span class="rv"><span class="pill p-green">proběhl 29.–30. 9.</span></span></div>
-      </div>
-    </div>
-    <div class="card" style="margin-bottom:10px;">
-      <div class="card-title">Řečnická vystoupení (4 akce)</div>
-      <div class="need-list">
-        <div class="need-item"><div class="need-dot" style="background:#8A37D2;"></div><div class="need-text">CHEERS4EU Study Visit PCE</div></div>
-        <div class="need-item"><div class="need-dot" style="background:#8A37D2;"></div><div class="need-text">Festival dokola (INCIEN, Praha)</div></div>
-        <div class="need-item"><div class="need-dot" style="background:#8A37D2;"></div><div class="need-text">VŠCHT – týden udržitelnosti</div></div>
-        <div class="need-item"><div class="need-dot" style="background:#8A37D2;"></div><div class="need-text">MAS Svitavy – akce</div></div>
-      </div>
-    </div>
-
-    <!-- AI HUB / AI TALENTI -->
     <div class="sec-label">AI Hub – AI Talenti</div>
     <div class="card" style="margin-bottom:10px;">
       <p style="font-size:12px;color:#444;line-height:1.7;margin:0 0 10px;">AI talenti se během září připravovali na aktivity k závěru letošního roku. Především plánování aktivit v rámci akcí <strong>měsíc.ai</strong> a <strong>DNY AI</strong>.</p>
@@ -2422,40 +1498,8 @@
     </div>
 
     <!-- BUDOVA -->
-    <div class="sec-label">Budova</div>
-    <div class="three" style="margin-bottom:10px;">
-      <div class="card">
-        <div class="card-title">Coworking</div>
-        <div class="row"><span class="rl">10denní (obsazenost)</span><span class="rv">9 osob</span></div>
-        <div class="row"><span class="rl">Flexi (obsazenost)</span><span class="rv">4 osob</span></div>
-        <div class="row"><span class="rl">Fix (obsazenost)</span><span class="rv">4 osob</span></div>
-        <div class="row"><span class="rl">Poptávky coworking</span><span class="rv">2</span></div>
-        <div class="row"><span class="rl">Poptávky zasedacích místností</span><span class="rv">6</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Zasedací místnosti</div>
-        <div class="row"><span class="rl">Konferenční (obsazenost)</span><span class="rv">17 dní</span></div>
-        <div class="row"><span class="rl">Jednací (obsazenost)</span><span class="rv">21 dní</span></div>
-      </div>
-      <div class="card">
-        <div class="card-title">Kanceláře &amp; Virtuální sídla</div>
-        <div class="row"><span class="rl">Poptávky kanceláře</span><span class="rv">2</span></div>
-      </div>
-    </div>
 
-    <!-- VÝHLED -->
-    <div class="sec-label">Výhled – říjen 2026</div>
-    <div class="outlook-grid">
-      <div class="card">
-        <div class="card-title">Nadcházející akce</div>
-        <div class="need-list">
-          <div class="need-item"><div class="need-dot"></div><div class="need-text"><strong>8. 10.</strong> — Pardubice Business Day</div></div>
-          <div class="need-item"><div class="need-dot"></div><div class="need-text"><strong>19. 11.</strong> — Showference 2026</div></div>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /tab-zari -->
+</div><!-- /tab-zari -->
 
   <div id="tab-trendy" style="display:none;">
 
