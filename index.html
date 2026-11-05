@@ -744,6 +744,7 @@
     inkubace:           [2,            3,             1,             2,             3,             3,             2,             3,            3],
     akcelerace:         [1,            1,             2,             2,             3,             4,             2,             7,            5],
     prijmy:             [611773,       2182185,       8879760,       1257942,       7001839,       670683,        1090500,       461239,       461925],
+    prijmy_pct:         [40,           141,           575,           81,            453,           43,            71,            30,           30],
     naklady:            [574593,       2762756,       1665523,       1718361,       5058968,       1813075,       1970805,       1389856,      1747362],
     stav_uctu:          [1463866.40,   883295.80,     8097532.98,    7637114,       9579984.16,    8437442,       7557136.40,    6628520,      5343082],
     pinkaka_prihlaseni: [null,         null,          111,           null,          null,          null,          null,          null,         18],
@@ -770,13 +771,10 @@
     { cat: 'Konzultace, inkubace, akcelerace' },
     { label: 'Hodin konzultací celkem',    key: 'hodin',             fmt: function(v){ return v !== null ? (v+'').replace('.',',') + ' hod' : '—'; } },
     { label: 'Konzultované subjekty',      key: 'subjekty',          fmt: function(v){ return v; } },
-    { label: 'Tržby z konzultací',         key: 'faktury_hodnota',   fmt: fmtKc },
     { label: 'Inkubované subjekty',        key: 'inkubace',          fmt: function(v){ return v; } },
     { label: 'Akcelerované subjekty',      key: 'akcelerace',        fmt: function(v){ return v; } },
     { cat: 'Finance' },
-    { label: 'Příjmy',                     key: 'prijmy',            fmt: fmtKc },
-    { label: 'Výdaje',                      key: 'naklady',           fmt: fmtKc },
-    { label: 'Cash flow (stav BÚ)',        key: 'stav_uctu',         fmt: fmtKc },
+    { label: 'Plnění příjmů (% m. plánu)', key: 'prijmy_pct',       fmt: function(v){ return v !== null ? v + ' %' : '—'; }, changeType: 'skip' },
     { cat: 'PINKaka – Akademie podnikání' },
     { label: 'Přihlášení účastníci',       key: 'pinkaka_prihlaseni',fmt: function(v){ return v; }, nullMark: 'x', changeType: 'skip' },
     { label: 'Přítomni na 1. setkání',     key: 'pinkaka_pritomni',  fmt: function(v){ return v; }, nullMark: 'x', changeType: 'skip' },
@@ -950,36 +948,6 @@
         y:  { beginAtZero: true, position: 'left',  title: { display: true, text: 'Hodin', font: { size: 9 }, color: '#999' }, ticks: { font: { size: 10 }, color: '#666' }, grid: { color: '#F3EAFC' } },
         y1: { beginAtZero: true, position: 'right', title: { display: true, text: 'Počet subjektů', font: { size: 9 }, color: '#999' }, ticks: { font: { size: 10 }, color: '#999' }, grid: { drawOnChartArea: false } }
       })
-    });
-
-    /* 2 – Finance */
-    var finOpts = baseOpts();
-    finOpts.scales.y.ticks.callback = function(v) { return (v / 1e6).toFixed(1) + ' M'; };
-    new Chart(document.getElementById('chart-finance'), {
-      type: 'bar',
-      data: {
-        labels: M,
-        datasets: [
-          { label: 'Příjmy', data: MDATA.prijmy, backgroundColor: C1 + 'cc', borderRadius: 4 },
-          { label: 'Náklady', data: MDATA.naklady, backgroundColor: C3 + 'cc', borderRadius: 4 }
-        ]
-      },
-      options: finOpts
-    });
-
-    /* 2b – Rozpočet náklady plán vs realita */
-    var rozpocetOpts = baseOpts();
-    rozpocetOpts.scales.y.ticks.callback = function(v) { return (v / 1e6).toFixed(1) + ' M'; };
-    new Chart(document.getElementById('chart-rozpocet'), {
-      type: 'bar',
-      data: {
-        labels: M,
-        datasets: [
-          { label: 'Plán', data: MDATA.naklady_plan, backgroundColor: '#c8a5cc88', borderColor: '#8A37D2', borderWidth: 1, borderRadius: 4 },
-          { label: 'Realita', data: MDATA.naklady_finance.map(function(v){ return v === 0 ? null : v; }), backgroundColor: C3 + 'cc', borderRadius: 4 }
-        ]
-      },
-      options: rozpocetOpts
     });
 
     /* 3 – PINKaka (celkem 2026) */
@@ -2815,14 +2783,6 @@
       <div class="chart-card">
         <div class="chart-title">Konzultace, inkubace a akcelerace</div>
         <canvas id="chart-konzultace"></canvas>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Finance – příjmy a náklady</div>
-        <canvas id="chart-finance"></canvas>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Čerpání rozpočtu – náklady (plán vs. realita)</div>
-        <canvas id="chart-rozpocet"></canvas>
       </div>
       <div class="chart-card">
         <div class="chart-title">PINKaka</div>
