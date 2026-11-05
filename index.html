@@ -15,7 +15,7 @@
     font-size: 14px; background: #ECE8F0; color: #1a1a1a; line-height: 1.5;
   }
   .page {
-    max-width: 780px; margin: 2rem auto; background: #fff;
+    max-width: 1200px; margin: 2rem auto; background: #fff;
     border-radius: 14px; overflow: hidden;
     border: 1px solid #ECE8F0; box-shadow: 0 4px 24px rgba(83,0,72,0.12);
   }
@@ -181,22 +181,23 @@
   .month-tabs {
     display: flex;
     background: #fff;
-    padding: 0 2rem;
+    padding: 0 1rem;
     border-bottom: 2px solid #ECE8F0;
     overflow-x: auto;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
-    -webkit-mask-image: linear-gradient(to right, transparent 0px, black 80px, black calc(100% - 40px), transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0px, black 80px, black calc(100% - 40px), transparent 100%);
   }
   .month-tabs::-webkit-scrollbar { display: none; }
   .month-tab {
-    padding: 10px 22px;
+    flex: 1;
+    text-align: center;
+    padding: 10px 6px;
     font-size: 11px; font-weight: 700;
     color: #bbb; cursor: pointer;
     border-bottom: 3px solid transparent;
     margin-bottom: -2px;
-    text-transform: uppercase; letter-spacing: 0.08em;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    white-space: nowrap;
     transition: color 0.15s;
     user-select: none;
   }
