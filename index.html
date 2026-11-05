@@ -785,15 +785,7 @@
     { label: 'Zapojené školy',             key: 'idz_skoly',         fmt: function(v){ return v; } },
     { cat: 'Budova' },
     { label: 'Nová virtuální sídla',       key: 'virtualni_sidlo',   fmt: function(v){ return v; } },
-    { label: 'Poptávky coworking',         key: 'poptavky_coworking',fmt: function(v){ return v; } },
-    { cat: 'Personalistika' },
-    { label: 'HPP',                        key: 'hr_hpp',            fmt: function(v){ return v; } },
-    { label: 'DPČ',                        key: 'hr_dpc',            fmt: function(v){ return v; } },
-    { label: 'DPP',                        key: 'hr_dpp',            fmt: function(v){ return v; } },
-    { label: 'Externisté',                 key: 'hr_ext',            fmt: function(v){ return v; } },
-    { label: 'Odchozí',                    key: 'hr_odchozi',        fmt: function(v){ return v; }, changeType: 'skip' },
-    { label: 'Nově příchozích',            key: 'hr_prichozi',       fmt: function(v){ return v; }, changeType: 'skip' },
-    { label: 'Zájemci o spolupráci',       key: 'hr_zajemci',        fmt: function(v){ return v; }, changeType: 'skip' }
+    { label: 'Poptávky coworking',         key: 'poptavky_coworking',fmt: function(v){ return v; } }
   ];
 
   function fmtKc(v) {
@@ -1010,37 +1002,6 @@
       options: baseOpts()
     });
 
-    /* HR – složení týmu (všechny měsíce) + příchozí/odchozí linky od února (leden=null) */
-    var hrPrichozi = MDATA.hr_prichozi.map(function(v, i) { return i === 0 ? null : v; });
-    var hrOdchozi  = MDATA.hr_odchozi.map(function(v, i)  { return i === 0 ? null : v; });
-    new Chart(document.getElementById('chart-hr'), {
-      type: 'bar',
-      data: {
-        labels: M,
-        datasets: [
-          { label: 'HPP',         data: MDATA.hr_hpp, backgroundColor: C1 + 'dd', borderRadius: 4, stack: 'team', yAxisID: 'y' },
-          { label: 'DPČ',         data: MDATA.hr_dpc, backgroundColor: C2 + 'dd', borderRadius: 4, stack: 'team', yAxisID: 'y' },
-          { label: 'DPP',         data: MDATA.hr_dpp, backgroundColor: C3 + 'cc', borderRadius: 4, stack: 'team', yAxisID: 'y' },
-          { label: 'Externisté',  data: MDATA.hr_ext,  backgroundColor: C4 + 'aa', borderRadius: 4, stack: 'team', yAxisID: 'y' },
-          { label: 'Příchozí',    data: hrPrichozi, type: 'line',
-            borderColor: '#16a34a', backgroundColor: '#16a34a33', pointBackgroundColor: '#16a34a',
-            pointRadius: 5, pointHoverRadius: 7, tension: 0.3, fill: false,
-            borderWidth: 2, yAxisID: 'y1' },
-          { label: 'Odchozí',     data: hrOdchozi, type: 'line',
-            borderColor: '#c0003a', backgroundColor: '#c0003a33', pointBackgroundColor: '#c0003a',
-            pointRadius: 5, pointHoverRadius: 7, tension: 0.3, fill: false,
-            borderWidth: 2, borderDash: [4,3], yAxisID: 'y1' }
-        ]
-      },
-      options: baseOpts({
-        y:  { stacked: true, beginAtZero: true, position: 'left',
-              title: { display: true, text: 'Počet osob', font: { size: 9 }, color: '#999' },
-              ticks: { font: { size: 10 }, color: '#666', stepSize: 10 }, grid: { color: '#F3EAFC' } },
-        y1: { beginAtZero: true, position: 'right',
-              title: { display: true, text: 'Příchozí / Odchozí', font: { size: 9 }, color: '#999' },
-              ticks: { font: { size: 10 }, color: '#666', stepSize: 1 }, grid: { drawOnChartArea: false } }
-      })
-    });
   }
 
   /* ===================== ROZPOČET DATA ===================== */
@@ -1429,21 +1390,6 @@
       <div class="row"><span class="rl">Podaný záměr dotace</span><span class="rv"><span class="pill p-amber">1 záměr podán</span></span></div>
     </div>
 
-    <div class="sec-label">Lidské zdroje a kapacity</div>
-    <div class="fte-grid">
-      <div class="fte-card"><div class="fte-val">7</div><div class="fte-type">HPP</div><div class="fte-note">Hlavní pracovní poměr</div></div>
-      <div class="fte-card"><div class="fte-val">4</div><div class="fte-type">DPČ</div><div class="fte-note">Dohoda o pracovní činnosti</div></div>
-      <div class="fte-card"><div class="fte-val">8</div><div class="fte-type">DPP</div><div class="fte-note">Dohoda o provedení práce</div></div>
-      <div class="fte-card"><div class="fte-val">18</div><div class="fte-type">Externisté</div><div class="fte-note">Smlouva o spolupráci</div></div>
-    </div>
-    <div class="card">
-      <div class="card-title">FTE a vytížení</div>
-      <div class="row"><span class="rl">Průměrné FTE (zaměstnanci)</span><span class="rv">7,35</span></div>
-      <div class="row"><span class="rl">Nově příchozích</span><span class="rv">7</span></div>
-      <div class="row"><span class="rl">Odchozí</span><span class="rv">1</span></div>
-      <div class="row"><span class="rl">Zájemci o spolupráci</span><span class="rv">0</span></div>
-    </div>
-
   </div><!-- /tab-leden -->
 
   <div id="tab-unor" style="display:none;">
@@ -1534,21 +1480,6 @@
         <span class="rv g">796 450 Kč <span class="pill p-green" style="font-size:9px;">obdržena</span></span>
       </div>
       <p class="note">Náklady únoru zahrnují finanční výpomoc 1 000 000 Kč Pardubickému kraji (IDZ).</p>
-    </div>
-
-    <div class="sec-label">Lidské zdroje a kapacity</div>
-    <div class="fte-grid">
-      <div class="fte-card"><div class="fte-val">7</div><div class="fte-type">HPP</div><div class="fte-note">Hlavní pracovní poměr</div></div>
-      <div class="fte-card"><div class="fte-val">5</div><div class="fte-type">DPČ</div><div class="fte-note">Dohoda o pracovní činnosti</div></div>
-      <div class="fte-card"><div class="fte-val">10</div><div class="fte-type">DPP</div><div class="fte-note">Dohoda o provedení práce</div></div>
-      <div class="fte-card"><div class="fte-val">18</div><div class="fte-type">Externisté</div><div class="fte-note">Smlouva o spolupráci</div></div>
-    </div>
-    <div class="card">
-      <div class="card-title">FTE a vytížení</div>
-      <div class="row"><span class="rl">Průměrné FTE (zaměstnanci)</span><span class="rv">7,99</span></div>
-      <div class="row"><span class="rl">Nově příchozích</span><span class="rv">3</span></div>
-      <div class="row"><span class="rl">Odchozí</span><span class="rv">1</span></div>
-      <div class="row"><span class="rl">Zájemci o spolupráci</span><span class="rv">0</span></div>
     </div>
 
   </div><!-- /tab-unor -->
@@ -2795,10 +2726,6 @@
       <div class="chart-card">
         <div class="chart-title">Budova</div>
         <canvas id="chart-budova" style="max-height:180px;"></canvas>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Personalistika – složení týmu</div>
-        <canvas id="chart-hr"></canvas>
       </div>
     </div>
 
