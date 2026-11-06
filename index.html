@@ -758,14 +758,14 @@
     idz_akce:           [17,           18,            32,            38,            25,            22,            0,             0,            12,            0],
     idz_studenti:       [305,          349,           567,           665,           493,           328,           0,             0,            280,           0],
     idz_skoly:          [3,            10,            13,            24,            5,             9,             0,             0,            11,            0],
-    virtualni_sidlo:    [2,            1,             4,             3,             2,             2,             3,             7,            5,             0],
+    virtualni_sidlo:    [2,            1,             4,             3,             2,             2,             3,             7,            5,             2],
     poptavky_coworking: [3,            5,             3,             3,             7,             4,             6,             2,            2,             2],
-    hr_hpp:             [7,            7,             7,             7,             7,             8,             7,             8,            9,             9],
+    hr_hpp:             [7,            7,             7,             7,             7,             8,             7,             8,            9,             8],
     hr_dpc:             [4,            5,             5,             4,             5,             5,             4,             4,            4,             4],
-    hr_dpp:             [8,            10,            9,             9,             9,             8,             8,             10,           12,            12],
+    hr_dpp:             [8,            10,            9,             9,             9,             8,             8,             10,           12,            10],
     hr_ext:             [18,           18,            20,            20,            21,            26,            27,            28,           32,            36],
     hr_odchozi:         [0,            1,             1,             1,             0,             1,             0,             1,            1,             0],
-    hr_prichozi:        [0,            3,             0,             0,             2,             3,             4,             2,            7,             0],
+    hr_prichozi:        [0,            3,             0,             0,             2,             3,             4,             2,            7,             2],
     hr_zajemci:         [0,            0,             0,             1,             9,             9,             7,             9,            4,             19],
     naklady_plan:       [1569667,      1577667,       1762667,       1562667,       1577667,       1437667,       1437667,       1452667,      1437667,       1437667],
     naklady_finance:    [1614638,      1453730,       1392073,       1341671,       1361994,       2150229,       1161608,       0,            null,          0]
@@ -1093,67 +1093,67 @@
 
   var BUDGET = {
     months12: ['Led','Úno','Bře','Dub','Kvě','Čvn','Čvc','Srp','Zář','Říj','Lis','Pro'],
-    hasReal:  [true,true,true,true,true,true,true,true,true,false,false,false],
+    hasReal:  [true,true,true,true,true,true,true,true,true,true,false,false],
     vyn_plan: [9558681,262231,262231,262231,3362231,662231,262231,262231,287231,887231,287231,2191231],
-    vyn_real: [455114,984273,8897362,253138,2936490,558030,286193,304472,240230,null,null,null],
+    vyn_real: [455114,984273,8897362,253138,2936490,558030,286193,304472,240230,208196,null,null],
     nak_plan: [1569667,1577667,1762667,1562667,1577667,1437667,1437667,1452667,1437667,1437667,1552667,1709117],
     nak_real: [1614638,1453730,1392073,1341671,1361994,2150229,1161608,null,null,null,null,null],
     rows: [
       { h: true, label: 'VÝNOSY' },
-      { label:'Celkem výnosy', l:0, a:18547222, yr:14915303, isNak:false,
+      { label:'Celkem výnosy', l:0, a:18547222, yr:15123499, isNak:false,
         p:[1058681,262231,8762231,262231,3362231,662231,262231,262231,287231,887231,287231,2191231],
-        r:[455114,984273,8897362,253138,2936490,558030,286193,304472,240230,null,null,null] },
-      { label:'Tržby vlastní (budova)', l:1, a:2234772, yr:1773284, isNak:false,
+        r:[455114,984273,8897362,253138,2936490,558030,286193,304472,240230,208196,null,null] },
+      { label:'Tržby vlastní (budova)', l:1, a:2234772, yr:1902509, isNak:false,
         p:[186231,186231,186231,186231,186231,186231,186231,186231,186231,186231,186231,186231],
-        r:[452864,168863,170580,186437,171626,180830,167849,140657,133578,null,null,null] },
-      { label:'Coworking', l:2, a:420000, yr:397844, isNak:false,
+        r:[452864,168863,170580,186437,171626,180830,167849,140657,133578,129225,null,null] },
+      { label:'Coworking', l:2, a:420000, yr:444287, isNak:false,
         p:[35000,35000,35000,35000,35000,35000,35000,35000,35000,35000,35000,35000],
-        r:[41033,38000,43000,51000,43250,49531,51400,41400,39230,null,null,null] },
-      { label:'Pronájem kanceláří', l:2, a:962772, yr:684198, isNak:false,
+        r:[41033,38000,43000,51000,43250,49531,51400,41400,39230,46443,null,null] },
+      { label:'Pronájem kanceláří', l:2, a:962772, yr:755121, isNak:false,
         p:[80231,80231,80231,80231,80231,80231,80231,80231,80231,80231,80231,80231],
-        r:[78605,76105,76105,76105,76105,81229,78098,70923,70923,null,null,null] },
-      { label:'Virtuální sídla P-PINK', l:2, a:300000, yr:325960, isNak:false,
+        r:[78605,76105,76105,76105,76105,81229,78098,70923,70923,70923,null,null] },
+      { label:'Virtuální sídla P-PINK', l:2, a:300000, yr:330519, isNak:false,
         p:[25000,25000,25000,25000,25000,25000,25000,25000,25000,25000,25000,25000],
-        r:[254625,9634,6240,9347,8549,4958,9218,14135,9254,null,null,null] },
-      { label:'Jednorázové pronájmy', l:2, a:240000, yr:153532, isNak:false,
+        r:[254625,9634,6240,9347,8549,4958,9218,14135,9254,4559,null,null] },
+      { label:'Jednorázové pronájmy', l:2, a:240000, yr:160832, isNak:false,
         p:[20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000,20000],
-        r:[19250,14900,19400,24150,16690,25570,6000,13800,13772,null,null,null] },
+        r:[19250,14900,19400,24150,16690,25570,6000,13800,13772,7300,null,null] },
       { label:'TO-PINK – Česká Třebová', l:2, a:312000, yr:173845, isNak:false,
         p:[26000,26000,26000,26000,26000,26000,26000,26000,26000,26000,26000,26000],
-        r:[25835,25835,25835,25835,25835,22335,22335,0,0,null,null,null] },
-      { label:'Konzultace, inkubace, akc.', l:1, a:1812000, yr:1059770, isNak:false,
+        r:[25835,25835,25835,25835,25835,22335,22335,0,0,0,null,null] },
+      { label:'Konzultace, inkubace, akc.', l:1, a:1812000, yr:1138741, isNak:false,
         p:[76000,76000,76000,76000,76000,476000,76000,76000,101000,101000,101000,501000],
-        r:[2250,15960,72650,66701,264864,377200,102729,102270,55145,null,null,null] },
-      { label:'Konzultace, Odpinkni se', l:2, a:480000, yr:505695, isNak:false,
+        r:[2250,15960,72650,66701,264864,377200,102729,102270,55145,78971,null,null] },
+      { label:'Konzultace, Odpinkni se', l:2, a:480000, yr:584666, isNak:false,
         p:[40000,40000,40000,40000,40000,40000,40000,40000,40000,40000,40000,40000],
-        r:[2250,8000,42650,8850,26600,157200,102729,102270,55145,null,null,null] },
+        r:[2250,8000,42650,8850,26600,157200,102729,102270,55145,78971,null,null] },
       { label:'PINKaka', l:2, a:800000, yr:380000, isNak:false,
         p:[0,0,0,0,200000,180000,0,0,0,0,0,400000],
-        r:[0,0,0,0,200000,180000,0,0,0,null,null,null] },
+        r:[0,0,0,0,200000,180000,0,0,0,0,null,null] },
       { label:'Cirkulární hub/SCAN', l:2, a:300000, yr:108264, isNak:false,
         p:[25000,25000,25000,25000,25000,25000,25000,25000,25000,25000,25000,25000],
-        r:[0,0,30000,0,38264,40000,0,0,0,null,null,null] },
+        r:[0,0,30000,0,38264,40000,0,0,0,0,null,null] },
       { label:'Projekty', l:1, a:3400450, yr:796450, isNak:false,
         p:[796450,0,0,0,600000,0,0,0,600000,0,0,1404000],
-        r:[0,796450,0,0,0,0,0,0,0,null,null,null] },
+        r:[0,796450,0,0,0,0,0,0,0,0,null,null] },
       { label:'Provozní dotace', l:1, a:11000000, yr:11000000, isNak:false,
         p:[0,0,8500000,0,2500000,0,0,0,0,0,0,0],
-        r:[0,0,8500000,2500000,0,0,0,0,0,null,null,null] },
+        r:[0,0,8500000,2500000,0,0,0,0,0,0,null,null] },
       { label:'Pardubický kraj', l:2, a:8500000, yr:8500000, isNak:false,
         p:[0,0,8500000,0,0,0,0,0,0,0,0,0],
-        r:[0,0,8500000,0,0,0,0,0,0,null,null,null] },
+        r:[0,0,8500000,0,0,0,0,0,0,0,null,null] },
       { label:'Statutární město Pardubice', l:2, a:2500000, yr:2500000, isNak:false,
         p:[0,0,0,0,2500000,0,0,0,0,0,0,0],
-        r:[0,0,0,0,2500000,0,0,0,0,null,null,null] },
+        r:[0,0,0,0,2500000,0,0,0,0,0,null,null] },
       { label:'Partnerství', l:1, a:51507, yr:51507, isNak:false,
         p:[0,0,0,0,0,0,0,0,0,0,0,0],
-        r:[0,0,0,0,0,0,0,0,51507,null,null,null] },
+        r:[0,0,0,0,0,0,0,0,51507,0,null,null] },
       { label:'Showference 2026', l:2, a:11507, yr:11507, isNak:false,
         p:[0,0,0,0,0,0,0,0,0,0,0,0],
-        r:[0,0,0,0,0,0,0,0,11507,null,null,null] },
+        r:[0,0,0,0,0,0,0,0,11507,0,null,null] },
       { label:'Sponzoring a partnerství', l:2, a:40000, yr:40000, isNak:false,
         p:[0,0,0,0,0,0,0,0,0,0,0,0],
-        r:[0,0,0,0,0,0,0,0,40000,null,null,null] },
+        r:[0,0,0,0,0,0,0,0,40000,0,null,null] },
       { h: true, label: 'NÁKLADY' },
       { label:'Celkem náklady', l:0, a:18515458, yr:10475943, isNak:true,
         p:[1569667,1577667,1762667,1562667,1577667,1437667,1437667,1452667,1437667,1437667,1552667,1709117],
@@ -1251,7 +1251,7 @@
 
   /* -- build mini-cards for each month tab -- */
   function buildBudgetMiniCards() {
-    var MONTH_KEYS = ['leden','unor','brezen','duben','kveten','cerven','cervenec','srpen'];
+    var MONTH_KEYS = ['leden','unor','brezen','duben','kveten','cerven','cervenec','srpen','zari','rijen'];
     MONTH_KEYS.forEach(function(k, idx) {
       var el = document.getElementById('budget-mini-' + k);
       if (!el) return;
@@ -1288,7 +1288,7 @@
     var sumHtml = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">'
       + '<div class="card"><div class="card-title">Celkem výnosy 2026 (YTD)</div>'
       + '<div class="row"><span class="rl">Roční plán</span><span class="rv">18 547 222 Kč</span></div>'
-      + '<div class="row"><span class="rl">Realita YTD (leden–září)</span><span class="rv g">14 915 303 Kč <span class="pill p-green" style="font-size:10px;">80 %</span></span></div>'
+      + '<div class="row"><span class="rl">Realita YTD (leden–říjen)</span><span class="rv g">15 123 499 Kč <span class="pill p-green" style="font-size:10px;">82 %</span></span></div>'
       + '</div>'
       + '<div class="card"><div class="card-title">Celkem náklady 2026 (YTD leden–červenec)</div>'
       + '<div class="row"><span class="rl">Roční plán</span><span class="rv">18 515 458 Kč</span></div>'
@@ -3589,7 +3589,7 @@
       <div class="kpi"><div class="kpi-val">0</div><div class="kpi-lbl">Zapojené školy IDZ</div></div>
       <div class="kpi"><div class="kpi-val">3</div><div class="kpi-lbl">Inkubované subjekty</div></div>
       <div class="kpi"><div class="kpi-val">5</div><div class="kpi-lbl">Akcelerované subjekty</div></div>
-      <div class="kpi"><div class="kpi-val">0</div><div class="kpi-lbl">Nová virtuální sídla</div></div>
+      <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Nová virtuální sídla</div></div>
       <div class="kpi"><div class="kpi-val">2</div><div class="kpi-lbl">Poptávky coworking</div></div>
     </div>
 
@@ -3668,7 +3668,6 @@
     <p style="font-size:12px;color:#555;line-height:1.55;margin-bottom:10px;">Akademie podnikání PINKaka je bezplatný vzdělávací program pro začínající podnikatele v Pardubickém kraji. <a href="https://www.p-pink.cz/pinkaka/" target="_blank" style="color:#8A37D2;font-weight:600;">Více na p-pink.cz →</a></p>
     <div class="card" style="margin-bottom:10px;">
       <div class="row"><span class="rl">Skupinové konzultace v říjnu</span><span class="rv">12 hod</span></div>
-      <div class="row"><span class="rl" style="color:#999;">Nová kohorta – přihlašování Q4</span><span class="rv" style="color:#999;">plánováno</span></div>
       <div class="row"><span class="rl" style="color:#999;">Absolventi z jara</span><span class="rv" style="color:#999;">73 celkem</span></div>
     </div>
 
@@ -3773,16 +3772,16 @@
     <!-- LIDSKÉ ZDROJE -->
     <div class="sec-label">Lidské zdroje a kapacity</div>
     <div class="fte-grid">
-      <div class="fte-card"><div class="fte-val">9</div><div class="fte-type">HPP</div><div class="fte-note">Hlavní pracovní poměr</div></div>
+      <div class="fte-card"><div class="fte-val">8</div><div class="fte-type">HPP</div><div class="fte-note">Hlavní pracovní poměr</div></div>
       <div class="fte-card"><div class="fte-val">4&nbsp;/&nbsp;4</div><div class="fte-type">DPČ</div><div class="fte-note">aktivní v říjnu / celkem</div></div>
-      <div class="fte-card"><div class="fte-val">12&nbsp;/&nbsp;15</div><div class="fte-type">DPP</div><div class="fte-note">aktivní v říjnu / celkem</div></div>
+      <div class="fte-card"><div class="fte-val">10&nbsp;/&nbsp;15</div><div class="fte-type">DPP</div><div class="fte-note">aktivní v říjnu / celkem</div></div>
       <div class="fte-card"><div class="fte-val">36</div><div class="fte-type">Externisté</div><div class="fte-note">Smlouva o spolupráci</div></div>
     </div>
     <div class="two">
       <div class="card">
         <div class="card-title">FTE a vytížení</div>
-        <div class="row"><span class="rl">Průměrné FTE (zaměstnanci)</span><span class="rv">9,36</span></div>
-        <div class="row"><span class="rl">Nově příchozích</span><span class="rv">0</span></div>
+        <div class="row"><span class="rl">Průměrné FTE (zaměstnanci)</span><span class="rv">8,36</span></div>
+        <div class="row"><span class="rl">Nově příchozích</span><span class="rv">2</span></div>
         <div class="row"><span class="rl">Odchozí</span><span class="rv">0</span></div>
         <div class="row"><span class="rl">Zájemci o spolupráci</span><span class="rv">19</span></div>
       </div>
@@ -3824,7 +3823,6 @@
         <div class="need-list">
           <div class="need-item"><div class="need-dot"></div><div class="need-text"><strong>19. 11.</strong> — Showference 2026</div></div>
           <div class="need-item"><div class="need-dot"></div><div class="need-text">Měsíc.AI – aktivity AI Talentů</div></div>
-          <div class="need-item"><div class="need-dot"></div><div class="need-text">Nová kohorta PINKaka</div></div>
         </div>
       </div>
       <div class="card">
@@ -3832,7 +3830,6 @@
         <div class="need-list">
           <div class="need-item"><div class="need-dot"></div><div class="need-text">Akční plán na 2027</div></div>
           <div class="need-item"><div class="need-dot"></div><div class="need-text">Plán KPI 2027</div></div>
-          <div class="need-item"><div class="need-dot"></div><div class="need-text">Status SMART akcelerátor+ II</div></div>
         </div>
       </div>
     </div>
@@ -3852,7 +3849,7 @@
             <th>Únor 2026</th>
             <th>Březen 2026</th>
             <th>Duben 2026</th>
-            <th>Květen 2026</th><th>Červen 2026</th><th>Červenec 2026</th><th>Srpen 2026</th><th>Září 2026</th>
+            <th>Květen 2026</th><th>Červen 2026</th><th>Červenec 2026</th><th>Srpen 2026</th><th>Září 2026</th><th>Říjen 2026</th>
             <th style="cursor:pointer; user-select:none;">
               <div class="trend-mode-dropdown" onclick="toggleTrendMenu()">
                 <span id="trend-change-hdr">Změna m/m</span>
