@@ -794,10 +794,10 @@
     { label: 'Nová virtuální sídla',       key: 'virtualni_sidlo',   fmt: function(v){ return v; } },
     { label: 'Poptávky coworking',         key: 'poptavky_coworking',fmt: function(v){ return v; } },
     { cat: 'Personalistika' },
-    { label: 'HPP',                        key: 'hr_hpp',            fmt: function(v){ return v; } },
-    { label: 'DPČ',                        key: 'hr_dpc',            fmt: function(v){ return v; } },
-    { label: 'DPP',                        key: 'hr_dpp',            fmt: function(v){ return v; } },
-    { label: 'Externisté',                 key: 'hr_ext',            fmt: function(v){ return v; } },
+    { label: 'HPP',                        key: 'hr_hpp',            fmt: function(v){ return v; }, changeType: 'avg' },
+    { label: 'DPČ',                        key: 'hr_dpc',            fmt: function(v){ return v; }, changeType: 'avg' },
+    { label: 'DPP',                        key: 'hr_dpp',            fmt: function(v){ return v; }, changeType: 'avg' },
+    { label: 'Externisté',                 key: 'hr_ext',            fmt: function(v){ return v; }, changeType: 'avg' },
     { label: 'Odchozí',                    key: 'hr_odchozi',        fmt: function(v){ return v; }, changeType: 'skip' },
     { label: 'Nově příchozích',            key: 'hr_prichozi',       fmt: function(v){ return v; }, changeType: 'skip' },
     { label: 'Zájemci o spolupráci',       key: 'hr_zajemci',        fmt: function(v){ return v; }, changeType: 'skip' }
@@ -863,6 +863,13 @@
     return '<span class="trend-cum" title="Kumulativní součet za rok">Σ ' + total + '</span>';
   }
 
+  function avgBadge(vals) {
+    var nonNull = vals.filter(function(v) { return v !== null; });
+    if (nonNull.length === 0) return '<span class="trend-neu">—</span>';
+    var avg = nonNull.reduce(function(a, v) { return a + v; }, 0) / nonNull.length;
+    return '<span class="trend-cum" title="Průměr za aktivní měsíce">⌀ ' + avg.toFixed(1).replace('.', ',') + '</span>';
+  }
+
   function ytdBadge(vals) {
     var first = null, last = null;
     for (var i = 0; i < vals.length; i++) { if (vals[i] !== null && first === null) first = vals[i]; }
@@ -900,6 +907,8 @@
       }
       if (row.changeType === 'skip') {
         html += '<td><span class="trend-neu" title="Není relevantní — program probíhá v bězích">—</span></td>';
+      } else if (row.changeType === 'avg' && trendMode === 'cum') {
+        html += '<td>' + avgBadge(vals) + '</td>';
       } else if (trendMode === 'cum') {
         html += '<td>' + cumBadge(vals) + '</td>';
       } else if (trendMode === 'ytd') {
@@ -3871,7 +3880,8 @@
     </div>
     <p style="font-size:11px;color:#999;margin:6px 12px 0;">
       <strong>✗</strong> — program se v daném měsíci nekonal nebo přihlášky nebyly otevřeny &nbsp;|&nbsp;
-      <strong>Σ</strong> — kumulativní součet za rok (IDZ studenti/školy se nesdílují meziměsíčně)
+      <strong>Σ</strong> — kumulativní součet za rok &nbsp;|&nbsp;
+      <strong>⌀</strong> — průměr za rok (použito tam, kde součet nedává smysl, např. počty zaměstnanců)
     </p>
 
     <!-- Grafy -->
