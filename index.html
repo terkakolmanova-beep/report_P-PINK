@@ -781,7 +781,7 @@
     { cat: 'Finance' },
     { label: 'Příjmy',                     key: 'prijmy',            fmt: fmtKc },
     { label: 'Výdaje',                      key: 'naklady',           fmt: fmtKc },
-    { label: 'Cash flow (stav BÚ)',        key: 'stav_uctu',         fmt: fmtKc },
+    { label: 'Cash flow (stav BÚ)',        key: 'stav_uctu',         fmt: fmtKc,  changeType: 'avg' },
     { cat: 'PINKaka – Akademie podnikání' },
     { label: 'Přihlášení účastníci',       key: 'pinkaka_prihlaseni',fmt: function(v){ return v; }, nullMark: 'x', changeType: 'skip' },
     { label: 'Přítomni na 1. setkání',     key: 'pinkaka_pritomni',  fmt: function(v){ return v; }, nullMark: 'x', changeType: 'skip' },
@@ -798,9 +798,9 @@
     { label: 'DPČ',                        key: 'hr_dpc',            fmt: function(v){ return v; }, changeType: 'avg' },
     { label: 'DPP',                        key: 'hr_dpp',            fmt: function(v){ return v; }, changeType: 'avg' },
     { label: 'Externisté',                 key: 'hr_ext',            fmt: function(v){ return v; }, changeType: 'avg' },
-    { label: 'Odchozí',                    key: 'hr_odchozi',        fmt: function(v){ return v; }, changeType: 'skip' },
-    { label: 'Nově příchozích',            key: 'hr_prichozi',       fmt: function(v){ return v; }, changeType: 'skip' },
-    { label: 'Zájemci o spolupráci',       key: 'hr_zajemci',        fmt: function(v){ return v; }, changeType: 'skip' }
+    { label: 'Odchozí',                    key: 'hr_odchozi',        fmt: function(v){ return v; }, changeType: 'avg' },
+    { label: 'Nově příchozích',            key: 'hr_prichozi',       fmt: function(v){ return v; }, changeType: 'avg' },
+    { label: 'Zájemci o spolupráci',       key: 'hr_zajemci',        fmt: function(v){ return v; }, changeType: 'avg' }
   ];
 
   function fmtKc(v) {
